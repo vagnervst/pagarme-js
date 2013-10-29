@@ -1905,7 +1905,8 @@ PagarMe.creditCard.prototype.stringifyParameters = function() {
 
 	var parametersArray = new Array();
 	for(var key in encryptionHash) {
-		parametersArray.push(key + "=" + encryptionHash[key]);
+        	// Values should be on UTF-8
+		parametersArray.push(key + "=" + unescape(encodeURIComponent(encryptionHash[key])));
 	}
 
 	return parametersArray.join("&");
