@@ -1856,8 +1856,8 @@ this.PagarMe = {
 	creditCard: function PagarMeCreditCard() {
 		this.cardNumber = null;
 		this.cardHolderName = null;
-		this.cardexpirationMonth = null;
-		this.cardexpirationYear = null;
+		this.cardExpirationMonth = null;
+		this.cardExpirationYear = null;
 		this.cardCVV = null;
 	},
 }
@@ -1874,7 +1874,7 @@ PagarMe.creditCard.prototype.fieldErrors = function() {
 		errors["card_holder_name"] = "Nome do portador inválido.";
 	}
 
-	if(!this.cardexpirationMonth || parseInt(this.cardexpirationMonth) <= 0 || parseInt(this.cardexpirationMonth) > 12 ||
+	if(!this.cardExpirationMonth || parseInt(this.cardExpirationMonth) <= 0 || parseInt(this.cardExpirationMonth) > 12 ||
 	isNaN(this.cardexpirationMonth)) {
 		errors["card_expiration_month"] = "Mês de expiração inválido.";
 	}
