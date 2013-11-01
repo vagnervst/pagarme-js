@@ -1856,8 +1856,8 @@ this.PagarMe = {
 	creditCard: function PagarMeCreditCard() {
 		this.cardNumber = null;
 		this.cardHolderName = null;
-		this.cardExpiracyMonth = null;
-		this.cardExpiracyYear = null;
+		this.cardexpirationMonth = null;
+		this.cardexpirationYear = null;
 		this.cardCVV = null;
 	},
 }
@@ -1893,14 +1893,14 @@ PagarMe.creditCard.prototype.fieldErrors = function() {
 		errors["card_holder_name"] = "Nome do portador inválido.";
 	}
 
-	if(!this.cardExpiracyMonth || parseInt(this.cardExpiracyMonth) <= 0 || parseInt(this.cardExpiracyMonth) > 12 ||
-	isNaN(this.cardExpiracyMonth)) {
-		errors["card_expiracy_month"] = "Mês de expiração inválido.";
+	if(!this.cardexpirationMonth || parseInt(this.cardexpirationMonth) <= 0 || parseInt(this.cardexpirationMonth) > 12 ||
+	isNaN(this.cardexpirationMonth)) {
+		errors["card_expiration_month"] = "Mês de expiração inválido.";
 	}
 
-	if(!this.cardExpiracyYear || this.cardExpiracyYear.length != 2 && this.cardExpiracyYear.length != 4 ||
-	isNaN(this.cardExpiracyYear)) {
-		errors["card_expiracy_year"] = "Ano de expiração inválido.";
+	if(!this.cardexpirationYear || this.cardexpirationYear.length != 2 && this.cardexpirationYear.length != 4 ||
+	isNaN(this.cardexpirationYear)) {
+		errors["card_expiration_year"] = "Ano de expiração inválido.";
 	}
 
 	if(!this.cardCVV || this.cardCVV.length < 3 || this.cardCVV.length > 4 || isNaN(this.cardCVV)) {
@@ -1914,7 +1914,7 @@ PagarMe.creditCard.prototype.stringifyParameters = function() {
 	var encryptionHash = {
 		'card_number': this.cardNumber,
 		'card_holder_name': this.cardHolderName,
-		'card_expiracy_date': "" + this.cardExpiracyMonth + this.cardExpiracyYear,
+		'card_expiration_date': "" + this.cardexpirationMonth + this.cardexpirationYear,
 		'card_cvv': this.cardCVV
 	}
 
@@ -1947,16 +1947,16 @@ $(document).ready(function() {
 
 		this.cardNumber = $(form.find("#card_number")[0]).val();
 		this.cardHolderName = $(form.find("#card_holder_name")[0]).val();
-		this.cardExpiracyMonth = $(form.find("#card_expiracy_month")[0]).val();
-		this.cardExpiracyYear = $(form.find("#card_expiracy_year")[0]).val();
+		this.cardexpirationMonth = $(form.find("#card_expiration_month")[0]).val();
+		this.cardexpirationYear = $(form.find("#card_expiration_year")[0]).val();
 		this.cardCVV = $(form.find("#card_cvv")[0]).val();
 	}
 
 	PagarMe.removeCardFieldsFromForm = function(form) {
 		$(form.find("#card_number")[0]).remove();
 		$(form.find("#card_holder_name")[0]).remove();
-		$(form.find("#card_expiracy_month")[0]).remove();
-		$(form.find("#card_expiracy_year")[0]).remove();
+		$(form.find("#card_expiration_month")[0]).remove();
+		$(form.find("#card_expiration_year")[0]).remove();
 		$(form.find("#card_cvv")[0]).remove();
 	}
 });
