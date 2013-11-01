@@ -1875,12 +1875,12 @@ PagarMe.creditCard.prototype.fieldErrors = function() {
 	}
 
 	if(!this.cardExpirationMonth || parseInt(this.cardExpirationMonth) <= 0 || parseInt(this.cardExpirationMonth) > 12 ||
-	isNaN(this.cardexpirationMonth)) {
+	isNaN(this.cardExpirationMonth)) {
 		errors["card_expiration_month"] = "Mês de expiração inválido.";
 	}
 
-	if(!this.cardexpirationYear || this.cardexpirationYear.length != 2 && this.cardexpirationYear.length != 4 ||
-	isNaN(this.cardexpirationYear)) {
+	if(!this.cardExpirationYear || this.cardExpirationYear.length != 2 && this.cardExpirationYear.length != 4 ||
+	isNaN(this.cardExpirationYear)) {
 		errors["card_expiration_year"] = "Ano de expiração inválido.";
 	}
 
@@ -1895,7 +1895,7 @@ PagarMe.creditCard.prototype.stringifyParameters = function() {
 	var encryptionHash = {
 		'card_number': this.cardNumber,
 		'card_holder_name': this.cardHolderName,
-		'card_expiration_date': "" + this.cardexpirationMonth + this.cardexpirationYear,
+		'card_expiration_date': "" + this.cardExpirationMonth + this.cardExpirationYear,
 		'card_cvv': this.cardCVV
 	}
 
@@ -1934,8 +1934,8 @@ $(document).ready(function() {
 
 		this.cardNumber = $(form.find("#card_number")[0]).val();
 		this.cardHolderName = $(form.find("#card_holder_name")[0]).val();
-		this.cardexpirationMonth = $(form.find("#card_expiration_month")[0]).val();
-		this.cardexpirationYear = $(form.find("#card_expiration_year")[0]).val();
+		this.cardExpirationMonth = $(form.find("#card_expiration_month")[0]).val();
+		this.cardExpirationYear = $(form.find("#card_expiration_year")[0]).val();
 		this.cardCVV = $(form.find("#card_cvv")[0]).val();
 	}
 
