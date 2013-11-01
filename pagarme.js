@@ -1862,25 +1862,6 @@ this.PagarMe = {
 	},
 }
 
-PagarMe.enableAntifraudProfiling = function() {
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    var randomKey = "";
-    for(var i = 0; i < 128; i++) {
-        randomKey += possible.charAt(Math.floor(Math.random() * possible.length));
-	}
-
-    PagarMe.sessionId = randomKey;
-
-	var profilingTags = "<p style=\"background:url(https://h.online-metrix.net/fp/clear.png?org_id=k6dvnkdk&session_id=" + PagarMe.sessionId + "&m=1)\"> </p>\
-	<img src=\"https://h.online-metrix.net/fp/clear.png?org_id=k6dvnkdk&amp;session_id=" + PagarMe.sessionId + "&m=2\" alt=\"\" >\
-	<script src=\"https://h.online-metrix.net/fp/check.js?org_id=k6dvnkdk&amp;session_id=" + PagarMe.sessionId + "\" type=\"text/javascript\">\
-	</script>\
-	<object type=\"application/x-shockwave-flash\" data=\"https://h.online-metrix.net/fp/fp.swf?org_id=k6dvnkdk&session_id=" + PagarMe.sessionId + "\" width=\"1\" height=\"1\" id=\"obj_id\">\
-	<param name=\"movie\" value=\"https://h.online-metrix.net/fp/fp.swf?org_id=k6dvnkdk&session_id=" + PagarMe.sessionId + "\" /> </object>";
-
-	document.getElementsByTagName('head')[0].innerHTML += profilingTags;
-}
-
 PagarMe.creditCard.prototype.fieldErrors = function() {
 	var errors = {};
 
@@ -1924,13 +1905,19 @@ PagarMe.creditCard.prototype.stringifyParameters = function() {
 
 	var parametersArray = new Array();
 	for(var key in encryptionHash) {
-		parametersArray.push(key + "=" + encryptionHash[key]);
+        	// Values should be on UTF-8
+		parametersArray.push(key + "=" + unescape(encodeURIComponent(encryptionHash[key])));
 	}
 
 	return parametersArray.join("&");
 }
 
 PagarMe.creditCard.prototype.generateHash = function(callback) {
+	if(PagarMe.encryption_key.substring(0, 2) == "ak") {
+		alert("Erro: Você está usando a api_key ao invés da encryption_key. Por favor, verifique se a chave inserida é a encryption_key disponível em seu dashboard. Para mais informações, visite: https://pagar.me/docs/restful-api/card-hash/")
+		return;
+	}
+
 	var stringifiedParameters = this.stringifyParameters();
 
 	$.get('https://api.pagar.me/1/transactions/card_hash_key?encryption_key=' + PagarMe.encryption_key, function(data) {
