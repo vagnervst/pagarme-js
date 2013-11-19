@@ -1938,6 +1938,7 @@ $(document).ready(function() {
 		this.cardExpirationYear = $(form.find("#card_expiration_year")[0]).val();
 		this.cardCVV = $(form.find("#card_cvv")[0]).val();
 	}
+	PagarMe.creditCard.prototype.fillFromFrom = PagarMe.creditCard.prototype.fillFromForm;
 
 	PagarMe.removeCardFieldsFromForm = function(form) {
 		$(form.find("#card_number")[0]).remove();
