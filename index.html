@@ -6,44 +6,44 @@
 
 <script>
 $(document).ready(function() {
-		PagarMe.encryption_key = "ek_test_8a86jcphW0kS4o3vyonRocKqbiUstK";
-		// Caso você deseje habilitar o antifraude para essa transação:
+	PagarMe.encryption_key = "ek_test_Ec8KhxISQ1tug1b8bCGxC2nXfxqRmk";
+	// Caso você deseje habilitar o antifraude para essa transação:
 
-		var form = $("#payment_form");
+	var form = $("#payment_form");
 
-		form.submit(function(event) {
-			var creditCard = new PagarMe.creditCard();
-			creditCard.fillFromFrom(form);
+	form.submit(function(event) {
+		var creditCard = new PagarMe.creditCard();
+		creditCard.fillFromForm(form);
 
-			var fieldErrors = creditCard.fieldErrors();
+		var fieldErrors = creditCard.fieldErrors();
 
-			var hasErrors = false;
-			for(var field in fieldErrors) { hasErrors = true; break; }
+		var hasErrors = false;
+		for(var field in fieldErrors) { hasErrors = true; break; }
 
-			$("#payment_form #card_number").css('border', '3px solid green');
-			$("#payment_form #card_holder_name").css('border', '3px solid green');
-			$("#payment_form #card_expiration_month").css('border', '3px solid green');
-			$("#payment_form #card_expiration_year").css('border', '3px solid green');
-			$("#payment_form #card_cvv").css('border', '3px solid green');
+		$("#payment_form #card_number").css('border', '3px solid green');
+		$("#payment_form #card_holder_name").css('border', '3px solid green');
+		$("#payment_form #card_expiration_month").css('border', '3px solid green');
+		$("#payment_form #card_expiration_year").css('border', '3px solid green');
+		$("#payment_form #card_cvv").css('border', '3px solid green');
 
-			if(hasErrors) {
+		if(hasErrors) {
 			for(var fieldName in fieldErrors) {
-			var field = $(form.find("#" + fieldName)[0]);
-			field.css('border', '3px solid red');
+				var field = $(form.find("#" + fieldName)[0]);
+				field.css('border', '3px solid red');
 			}
 
 			return false;
-			}
+		}
 
-			creditCard.generateHash(function(cardHash) {
-					console.log(cardHash);
-					form.append($('<input type="hidden" name="card_hash"/>').val(cardHash));
-					PagarMe.removeCardFieldsFromForm(form);
-					form.get(0).submit();
-					});
-
-			return false;
+		creditCard.generateHash(function(cardHash) {
+			console.log(cardHash);
+			form.append($('<input type="hidden" name="card_hash"/>').val(cardHash));
+			PagarMe.removeCardFieldsFromForm(form);
+			form.get(0).submit();
 		});
+
+		return false;
+	});
 });
 </script>
 </head>

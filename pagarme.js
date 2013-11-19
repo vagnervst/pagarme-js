@@ -1929,7 +1929,7 @@ PagarMe.creditCard.prototype.generateHash = function(callback) {
 }
 
 $(document).ready(function() {
-	PagarMe.creditCard.prototype.fillFromFrom = function(form) {
+	PagarMe.creditCard.prototype.fillFromForm = function(form) {
 		if(!form) return;
 
 		this.cardNumber = $(form.find("#card_number")[0]).val();
