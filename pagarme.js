@@ -1850,27 +1850,6 @@ var isValidCardNumber = function(cardNumber) {
 // ### End of luhnValidation.js
 // ### Start of pagarme.js ####
 
-$(document).ready(function($) {
-	PagarMe.creditCard.prototype.fillFromForm = function(form) {
-		if(!form) return;
-
-		this.cardNumber = $(form.find("#card_number")[0]).val();
-		this.cardHolderName = $(form.find("#card_holder_name")[0]).val();
-		this.cardExpirationMonth = $(form.find("#card_expiration_month")[0]).val();
-		this.cardExpirationYear = $(form.find("#card_expiration_year")[0]).val();
-		this.cardCVV = $(form.find("#card_cvv")[0]).val();
-	}
-	PagarMe.creditCard.prototype.fillFromFrom = PagarMe.creditCard.prototype.fillFromForm;
-
-	PagarMe.removeCardFieldsFromForm = function(form) {
-		$(form.find("#card_number")[0]).remove();
-		$(form.find("#card_holder_name")[0]).remove();
-		$(form.find("#card_expiration_month")[0]).remove();
-		$(form.find("#card_expiration_year")[0]).remove();
-		$(form.find("#card_cvv")[0]).remove();
-	}
-});
-
 this.PagarMe = {
 	encryptionKey: null,
 	sessionId: null,
@@ -1941,10 +1920,31 @@ PagarMe.creditCard.prototype.generateHash = function(callback) {
 
 	var stringifiedParameters = this.stringifyParameters();
 
-	$.get('https://api.pagar.me/1/transactions/card_hash_key?encryption_key=' + PagarMe.encryption_key, function(data) {
+	jQuery.get('https://api.pagar.me/1/transactions/card_hash_key?encryption_key=' + PagarMe.encryption_key, function(data) {
 		var cardHashPublicKey = RSA.getPublicKey(data['public_key']);
 		var encryptedString = data.id + "_" + RSA.encrypt(stringifiedParameters, cardHashPublicKey);
 
 		callback(encryptedString);
 	});
 }
+
+$(document).ready(function($) {
+	PagarMe.creditCard.prototype.fillFromForm = function(form) {
+		if(!form) return;
+
+		this.cardNumber = $(form.find("#card_number")[0]).val();
+		this.cardHolderName = $(form.find("#card_holder_name")[0]).val();
+		this.cardExpirationMonth = $(form.find("#card_expiration_month")[0]).val();
+		this.cardExpirationYear = $(form.find("#card_expiration_year")[0]).val();
+		this.cardCVV = $(form.find("#card_cvv")[0]).val();
+	}
+	PagarMe.creditCard.prototype.fillFromFrom = PagarMe.creditCard.prototype.fillFromForm;
+
+	PagarMe.removeCardFieldsFromForm = function(form) {
+		$(form.find("#card_number")[0]).remove();
+		$(form.find("#card_holder_name")[0]).remove();
+		$(form.find("#card_expiration_month")[0]).remove();
+		$(form.find("#card_expiration_year")[0]).remove();
+		$(form.find("#card_cvv")[0]).remove();
+	}
+});
