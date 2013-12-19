@@ -1920,7 +1920,7 @@ PagarMe.creditCard.prototype.generateHash = function(callback) {
 
 	var stringifiedParameters = this.stringifyParameters();
 
-	jQuery.get('https://api.pagar.me/1/transactions/card_hash_key?encryption_key=' + PagarMe.encryption_key, function(data) {
+	PagarMe.ajax('https://api.pagar.me/1/transactions/card_hash_key?encryption_key=' + PagarMe.encryption_key, function(data) {
 		var cardHashPublicKey = RSA.getPublicKey(data['public_key']);
 		var encryptedString = data.id + "_" + RSA.encrypt(stringifiedParameters, cardHashPublicKey);
 
@@ -1928,22 +1928,70 @@ PagarMe.creditCard.prototype.generateHash = function(callback) {
 	});
 }
 
-PagarMe.removeCardFieldsFromForm = function(form) {
-	jQuery(form.find("#card_number")[0]).remove();
-	jQuery(form.find("#card_holder_name")[0]).remove();
-	jQuery(form.find("#card_expiration_month")[0]).remove();
-	jQuery(form.find("#card_expiration_year")[0]).remove();
-	jQuery(form.find("#card_cvv")[0]).remove();
+// Helper para fazer ajax sem dependencia de jQuery
+PagarMe.ajax = function (url, callback) {
+    var httpRequest,
+        xmlDoc;
+
+    if (window.XMLHttpRequest) {
+        httpRequest = new XMLHttpRequest();
+    } else {
+        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    httpRequest.onreadystatechange = function () {
+        if (httpRequest.readyState != 4) {
+            return;
+        }
+
+        if (httpRequest.status != 200 && httpRequest.status != 304) {
+            return;
+        }
+        callback(JSON.parse(httpRequest.responseText));
+    }
+
+    httpRequest.open("GET", url, true);
+    httpRequest.send(null);
 }
 
-PagarMe.creditCard.prototype.fillFromForm = function(form) {
-	if(!form) return;
+// Helper para filtrar inputs tipo text no form
+PagarMe.filterTextInputs = function (inputs) {
+    var i,
+        len = inputs.length,
+        ret = [];
 
-	this.cardNumber = jQuery(form.find("#card_number")[0]).val();
-	this.cardHolderName = jQuery(form.find("#card_holder_name")[0]).val();
-	this.cardExpirationMonth = jQuery(form.find("#card_expiration_month")[0]).val();
-	this.cardExpirationYear = jQuery(form.find("#card_expiration_year")[0]).val();
-	this.cardCVV = jQuery(form.find("#card_cvv")[0]).val();
+    if (!len) {
+        return inputs;
+    } else {
+        for (i = 0; i < inputs.length; i++) {
+            if (inputs[i].type === 'text') {
+                ret.push(inputs[i]);
+            }
+        }
+    }
+
+    return ret;
+}
+
+PagarMe.removeCardFieldsFromForm = function (form) {
+	var form_inputs = form.getElementsByTagName("input"),
+        inputs = PagarMe.filterTextInputs(form_inputs);
+
+    // enquanto tiver inputs tipo text, remove o primeiro da lista
+    if (inputs.length) {
+        inputs[0].parentNode.removeChild(inputs[0]);
+        PagarMe.removeCardFieldsFromForm(form);
+    }
+}
+
+PagarMe.creditCard.prototype.fillFromForm = function (form) {
+	if (!form) return;
+
+	this.cardNumber = document.getElementById("card_number").value;
+	this.cardHolderName = document.getElementById("card_holder_name").value;
+	this.cardExpirationMonth = document.getElementById("card_expiration_month").value;
+	this.cardExpirationYear = document.getElementById("card_expiration_year").value;
+	this.cardCVV = document.getElementById("card_cvv").value;
 }
 
 PagarMe.creditCard.prototype.fillFromFrom = PagarMe.creditCard.prototype.fillFromForm;
