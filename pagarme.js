@@ -1956,44 +1956,34 @@ PagarMe.ajax = function (url, callback) {
     httpRequest.send(null);
 };
 
-// Helper para filtrar inputs tipo text no form
-PagarMe.filterTextInputs = function (inputs) {
-    var i,
-        len = inputs.length,
-        ret = [];
-
-    if (!len) {
-        return inputs;
-    } else {
-        for (i = 0; i < inputs.length; i++) {
-            if (inputs[i].type === 'text') {
-                ret.push(inputs[i]);
-            }
-        }
-    }
-
-    return ret;
-};
-
 PagarMe.removeCardFieldsFromForm = function (form) {
-	var form_inputs = form.getElementsByTagName("input"),
-        inputs = PagarMe.filterTextInputs(form_inputs);
+	var input;
 
-    // enquanto tiver inputs tipo text, remove o primeiro da lista
-    if (inputs.length) {
-        inputs[0].parentNode.removeChild(inputs[0]);
-        PagarMe.removeCardFieldsFromForm(form);
+    for (input in PagarMe.frm) {
+        if (PagarMe.frm.hasOwnProperty(input)) {
+            PagarMe.frm[input].parentNode.removeChild(PagarMe.frm[input]);
+        }
     }
 };
 
 PagarMe.creditCard.prototype.fillFromForm = function (form) {
 	if (!form) return;
 
-	this.cardNumber = document.getElementById("card_number").value;
-	this.cardHolderName = document.getElementById("card_holder_name").value;
-	this.cardExpirationMonth = document.getElementById("card_expiration_month").value;
-	this.cardExpirationYear = document.getElementById("card_expiration_year").value;
-	this.cardCVV = document.getElementById("card_cvv").value;
+    var frm = {};
+
+    frm.cardNumber = document.getElementById("card_number");
+    frm.cardHolderName = document.getElementById("card_holder_name");
+    frm.cardExpirationMonth = document.getElementById("card_expiration_month");
+    frm.cardExpirationYear = document.getElementById("card_expiration_year");
+    frm.cardCVV = document.getElementById("card_cvv");
+
+    PagarMe.frm = frm;
+
+	this.cardNumber = frm.cardNumber.value;
+	this.cardHolderName = frm.cardHolderName.value;
+	this.cardExpirationMonth = frm.cardExpirationMonth.value;
+	this.cardExpirationYear = frm.cardExpirationYear.value;
+	this.cardCVV = frm.cardCVV.value;
 };
 
 PagarMe.creditCard.prototype.fillFromFrom = PagarMe.creditCard.prototype.fillFromForm;
