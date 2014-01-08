@@ -1867,8 +1867,10 @@ this.PagarMe = {
 PagarMe.creditCard.prototype.fieldErrors = function() {
 	var errors = {};
 
-	if(!this.cardNumber || this.cardNumber.length < 16 || this.cardNumber.length > 20 ||
-	!isValidCardNumber(this.cardNumber) || isNaN(this.cardNumber)) {
+	console.log("here");
+	console.log(this.cardNumber);
+
+	if(!this.cardNumber || this.cardNumber.length > 20 || !isValidCardNumber(this.cardNumber) || isNaN(this.cardNumber)) {
 		errors["card_number"] = "Número do cartão inválido.";
 	}
 
