@@ -1899,7 +1899,7 @@ PagarMe.creditCard.prototype.stringifyParameters = function() {
 	var encryptionHash = {
 		'card_number': this.cardNumber,
 		'card_holder_name': this.cardHolderName,
-		'card_expiration_date': "" + (this.cardExpirationMonth.length == 1 ? "0" : "") + this.cardExpirationMonth + this.cardExpirationYear,
+		'card_expiration_date': "" + (this.cardExpirationMonth.length == 1 ? "0" : "") + this.cardExpirationMonth + ((this.cardExpirationYear.length > 2) ? this.cardExpirationYear.substr(-2) : this.cardExpirationYear),
 		'card_cvv': this.cardCVV
 	};
 
@@ -1923,7 +1923,6 @@ PagarMe.creditCard.prototype.generateHash = function(callback) {
 	}
 
 	var stringifiedParameters = this.stringifyParameters();
-
 	PagarMe.ajax('https://api.pagar.me/1/transactions/card_hash_key?encryption_key=' + PagarMe.encryption_key, function(data) {
 		var cardHashPublicKey = RSA.getPublicKey(data['public_key']);
 		var encryptedString = data.id + "_" + RSA.encrypt(stringifiedParameters, cardHashPublicKey);
