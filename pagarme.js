@@ -1819,7 +1819,7 @@ var RSA = {
 // ### Start of luhnValidation.js
 
 var isValidCardNumber = function(cardNumber) {
-	var luhnDigit = parseInt(cardNumber.substring(cardNumber.length-1, cardNumber.length)); 
+	var luhnDigit = parseInt(cardNumber.substring(cardNumber.length-1, cardNumber.length));
 	var luhnLess = cardNumber.substring(0, cardNumber.length-1);
 
 	var sum = 0;
@@ -1832,17 +1832,17 @@ var isValidCardNumber = function(cardNumber) {
 	var delta = new Array (0,1,2,3,4,-4,-3,-2,-1,0);
 
 	for(i = luhnLess.length - 1; i >= 0; i -= 2)
-	{		
+	{
 		var deltaIndex = parseInt(luhnLess.substring(i, i+1));
-		var deltaValue = delta[deltaIndex];	
+		var deltaValue = delta[deltaIndex];
 		sum += deltaValue;
 	}
 
 	var mod10 = sum % 10;
-	mod10 = 10 - mod10;	
+	mod10 = 10 - mod10;
 
 	if(mod10 == 10)
-	{		
+	{
 		mod10=0;
 	}
 
@@ -1917,7 +1917,11 @@ PagarMe.creditCard.prototype.stringifyParameters = function() {
 };
 
 PagarMe.creditCard.prototype.generateHash = function(callback) {
-	if(PagarMe.encryption_key.substring(0, 2) == "ak") {
+	if(!PagarMe.encryption_key) {
+        alert("Erro: Você não configurou sua encryption_key. Por favor, sete a chave em PagarMe.encryption_key. Para mais informações, visite: https://pagar.me/docs/restful-api/card-hash/");
+        return;
+    }
+    if(PagarMe.encryption_key.substring(0, 2) == "ak") {
 		alert("Erro: Você está usando a api_key ao invés da encryption_key. Por favor, verifique se a chave inserida é a encryption_key disponível em seu dashboard. Para mais informações, visite: https://pagar.me/docs/restful-api/card-hash/");
 		return;
 	}
