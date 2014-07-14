@@ -4,7 +4,7 @@
   "homepage": "https://github.com/pagarme/pagarme-js",
   "authors": [
     "Thiago Rodrigues de Paula <thiago.rdp@gmail.com>",
-	"Jonathan Lima <greenboxal@gmail.com>"
+    "Jonathan Lima <greenboxal@gmail.com>"
   ],
   "description": "Pagar.me JavaScript library",
   "main": "dist/pagarme.js",
@@ -15,5 +15,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "jsrsasign": "~4.7.0"
+  }
 }
