@@ -17,6 +17,6 @@
     "tests"
   ],
   "devDependencies": {
-    "jsrsasign": "~4.7.0"
+    "jsencrypt": "~2.1.0"
   }
 }
