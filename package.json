@@ -1,0 +1,28 @@
+{
+  "name": "pagarme-js",
+  "version": "2.0.0",
+  "description": "Pagar.me JavaScript library",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pagarme/pagarme-js.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pagarme/pagarme-js/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.20.1",
+    "gulp": "~3.8.6",
+    "should": "~4.0.4",
+    "gulp-concat": "~2.3.3",
+    "gulp-uglify": "~0.3.1"
+  }
+}
