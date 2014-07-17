@@ -4550,7 +4550,8 @@ var objectSize = function(obj) {
 };
 
 var jsonpRequest = function (url, callback) {
-	var functionName = 'pagarme_jsonp_' + Date.now();
+	var now = new Date();
+	var functionName = 'pagarme_jsonp_' + now.getTime();
 
 	global[functionName] = function(json) {
 		if (json.status == 200) {
