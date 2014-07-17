@@ -65,20 +65,16 @@ var request = function(params, callback) {
 	params.query = params.query || {};
 
 	if (ie && ie <= 8) {
+		var queryParams = {};
+
 		for (var key in params.query) {
-			params.query['query[' + key + ']'] = params.query[key];
-			delete params.query[key];
+			queryParams['query[' + key + ']'] = params.query[key];
 		}
 
-		for (var key in params.body) {
-			params.query['body[' + key + ']'] = params.body[key];
-			delete params.body[key];
-		}
+		queryParams.method = 'get';
+		queryParams.path = encodeURIComponent(params.path);
 
-		params.query.method = 'get';
-		params.query.path = encodeURIComponent(params.path);
-
-		var url = baseUrl + '/jsonp' + queryString(params.query);
+		var url = baseUrl + '/jsonp' + queryString(queryParams);
 		jsonpRequest(url, callback);
 	} else {
 		var url = baseUrl + params.path + queryString(params.query);
