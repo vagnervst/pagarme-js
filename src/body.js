@@ -9,6 +9,16 @@ var ieVersion = function () {
 		return 0;
 };
 
+var objectSize = function(obj) {
+	var objectSize = 0;
+	for (var key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			objectSize++;
+		}
+	}
+	return objectSize;
+};
+
 var jsonpRequest = function (url, callback) {
 	var functionName = 'pagarme_jsonp_' + Date.now();
 
@@ -83,7 +93,7 @@ var request = function(params, callback) {
 };
 
 var queryString = function(obj) {
-	if (!obj || !Object.keys(obj).length) {
+	if (!obj || !objectSize(obj)) {
 		return '';
 	}
 
