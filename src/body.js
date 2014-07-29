@@ -119,7 +119,7 @@ PagarMe.CreditCard = function PagarMeCreditCard() {
 	this.cardHolderName = null;
 	this.cardExpirationMonth = null;
 	this.cardExpirationYear = null;
-	this.cardCvv = null;
+	this.cardCVV = null;
 };
 
 PagarMe.CreditCard.prototype.brand = function() {
@@ -173,7 +173,7 @@ PagarMe.CreditCard.prototype.fieldErrors = function() {
 		errors['card_expiration_year'] = 'Ano de expiração inválido.';
 	}
 
-	if (!PagarMe.Validator.isValidCvv(this.cardCvv, this.brand())) {
+	if (!PagarMe.Validator.isValidCvv(this.cardCVV, this.brand())) {
 		errors['card_cvv'] = 'Código de segurança inválido.';
 	}
 
@@ -185,7 +185,7 @@ PagarMe.CreditCard.prototype.stringifyParameters_ = function() {
 		'card_number': this.cardNumber,
 		'card_holder_name': this.cardHolderName,
 		'card_expiration_date': "" + (this.cardExpirationMonth.length == 1 ? "0" : "") + this.cardExpirationMonth + ((this.cardExpirationYear.length > 2) ? this.cardExpirationYear.substr(-2) : this.cardExpirationYear),
-		'card_cvv': this.cardCvv
+		'card_cvv': this.cardCVV
 	};
 
 	if(PagarMe.sessionId) {

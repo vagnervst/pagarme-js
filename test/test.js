@@ -238,7 +238,7 @@ describe('PagarMe', function() {
 
 			it('should not contain errors on valid values.', function() {
 				card.cardNumber = '4111111111111111';
-				card.cardCvv = '000';
+				card.cardCVV = '000';
 				card.cardExpirationMonth = '06';
 				card.cardExpirationYear = '2018';
 				card.cardHolderName = 'John Appleseed';
@@ -247,7 +247,7 @@ describe('PagarMe', function() {
 				errors.should.be.empty;
 
 				card.cardNumber = '343467796144134';
-				card.cardCvv = '0000';
+				card.cardCVV = '0000';
 				card.expirationMonth = 6;
 				card.expirationYear = 18;
 
@@ -262,7 +262,7 @@ describe('PagarMe', function() {
 			before(function() {
 				card = new PagarMe.CreditCard();
 				card.cardNumber = '4111111111111111';
-				card.cardCvv = '123';
+				card.cardCVV = '123';
 				card.cardExpirationMonth = '10';
 				card.cardExpirationYear = '18';
 				card.cardHolderName = 'John Appleseed';
