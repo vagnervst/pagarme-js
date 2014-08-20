@@ -4338,50 +4338,29 @@ PagarMe.Validator = {
 
 		cardNumber = cardNumber.replace(/[^0-9]/g, '');
 
-		var cardStartRules = {
-			'elo': ['636368', '438935', '504175', '451416', '636297', '5067', '4576', '4011'],
-			'discover': ['6011', '622', '64', '65'],
-			'diners': ['301', '305', '36', '38'],
-			'amex': ['34', '37'],
-			'aura': ['50'],
-			'jcb': ['35'],
-			'hipercard': ['38', '60'],
-			'visa': ['4'],
-			'mastercard': ['5']
-		};
+		var cardStartRules = [
+			['elo', ['627780', '636548', '636117', '637095', '639350', '627893', '636368', '438935', '504175', '451416', '636297', '5067', '4576', '4011']],
+			['discover', ['6011', '622', '64', '65']],
+			['hipercard', ['384100', '384140', '384160', '60']],
+			['diners', ['301', '305', '36', '38']],
+			['amex', ['34', '37']],
+			['aura', ['50']],
+			['jcb', ['35']],
+			['visa', ['4']],
+			['mastercard', ['5']]
+		];
 
-		var matchBrand;
-		var matchLength = 0;
-
-		for(var brand in cardStartRules) {
-			for(var i = 0; i < cardStartRules[brand].length; i++) {
-				var start = cardStartRules[brand][i];
-				var comp1, comp2;
-
-				if (start.length > cardNumber.length) {
-					comp1 = cardNumber;
-					comp2 = start.substring(0, cardNumber.length);
-				} else {
-					comp1 = cardNumber.substring(0, start.length);
-					comp2 = start;
-				}
-
-				if(comp1 == comp2 && start.length > matchLength) {
-					matchBrand = brand;
-					matchLength = start.length;
+		for (var i = 0; i < cardStartRules.length; i++) {
+			var cardStartRule = cardStartRules[i][1];
+			for (var j = 0; j < cardStartRule.length; j++) {
+				var start = cardStartRule[j];
+				if (cardNumber.substring(0, start.length) == start) {
+					return cardStartRules[i][0];
 				}
 			}
 		}
 
-		if (matchBrand) {
-			if (matchLength <= cardNumber.length) {
-				return matchBrand;
-			} else {
-				return 'unknown';
-			}
-		} else {
-			return 'unknown';
-		}
+		return "unknown";
 	},
 	isValidCardNumber: function(cardNumber) {
 		if (!cardNumber) {
