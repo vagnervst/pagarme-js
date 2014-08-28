@@ -4636,7 +4636,7 @@ var request = function(params, callback) {
 
 	params.query = params.query || {};
 
-	if (ie && ie <= 8) {
+	if (ie && ie <= 9) {
 		var queryParams = {};
 
 		for (var key in params.query) {
