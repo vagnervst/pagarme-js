@@ -28,7 +28,11 @@ var jsonpRequest = function (url, callback) {
 			callback(json.body);
 		}
 
-		delete global[functionName];
+		try {
+			delete global[functionName];
+		} catch(e) {
+			global[functionName] = undefined;
+		}
 	};
 
 	if (url.indexOf('?') > -1) {
