@@ -88,6 +88,7 @@ var request = function(params, callback) {
 
 		queryParams.method = 'get';
 		queryParams.path = encodeURIComponent(params.path);
+		queryParams.encryption_key = params.query.encryption_key;
 
 		var url = baseUrl + '/jsonp' + queryString(queryParams);
 		jsonpRequest(url, callback);
