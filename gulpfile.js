@@ -23,4 +23,6 @@ gulp.task('watch', function() {
 	gulp.watch(paths.script, ['pagarme', 'pagarme.min']);
 });
 
+gulp.task('build', ['pagarme', 'pagarme.min']);
+
 gulp.task('default', ['pagarme', 'pagarme.min', 'watch']);
