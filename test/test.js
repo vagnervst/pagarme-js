@@ -48,14 +48,12 @@ describe('PagarMe', function() {
 				card.cardNumber = '6362970000457013';
 				card.brand().should.be.equal('elo');
 
-				card.cardNumber = '5067970000457013';
+				card.cardNumber = '506734882114864';
 				card.brand().should.be.equal('elo');
 
-				card.cardNumber = '4576970000457013';
+				card.cardNumber = '509005334509218';
 				card.brand().should.be.equal('elo');
 
-				card.cardNumber = '4011970000457013';
-				card.brand().should.be.equal('elo');
 			});
 
 			it('should identify discover card numbers.', function() {
@@ -97,6 +95,10 @@ describe('PagarMe', function() {
 			it('should identify aura card numbers.', function() {
 				card.cardNumber = '508149451448134';
 				card.brand().should.be.equal('aura');
+
+				card.cardNumber = '5067970000457013';
+				card.brand().should.be.equal('aura');
+
 			});
 
 			it('should identify jcb card numbers.', function() {
@@ -105,9 +107,6 @@ describe('PagarMe', function() {
 			});
 
 			it('should identify hipercard card numbers.', function() {
-				card.cardNumber = '3828256349013271';
-				card.brand().should.be.equal('hipercard');
-
 				card.cardNumber = '6028256349013271';
 				card.brand().should.be.equal('hipercard');
 			});
