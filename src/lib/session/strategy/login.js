@@ -1,7 +1,7 @@
 import session from '../index'
 
 function execute ({ email, password }) {
-  return session.create(email, password)
+  return session.create({}, email, password)
 }
 
 function build (options) {

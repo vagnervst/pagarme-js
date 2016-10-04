@@ -19,12 +19,13 @@ const encryptionKeyAuth = {
 pagarme.connect(emailPasswordAuth)
 	.then(client => client.transaction.get(123))
 	.then(console.log.bind(console))
+    .catch(err => console.dir(err.response))
 
 pagarme.connect(apiKeyAuth)
 	.then(client => client.transaction.get(123))
-	.then(console.log.bind(console))
+	.then(console.dir.bind(console))
 
 pagarme.connect(encryptionKeyAuth)
 	.then(client => client.transaction.get(123))
-	.then(console.log.bind(console))
+	.then(console.dir.bind(console))
 
