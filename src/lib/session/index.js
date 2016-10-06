@@ -4,7 +4,7 @@ const create = (opts, email, password) => Promise.resolve(session)
 const verify = opts => Promise.resolve(1)
 const destroy = opts => Promise.resolve(1)
 
-module.exports = {
+export default {
 	create,
 	verify,
 	destroy

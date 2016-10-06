@@ -1,6 +1,11 @@
-const strategy = require('./lib/session/strategy')
-const transaction = require('./lib/transaction')
-const client = require('./lib/client')
-const connect = client.connect
+import strategy from './lib/session/strategy'
+import transaction from './lib/transaction'
+import test from './lib/client'
+import { connect } from './lib/client'
 
-module.exports = { strategy, transaction, connect }
+export {
+  strategy,
+  transaction,
+  connect
+}
+
