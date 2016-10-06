@@ -3,14 +3,14 @@ import fetch from 'node-fetch'
 import { merge } from 'ramda'
 
 const jsonHeaders = {
-  'Accept': 'application/json',
+  Accept: 'application/json',
   'Content-Type': 'application/json'
 }
 
 function ApiError (response) {
-    this.response = response
-    this.name = "ApiError"
-    Error.captureStackTrace(this, ApiError)
+  this.response = response
+  this.name = 'ApiError'
+  Error.captureStackTrace(this, ApiError)
 }
 ApiError.prototype = Object.create(Error.prototype)
 ApiError.prototype.constructor = ApiError
@@ -20,8 +20,22 @@ function buildOptions (method, options, data) {
   const payload = merge(config, data || {})
   const headers = merge(options.headers, jsonHeaders)
   const body = JSON.stringify(payload)
-  return { method, body, headers } 
+  return { method, body, headers }
 }
+
+function handleError (response) {
+  if (response.status === 500) {
+    return Promise.reject(
+      new ApiError({
+        errors: [{ message: 'Pagar.me server error' }]
+      })
+    )
+  }
+
+  return response.json()
+    .then(body => Promise.reject(new ApiError(body)))
+}
+
 
 function handleResult (response) {
   if (response.ok) {
@@ -29,19 +43,6 @@ function handleResult (response) {
   }
 
   return handleError(response)
-}
-
-function handleError (response) {
-  if (response.status === 500) {
-    return Promise.reject(
-      new ApiError({
-        errors: [{ message: "Pagar.me server error" }]
-      })
-    )
-  }
-  
-  return response.json()
-    .then(body => Promise.reject(new ApiError(body)))
 }
 
 function request (url, options) {
@@ -60,7 +61,7 @@ function post (options, url, body) {
   return request(url, buildOptions('POST', options, body))
 }
 
-function _delete (options, url, body) {
+function del (options, url, body) {
   return request(url, buildOptions('DELETE', options, body))
 }
 
@@ -68,6 +69,6 @@ export default {
   get,
   put,
   post,
-  delete: _delete
+  delete: del
 }
 
