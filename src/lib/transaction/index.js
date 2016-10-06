@@ -1,5 +1,6 @@
-module.exports = {
-  get: function (opts, id) {
-  	return Promise.resolve({id, opts})
-  }
+const get = (opts, id) => Promise.resolve({ id, opts })
+
+export default {
+  get
 }
+
