@@ -18,6 +18,9 @@
     "json-loader": "^0.5.4",
     "node-fetch": "^1.6.3",
     "ramda": "^0.22.1",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^1.16.0",
     "webpack": "^1.13.2"
   }
 }
