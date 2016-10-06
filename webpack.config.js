@@ -1,5 +1,4 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
 
 module.exports = {
   context: path.join(__dirname, './src'),
@@ -8,9 +7,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, './build'),
     libraryTarget: 'commonjs',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
-
   module: {
     loaders: [
       {
@@ -22,6 +20,13 @@ module.exports = {
         test: /\.json$/,
         loaders: ['json-loader']
       }
+    ],
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        exclude: /node_modules/
+      }
     ]
   }
-}
+};
