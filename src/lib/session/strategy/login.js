@@ -1,11 +1,13 @@
-const session = require('../index.js')
+import session from '../index'
+
+function execute ({ email, password }) {
+  return session.create(email, password)
+}
 
 function build (options) {
   return Object.assign({}, options, { execute: execute.bind(null, options) })
 }
 
-function execute (options) {
-  return session.create(options.email, options.password)
+export default {
+  build
 }
-
-module.exports = { build }

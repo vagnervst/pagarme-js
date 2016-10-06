@@ -1,6 +1,6 @@
-const pagarme = require('./index.js')
+const pagarme = require('../build/bundle.js')
 
-const emailPasswordAuth = { 
+const emailPasswordAuth = {
   email: 'jose@silva.com',
   password: '12345xuxa',
   onExpire: function () {
