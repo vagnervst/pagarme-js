@@ -1,4 +1,4 @@
-const pagarme = require('../build/bundle.js')
+const pagarme = require('../build/bundle.js').default
 
 const emailPasswordAuth = {
   email: 'jonathan@pagar.me',
