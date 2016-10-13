@@ -23,7 +23,7 @@ available authentication strategies via `connect` function.
 ```javascript
 import pagarme from 'pagarme'
 
-pagarme.connect({ apiKey: 'ak_test_y7jk294ynbzf93' })
+pagarme.client.connect({ apiKey: 'ak_test_y7jk294ynbzf93' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
 ```
@@ -33,7 +33,7 @@ pagarme.connect({ apiKey: 'ak_test_y7jk294ynbzf93' })
 ```javascript
 import pagarme from 'pagarme'
 
-pagarme.connect({ encryptionKey: 'ek_test_y7jk294ynbzf93' })
+pagarme.client.connect({ encryptionKey: 'ek_test_y7jk294ynbzf93' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
 ```
@@ -43,7 +43,7 @@ pagarme.connect({ encryptionKey: 'ek_test_y7jk294ynbzf93' })
 ```javascript
 import pagarme from 'pagarme'
 
-pagarme.connect({ email: 'user@email.com', password: '123456' })
+pagarme.client.connect({ email: 'user@email.com', password: '123456' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
 ```
@@ -57,7 +57,7 @@ authentication error happen, you can `catch` the error with the Promise:
 ```javascript
 import pagarme from 'pagarme'
 
-pagarme.connect({ email: 'user@email.com', password: '123456' })
+pagarme.client.connect({ email: 'user@email.com', password: '123456' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
   .catch(error => console.error(error))
@@ -73,7 +73,7 @@ function onExpire (session) {
   console.log('Session expired!')
 }
 
-pagarme.connect({ email: 'user@email.com', password: '123456', onExpire })
+pagarme.client.connect({ email: 'user@email.com', password: '123456', onExpire })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
   .catch(error => console.error(error))
