@@ -1,5 +1,5 @@
-import { mapObjIndexed } from 'ramda'
-import strategy from '../session/strategy'
+import { mapObjIndexed, tap } from 'ramda'
+import strategies from './strategies'
 import resources from './resources'
 
 function bindOptions (options) {
@@ -12,11 +12,11 @@ function bindOptions (options) {
 }
 
 function connect (authentication) {
-  return strategy
+  return strategies
     .find(authentication)
     .then(s => s.execute())
     .then(bindOptions)
 }
        
-export { connect }
+export default { connect }
 

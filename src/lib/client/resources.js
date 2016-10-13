@@ -1,4 +1,4 @@
 import transaction from '../transaction'
 
-export default  {transaction }
+export default  { transaction }
 
