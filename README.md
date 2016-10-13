@@ -1,7 +1,11 @@
-# Isomorphic Pagar.me
+<img src="https://cdn.rawgit.com/pagarme/brand/9ec30d3d4a6dd8b799bca1c25f60fb123ad66d5b/logo-circle.svg" width="127px" height="127px" align="left"/>
 
-A JavaScript library to interface with Pagar.me API, which works on browser
+# Pagar.me Connect
+
+A JavaScript library to interface with Pagar.me API, works on browser
 and on Node.js.
+
+<br>
 
 ## API Docs
 
