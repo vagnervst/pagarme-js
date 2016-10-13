@@ -1,12 +1,6 @@
 import Promise from 'bluebird'
-
 import fetch from 'node-fetch'
 import { merge } from 'ramda'
-import path from 'path'
-
-const url = 'https://api.pagar.me/1'
-const session = url + '/sessions'
-const transaction = url + '/transactions'
 
 const jsonHeaders = {
   'Accept': 'application/json',
@@ -26,7 +20,6 @@ function buildOptions (method, options, data) {
   const payload = merge(config, data || {})
   const headers = merge(options.headers, jsonHeaders)
   const body = JSON.stringify(payload)
-  console.log(body)
   return { method, body, headers } 
 }
 
@@ -72,8 +65,6 @@ function _delete (options, url, body) {
 }
 
 export default {
-  session,
-  transaction,
   get,
   put,
   post,
