@@ -9,4 +9,3 @@ function build (options) {
 export default {
   build
 }
-
