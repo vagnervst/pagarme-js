@@ -1,10 +1,21 @@
 const base = 'https://api.pagar.me:443/1'
 
-const session = `${base}/sessions`
-const transaction = `${base}/transactions`
+const session = '/sessions'
+
+const transaction = {
+  base: '/transactions',
+  card_hash_key: '/transactions/card_hash_key',
+  calculate_installments_amount: '/transactions/calculate_installments_amount',
+  get refund () {
+    return id => `/transactions/${id}/refund`
+  },
+  get capture () {
+    return id => `/transactions/${id}/capture`
+  }
+}
 
 export default {
+  base,
   session,
   transaction
 }
-
