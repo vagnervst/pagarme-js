@@ -6,6 +6,9 @@ const transaction = {
   base: '/transactions',
   card_hash_key: '/transactions/card_hash_key',
   calculate_installments_amount: '/transactions/calculate_installments_amount',
+  get details () {
+    return id => `/transactions/${id}`
+  },
   get refund () {
     return id => `/transactions/${id}/refund`
   },
