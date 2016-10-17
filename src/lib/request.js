@@ -1,6 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
 import { merge } from 'ramda'
+import routes from './routes'
 
 const jsonHeaders = {
   Accept: 'application/json',
