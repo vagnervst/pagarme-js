@@ -1,29 +1,30 @@
 import pagarme from '../dist/pagarme.js';
 
 const emailPasswordAuth = {
-  email: 'jose@silva.com',
-  password: '12345xuxa',
-  onExpire() {
-    console.log('session expired');
-  },
-};
+  email: 'jonathan@pagar.me',
+  password: 'asdas123',
+  onExpire: function () {
+    console.log('session expired')
+  }
+}
 
 const apiKeyAuth = {
-  apiKey: 'ak_live_lkjsdhfkjsdhfjkd',
-};
+  apiKey: 'ak_live_lkjsdhfkjsdhfjkd'
+}
 
 const encryptionKeyAuth = {
-  encryptionKey: 'ek_live_lkjsdhfkjsdhfjkd',
-};
+  encryptionKey: 'ek_live_lkjsdhfkjsdhfjkd'
+}
 
-pagarme.connect(emailPasswordAuth)
+pagarme.client.connect(emailPasswordAuth)
   .then(client => client.transaction.get(123))
-  .then(console.log.bind(console));
+  .then(console.log.bind(console))
+  .catch(err => console.dir(err.response))
 
-pagarme.connect(apiKeyAuth)
+pagarme.client.connect(apiKeyAuth)
   .then(client => client.transaction.get(123))
-  .then(console.log.bind(console));
+  .then(console.dir.bind(console))
 
-pagarme.connect(encryptionKeyAuth)
+pagarme.client.connect(encryptionKeyAuth)
   .then(client => client.transaction.get(123))
-  .then(console.log.bind(console));
+  .then(console.dir.bind(console))
