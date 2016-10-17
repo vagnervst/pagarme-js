@@ -5,7 +5,7 @@
   "main": "dist/pagarme.js",
   "scripts": {
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
-    "test": "npm start && node src/test.js"
+    "test": "npm start && node test/test.js"
   },
   "keywords": [],
   "author": "",
