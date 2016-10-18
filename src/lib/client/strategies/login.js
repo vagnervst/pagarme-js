@@ -1,8 +1,8 @@
-import { merge } from 'ramda'
+import { merge, pick, objOf } from 'ramda'
 import session from '../../session'
 
 function execute ({ email, password }) {
-  return session.create({}, email, password)
+  return session.create({}, email, password).then(pick(['session_id'])).then(objOf('body'))
 }
 
 function build (options) {
