@@ -22,4 +22,3 @@ function connect (authentication) {
 }
 
 export default { connect }
-
