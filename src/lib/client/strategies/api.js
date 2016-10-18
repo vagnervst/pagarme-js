@@ -1,5 +1,7 @@
+import { pick, objOf } from 'ramda'
+
 function execute (options) {
-  return Promise.resolve(options)
+  return Promise.resolve(options).then(pick(['api_key'])).then(objOf('body'))
 }
 
 function build (options) {
