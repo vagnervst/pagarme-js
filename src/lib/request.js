@@ -45,30 +45,16 @@ function handleResult (response) {
   return handleError(response)
 }
 
-function request (url, options) {
-  return fetch(url, options).then(handleResult)
-}
-
-function get (options, url, body) {
-  return request(url, buildOptions('GET', options, body))
-}
-
-function put (options, url, body) {
-  return request(url, buildOptions('PUT', options, body))
-}
-
-function post (options, url, body) {
-  return request(url, buildOptions('POST', options, body))
-}
-
-function del (options, url, body) {
-  return request(url, buildOptions('DELETE', options, body))
+function buildRequest (method) {
+  return function request (options, url, body) {
+    return fetch(url, buildOptions(method, options, body)).then(handleResult)
+  }
 }
 
 export default {
-  get,
-  put,
-  post,
-  delete: del
+  get: buildRequest('GET'),
+  put: buildRequest('PUT'),
+  post: buildRequest('POST'),
+  delete: buildRequest('DELETE')
 }
 
