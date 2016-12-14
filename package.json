@@ -2,9 +2,9 @@
   "name": "pagarme-js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/pagarme.js",
   "scripts": {
-    "start": "webpack",
+    "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
     "test": "npm start && node src/test.js"
   },
   "keywords": [],

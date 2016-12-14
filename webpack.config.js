@@ -1,13 +1,14 @@
-const path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   context: path.join(__dirname, './src'),
   entry: './index.js',
   target: 'node',
   output: {
-    path: path.join(__dirname, './build'),
-    libraryTarget: 'commonjs',
-    filename: 'bundle.js',
+    path: path.join(__dirname, './dist'),
+    libraryTarget: 'commonjs2',
+    filename: 'pagarme.js'
   },
   module: {
     loaders: [
@@ -29,4 +30,5 @@ module.exports = {
       }
     ]
   }
-};
+}
+
