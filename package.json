@@ -1,6 +1,6 @@
 {
-  "name": "pagarme-js",
-  "version": "1.0.0",
+  "name": "pagarme",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/pagarme.js",
   "scripts": {
