@@ -1,5 +1,5 @@
 {
-  "name": "pagarme",
+  "name": "pagarme-connect",
   "version": "0.1.0",
   "description": "",
   "main": "dist/pagarme.js",
