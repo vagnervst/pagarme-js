@@ -1,4 +1,4 @@
-import pagarme from '../build/bundle';
+import pagarme from '../dist/pagarme.js';
 
 const emailPasswordAuth = {
   email: 'jose@silva.com',
