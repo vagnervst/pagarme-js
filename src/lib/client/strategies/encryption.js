@@ -1,7 +1,9 @@
 import { pick, objOf } from 'ramda'
 
 function execute (options) {
-  return Promise.resolve(options).then(pick(['encryption_key'])).then(objOf('body'))
+  return Promise.resolve(options)
+    .then(pick(['encryption_key']))
+    .then(objOf('body'))
 }
 
 function build (options) {

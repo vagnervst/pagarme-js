@@ -47,8 +47,8 @@ function handleResult (response) {
 }
 
 function buildRequest (method) {
-  return function request (options, url, body) {
-    const endpoint = (options.baseURL || routes.base) + url
+  return function request (options, path, body) {
+    const endpoint = (options.baseURL || routes.base) + path
     const opt = buildOptions(method, options, body)
     return fetch(endpoint, opt).then(handleResult)
   }
