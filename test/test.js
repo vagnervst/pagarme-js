@@ -4,8 +4,6 @@ const fetch = require('node-fetch')
 fetch('https://api.pagar.me/1/companies/temporary', { method: 'POST' })
   .then(res => res.json())
   .then((company) => {
-    console.log(company)
-
     const emailPasswordAuth = {
       email: company.email,
       password: company.password,
@@ -15,11 +13,11 @@ fetch('https://api.pagar.me/1/companies/temporary', { method: 'POST' })
     }
 
     const apiKeyAuth = {
-      apiKey: company.api_key
+      api_key: company.api_key.test
     }
 
     const encryptionKeyAuth = {
-      encryptionKey: company.encryption_key
+      encryption_key: company.encryption_key.test
     }
 
     pagarme.client.connect(emailPasswordAuth)
