@@ -20,18 +20,30 @@ fetch('https://api.pagar.me/1/companies/temporary', { method: 'POST' })
       encryption_key: company.encryption_key.test
     }
 
-    pagarme.client.connect(emailPasswordAuth)
-      .then(client => client.transaction.get(123))
-      .then(console.log.bind(console))
-      .catch(err => console.dir(err.response))
+    const transactionData = {
+      amount: 83060,
+      card_number: '4111111111111111',
+      card_expiration_date: '1018',
+      card_holder_name: 'Test User',
+      card_cvv: '123',
+      metadata: {
+        product: 'pokemon',
+        name: 'Charmeleon',
+        quantity: 1
+      }
+    }
 
     pagarme.client.connect(apiKeyAuth)
-      .then(client => client.transaction.get(123))
-      .then(console.dir.bind(console))
-      .catch(err => console.dir(err.response))
+      .then(client => client.transaction.create(transactionData))
+      .then((transaction) => {
+        pagarme.client.connect(emailPasswordAuth)
+          .then(client => client.transaction.get(transaction.id))
+          .then(console.log.bind(console))
+          .catch(err => console.dir(err.response))
 
-    pagarme.client.connect(encryptionKeyAuth)
-      .then(client => client.transaction.get(123))
-      .then(console.dir.bind(console))
-      .catch(err => console.dir(err.response))
+        pagarme.client.connect(apiKeyAuth)
+          .then(client => client.transaction.get(transaction.id))
+          .then(console.dir.bind(console))
+          .catch(err => console.dir(err.response))
+      })
   })
