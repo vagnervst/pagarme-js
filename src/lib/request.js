@@ -1,6 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import { merge } from 'ramda'
+import { dissoc, dissocPath, merge } from 'ramda'
+import qs from 'querystring'
 import routes from './routes'
 
 const jsonHeaders = {
@@ -13,6 +14,7 @@ function ApiError (response) {
   this.name = 'ApiError'
   Error.captureStackTrace(this, ApiError)
 }
+
 ApiError.prototype = Object.create(Error.prototype)
 ApiError.prototype.constructor = ApiError
 
@@ -48,9 +50,18 @@ function handleResult (response) {
 
 function buildRequest (method) {
   return function request (options, path, body) {
-    const endpoint = (options.baseURL || routes.base) + path
-    const opt = buildOptions(method, options, body)
-    return fetch(endpoint, opt).then(handleResult)
+    let endpoint = (options.baseURL || routes.base) + path
+    let newOptions = buildOptions(method, options, body)
+
+    if (method === 'GET') {
+      const queryData = JSON.parse(newOptions.body)
+      const queryString = qs.stringify(queryData)
+      endpoint += `?${queryString}`
+      newOptions = dissoc('body', newOptions)
+      newOptions = dissocPath(['headers', 'Content-Type'], newOptions)
+    }
+
+    return fetch(endpoint, newOptions).then(handleResult)
   }
 }
 
@@ -60,4 +71,3 @@ export default {
   post: buildRequest('POST'),
   delete: buildRequest('DELETE')
 }
-
