@@ -5,8 +5,8 @@ import api from './api'
 
 const strategyBuilder = cond([
   [both(has('email'), has('password')), login.build],
-  [has('apiKey'), api.build],
-  [has('encryptionKey'), encryption.build]
+  [has('api_key'), api.build],
+  [has('encryption_key'), encryption.build]
 ])
 
 function find (options) {

@@ -1,4 +1,4 @@
-import { pick, objOf } from 'ramda'
+import { merge, pick, objOf } from 'ramda'
 
 function execute (options) {
   return Promise.resolve(options)
@@ -7,7 +7,7 @@ function execute (options) {
 }
 
 function build (options) {
-  return Object.assign({}, options, { execute: execute.bind(null, options) })
+  return merge(options, { execute: execute.bind(null, options) })
 }
 
 export default {
