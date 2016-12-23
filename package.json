@@ -5,7 +5,8 @@
   "main": "dist/pagarme.js",
   "scripts": {
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
-    "test": "npm start && babel-node test/test.js"
+    "pretest": "yarn start",
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +27,9 @@
     "node-fetch": "^1.6.3",
     "ramda": "^0.22.1",
     "webpack": "^1.13.2"
+  },
+  "jest": {
+    "testPathDirs": ["test"],
+    "testRegex": ".spec.js$"
   }
 }
