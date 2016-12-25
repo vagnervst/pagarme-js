@@ -170,5 +170,63 @@ describe('client.transaction.create', () => {
       })
     })
   })
+
+  describe('with `encryption_key` auth', () => {
+    beforeAll(Promise.coroutine(function* newClient () {
+      client = yield pagarme.client.connect({
+        encryption_key: company.encryption_key.test
+      })
+    }))
+
+    describe('and valid data', () => {
+      beforeAll(Promise.coroutine(function* newTransaction () {
+        response = yield client.transaction.create(transactionData)
+      }))
+
+      it('should return an object', () => {
+        expect(response).toEqual(expect.any(Object))
+      })
+
+      it('should return a `transaction` object', () => {
+        expect(response).toEqual(expect.objectContaining({
+          object: expect.stringMatching('transaction')
+        }))
+      })
+
+      it('should return an object with status `authorized`', () => {
+        expect(response.status).toEqual('authorized')
+      })
+
+      it('should return an object with `token`', () => {
+        expect(response.token).toBeDefined()
+      })
+
+      it('should return an object with `token` starting with `test_transaction`', () => {
+        expect(response.token).toMatch(/^test_transaction_/)
+      })
+    })
+
+    describe('and invalid data', () => {
+      beforeAll(Promise.coroutine(function* newFailedTransaction () {
+        try {
+          yield client.transaction.create(invalidData)
+        } catch (err) {
+          response = err
+        }
+      }))
+
+      it('should have thrown an Error', () => {
+        expect(response).toBeInstanceOf(Error)
+      })
+
+      it('should have an Array `error` as property', () => {
+        expect(response.response.errors).toBeInstanceOf(Array)
+      })
+
+      it('should have `error` with length > 0', () => {
+        expect(response.response.errors.length).toBeGreaterThan(0)
+      })
+    })
+  })
 })
 
