@@ -1,4 +1,4 @@
-const transactionData = {
+const valid = {
   amount: 4202,
   card_number: '4111111111111111',
   card_expiration_date: '1018',
@@ -26,4 +26,17 @@ const transactionData = {
   }
 }
 
-export default transactionData
+const invalid = {
+  card_holder_name: 'Richard Fernandes',
+  card_cvv: '123',
+  card_expiration_date: '1018',
+  customer: {
+    neighborhood: 'Jardim Paulistano',
+    zipcode: '01451001'
+  }
+}
+
+export {
+  valid,
+  invalid
+}
