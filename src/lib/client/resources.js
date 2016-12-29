@@ -1,4 +1,8 @@
 import transaction from '../transaction'
+import search from '../search'
 
-export default { transaction }
+export default {
+  transaction,
+  search,
+}
 
