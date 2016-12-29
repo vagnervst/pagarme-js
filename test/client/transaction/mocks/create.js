@@ -12,18 +12,18 @@ const valid = {
       street: 'Avenida Brigadeiro Faria Lima',
       street_number: '1811',
       neighborhood: 'Jardim Paulistano',
-      zipcode: '01451001'
+      zipcode: '01451001',
     },
     phone: {
       ddi: '55',
       ddd: '11',
-      number: '99999999'
-    }
+      number: '99999999',
+    },
   },
   metadata: {
     product_id: 40028922,
-    product_name: 'PlayStation'
-  }
+    product_name: 'PlayStation',
+  },
 }
 
 const invalid = {
@@ -32,11 +32,11 @@ const invalid = {
   card_expiration_date: '1018',
   customer: {
     neighborhood: 'Jardim Paulistano',
-    zipcode: '01451001'
-  }
+    zipcode: '01451001',
+  },
 }
 
 export {
   valid,
-  invalid
+  invalid,
 }

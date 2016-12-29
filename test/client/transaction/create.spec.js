@@ -16,7 +16,7 @@ describe('client.transaction.create', () => {
   describe('with `api_key` auth', () => {
     beforeAll(Promise.coroutine(function* newClient () {
       client = yield pagarme.client.connect({
-        api_key: company.api_key.test
+        api_key: company.api_key.test,
       })
     }))
 
@@ -89,7 +89,7 @@ describe('client.transaction.create', () => {
     beforeAll(Promise.coroutine(function* newClient () {
       client = yield pagarme.client.connect({
         email: company.email,
-        password: company.password
+        password: company.password,
       })
     }))
 
@@ -161,7 +161,7 @@ describe('client.transaction.create', () => {
   describe('with `encryption_key` auth', () => {
     beforeAll(Promise.coroutine(function* newClient () {
       client = yield pagarme.client.connect({
-        encryption_key: company.encryption_key.test
+        encryption_key: company.encryption_key.test,
       })
     }))
 

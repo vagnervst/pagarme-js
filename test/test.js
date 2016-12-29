@@ -9,15 +9,15 @@ fetch('https://api.pagar.me/1/companies/temporary', { method: 'POST' })
       password: company.password,
       onExpire () {
         console.log('session expired')
-      }
+      },
     }
 
     const apiKeyAuth = {
-      api_key: company.api_key.test
+      api_key: company.api_key.test,
     }
 
     const encryptionKeyAuth = {
-      encryption_key: company.encryption_key.test
+      encryption_key: company.encryption_key.test,
     }
 
     const transactionData = {
@@ -29,8 +29,8 @@ fetch('https://api.pagar.me/1/companies/temporary', { method: 'POST' })
       metadata: {
         product: 'pokemon',
         name: 'Charmeleon',
-        quantity: 1
-      }
+        quantity: 1,
+      },
     }
 
     pagarme.client.connect(apiKeyAuth)

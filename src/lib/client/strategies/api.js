@@ -11,5 +11,5 @@ function build (options) {
 }
 
 export default {
-  build
+  build,
 }

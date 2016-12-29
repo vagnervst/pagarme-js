@@ -6,7 +6,7 @@ import routes from './routes'
 
 const jsonHeaders = {
   Accept: 'application/json',
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 }
 
 function ApiError (response) {
@@ -30,7 +30,7 @@ function handleError (response) {
   if (response.status === 500) {
     return Promise.reject(
       new ApiError({
-        errors: [{ message: 'Pagar.me server error' }]
+        errors: [{ message: 'Pagar.me server error' }],
       })
     )
   }
@@ -69,5 +69,5 @@ export default {
   get: buildRequest('GET'),
   put: buildRequest('PUT'),
   post: buildRequest('POST'),
-  delete: buildRequest('DELETE')
+  delete: buildRequest('DELETE'),
 }
