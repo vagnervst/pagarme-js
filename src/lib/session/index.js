@@ -10,6 +10,6 @@ const destroy = Promise.resolve(1)
 export default {
   create,
   verify,
-  destroy
+  destroy,
 }
 

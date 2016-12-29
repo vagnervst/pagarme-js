@@ -14,11 +14,11 @@ const transaction = {
   },
   get capture () {
     return id => `/transactions/${id}/capture`
-  }
+  },
 }
 
 export default {
   base,
   session,
-  transaction
+  transaction,
 }

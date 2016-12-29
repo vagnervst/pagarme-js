@@ -9,5 +9,5 @@ const create = (opts, body) =>
 
 export default {
   get,
-  create
+  create,
 }
