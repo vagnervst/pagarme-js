@@ -17,8 +17,12 @@ const transaction = {
   },
 }
 
+const search = '/search'
+
 export default {
   base,
   session,
   transaction,
+  search,
 }
+
