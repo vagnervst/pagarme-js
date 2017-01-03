@@ -1,4 +1,4 @@
-import { mapObjIndexed } from 'ramda'
+import { merge, mapObjIndexed } from 'ramda'
 import strategies from './strategies'
 import resources from './resources'
 
@@ -21,5 +21,6 @@ function connect (authentication) {
     .then(bindOptions)
 }
 
-export default { connect }
+const exports = merge({ connect }, resources)
 
+export default exports

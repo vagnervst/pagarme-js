@@ -19,10 +19,15 @@ const transaction = {
 
 const search = '/search'
 
+const user = {
+  base: '/users',
+  reset_password: '/users/reset_password',
+}
+
 export default {
   base,
   session,
   transaction,
   search,
+  user,
 }
-
