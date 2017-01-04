@@ -23,7 +23,7 @@ function buildRequestParams (method, endpoint, options, data) {
   const payload = merge(config, data || {})
   const headers = merge(options.headers, jsonHeaders)
   let body
-  let path
+  let url
 
   if (equals(method, 'GET') || options.qs) {
     let query
@@ -36,13 +36,13 @@ function buildRequestParams (method, endpoint, options, data) {
       body = JSON.stringify({})
     }
 
-    path = `${endpoint}?${qs.stringify(query)}`
+    url = `${endpoint}?${qs.stringify(query)}`
   } else {
     body = JSON.stringify(payload)
-    path = endpoint
+    url = endpoint
   }
 
-  return [path, { method, body, headers }]
+  return { url, params: { method, body, headers } }
 }
 
 function handleError (response) {
@@ -70,9 +70,9 @@ function handleResult (response) {
 function buildRequest (method) {
   return function request (options, path, body) {
     const endpoint = (options.baseURL || routes.base) + path
-    const [newEndpoint, newOptions] = buildRequestParams(method, endpoint, options, body)
+    const { url, params } = buildRequestParams(method, endpoint, options, body)
 
-    return fetch(newEndpoint, newOptions).then(handleResult)
+    return fetch(url, params).then(handleResult)
   }
 }
 
