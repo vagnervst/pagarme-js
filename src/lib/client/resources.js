@@ -5,5 +5,5 @@ import user from '../user'
 export default {
   transaction,
   search,
-  user
+  user,
 }
