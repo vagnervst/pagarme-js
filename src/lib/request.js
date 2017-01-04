@@ -26,8 +26,16 @@ function buildRequestParams (method, endpoint, options, data) {
   let path
 
   if (equals(method, 'GET') || options.qs) {
-    const query = merge(payload, options.qs || {})
-    body = {}
+    let query
+
+    if (options.qs) {
+      query = merge(payload, options.qs)
+      body = JSON.stringify(payload)
+    } else {
+      query = payload
+      body = JSON.stringify({})
+    }
+
     path = `${endpoint}?${qs.stringify(query)}`
   } else {
     body = JSON.stringify(payload)
