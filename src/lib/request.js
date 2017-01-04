@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import { dissoc, dissocPath, merge } from 'ramda'
+import { equals, merge } from 'ramda'
 import qs from 'querystring'
 import routes from './routes'
 
@@ -18,12 +18,23 @@ function ApiError (response) {
 ApiError.prototype = Object.create(Error.prototype)
 ApiError.prototype.constructor = ApiError
 
-function buildOptions (method, options, data) {
+function buildRequestParams (method, endpoint, options, data) {
   const config = options.body || {}
   const payload = merge(config, data || {})
   const headers = merge(options.headers, jsonHeaders)
-  const body = JSON.stringify(payload)
-  return { method, body, headers }
+  let body
+  let path
+
+  if (equals(method, 'GET') || options.qs) {
+    const query = merge(payload, options.qs || {})
+    body = {}
+    path = `${endpoint}?${qs.stringify(query)}`
+  } else {
+    body = JSON.stringify(payload)
+    path = endpoint
+  }
+
+  return [path, { method, body, headers }]
 }
 
 function handleError (response) {
@@ -50,18 +61,10 @@ function handleResult (response) {
 
 function buildRequest (method) {
   return function request (options, path, body) {
-    let endpoint = (options.baseURL || routes.base) + path
-    let newOptions = buildOptions(method, options, body)
+    const endpoint = (options.baseURL || routes.base) + path
+    const [newEndpoint, newOptions] = buildRequestParams(method, endpoint, options, body)
 
-    if (method === 'GET') {
-      const queryData = JSON.parse(newOptions.body)
-      const queryString = qs.stringify(queryData)
-      endpoint += `?${queryString}`
-      newOptions = dissoc('body', newOptions)
-      newOptions = dissocPath(['headers', 'Content-Type'], newOptions)
-    }
-
-    return fetch(endpoint, newOptions).then(handleResult)
+    return fetch(newEndpoint, newOptions).then(handleResult)
   }
 }
 
