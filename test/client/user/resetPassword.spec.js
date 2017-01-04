@@ -1,9 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
 import pagarme from '../../../dist/pagarme'
-import {
-  invalid
-} from './mocks/resetPassword'
+import { invalid } from './mocks/resetPassword'
 
 describe('client.user.resetPassword', () => {
   let company
@@ -38,10 +36,6 @@ describe('client.user.resetPassword', () => {
 
     it('should have thrown an Error', () => {
       expect(response).toBeInstanceOf(Error)
-    })
-
-    it('aaaaa', () => {
-      expect(response).toBe('a')
     })
 
     it('should have an Array `error` as property', () => {
