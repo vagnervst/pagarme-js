@@ -21,6 +21,6 @@ function connect (authentication) {
     .then(bindOptions)
 }
 
-const exports = merge({ connect }, resources)
+const client = merge({ connect }, resources)
 
-export default exports
+export default client
