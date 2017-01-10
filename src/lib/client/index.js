@@ -21,6 +21,14 @@ function connect (authentication) {
     .then(bindOptions)
 }
 
-const client = merge({ connect }, resources)
+function connectSync (authentication) {
+  const options = merge(authentication, { sync: true })
+  const strategyBuilder = strategies.findSync(options)
+  const strategy = strategyBuilder.execute()
+
+  return bindOptions(strategy)
+}
+
+const client = merge({ connect, connectSync }, resources)
 
 export default client
