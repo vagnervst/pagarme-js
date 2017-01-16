@@ -49,16 +49,7 @@ function buildRequestParams (method, endpoint, options, data) {
   }
 
   const url = `${endpoint}${query ? `?${query}` : ''}`
-
-  /* eslint-disable */
-  // console.log(
-  //   'url:', url,
-  //   '\nheaders:', headers,
-  //   '\payload:', payload,
-  //   '\nbody:', body,
-  // )
-  /* eslint-enable */
-
+  
   return { url, params: { method, body, headers } }
 }
 
