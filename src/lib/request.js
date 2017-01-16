@@ -1,46 +1,63 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import { equals, merge } from 'ramda'
-import qs from 'querystring'
+import {
+  merge,
+  length,
+  keys,
+} from 'ramda'
+import qs from 'qs'
 import routes from './routes'
 
-const jsonHeaders = {
-  Accept: 'application/json',
+const defaultHeaders = {
   'Content-Type': 'application/json',
 }
 
 function ApiError (response) {
   this.response = response
   this.name = 'ApiError'
-  Error.captureStackTrace(this, ApiError)
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, ApiError)
+  }
 }
 
 ApiError.prototype = Object.create(Error.prototype)
 ApiError.prototype.constructor = ApiError
 
 function buildRequestParams (method, endpoint, options, data) {
-  const config = options.body || {}
-  const payload = merge(config, data || {})
-  const headers = merge(options.headers, jsonHeaders)
-  let body
-  let url
+  let query = ''
+  let body = ''
+  let headers = options.headers || {}
 
-  if (equals(method, 'GET') || options.qs) {
-    let query
+  const payload = merge(
+    options.body || {},
+    data || {},
+  )
 
-    if (options.qs) {
-      query = merge(payload, options.qs)
-      body = JSON.stringify(payload)
-    } else {
-      query = payload
-      body = JSON.stringify({})
-    }
+  const queries = options.qs || {}
 
-    url = `${endpoint}?${qs.stringify(query)}`
-  } else {
-    body = JSON.stringify(payload)
-    url = endpoint
+  if (length(keys(queries))) {
+    query = `${qs.stringify(queries)}`
   }
+
+  if (['GET', 'HEAD'].includes(method)) {
+    if (length(keys(payload)) > 0) {
+      query += `${query ? '&' : ''}${qs.stringify(payload, { encode: false })}`
+    }
+  } else if (length(keys(payload)) > 0) {
+    body = JSON.stringify(payload)
+    headers = merge(headers, defaultHeaders)
+  }
+
+  const url = `${endpoint}${query ? `?${query}` : ''}`
+
+  /* eslint-disable */
+  // console.log(
+  //   'url:', url,
+  //   '\nheaders:', headers,
+  //   '\payload:', payload,
+  //   '\nbody:', body,
+  // )
+  /* eslint-enable */
 
   return { url, params: { method, body, headers } }
 }
