@@ -49,7 +49,7 @@ function buildRequestParams (method, endpoint, options, data) {
   }
 
   const url = `${endpoint}${query ? `?${query}` : ''}`
-  
+
   return { url, params: { method, body, headers } }
 }
 
