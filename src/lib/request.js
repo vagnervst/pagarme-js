@@ -1,3 +1,13 @@
+/**
+ * @name Request
+ * @description This module handles the HTTP requests to Pagar.me's API.  '
+ *              It exports GET, PUT, POST, DELETE functions based upon
+ *              the `fetch` module.
+ *
+ * @module request
+ * @private
+ */
+
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
 import {
@@ -23,6 +33,19 @@ function ApiError (response) {
 ApiError.prototype = Object.create(Error.prototype)
 ApiError.prototype.constructor = ApiError
 
+/**
+ * This method builds the final method, body and headers
+ * that will be used in `fetch`.
+ *
+ * @param {String} method
+ * @param {String} endpoint
+ * @param {Object} options
+ * @param {Object} data
+ * @returns {Object} An object containing a URL property
+ *                   and an object in the form of
+ *                   `{ method, body, headers }`
+ * @private
+ */
 function buildRequestParams (method, endpoint, options, data) {
   let query = ''
   let body = ''
@@ -53,6 +76,17 @@ function buildRequestParams (method, endpoint, options, data) {
   return { url, params: { method, body, headers } }
 }
 
+/**
+ * This function handles the request erros,
+ * returning a Promise that will reject to
+ * a custom ApiError with a relevant message.
+ *
+ * @param {Object} response
+ * @returns {Promise} A Promise rejection with a
+ *                    Server Error message or the
+ *                    error response body
+ * @private
+ */
 function handleError (response) {
   if (response.status === 500) {
     return Promise.reject(
@@ -66,7 +100,19 @@ function handleError (response) {
     .then(body => Promise.reject(new ApiError(body)))
 }
 
-
+/**
+ * This simple function handles the result of a
+ * request, returning either a JSON response
+ * or forwarding the error handling to another
+ * function.
+ *
+ * @param {Object} response
+ * @returns {Promise} A promise that will either
+ *                    resolve to the Response JSON
+ *                    conversion or further the chain to
+ *                    [handleError]{@link handleError}
+ * @private
+ */
 function handleResult (response) {
   if (response.ok) {
     return response.json()
@@ -75,6 +121,17 @@ function handleResult (response) {
   return handleError(response)
 }
 
+/**
+ * This function returns a new function,
+ * created from the supplied `method`.
+ * The returned function uses
+ * [buildRequestParams]{@link buildRequestParams}
+ * to define the request's URL, headers and body.
+ *
+ * @param {String} method
+ * @returns {Function} A `request` function that will return a Promise with the server response
+ * @private
+ */
 function buildRequest (method) {
   return function request (options, path, body) {
     const endpoint = (options.baseURL || routes.base) + path
