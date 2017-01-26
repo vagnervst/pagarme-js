@@ -3,7 +3,13 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
 var paths = {
-	script: ['src/head.js', 'bower_components/jsencrypt/bin/jsencrypt.js', 'src/validator.js', 'src/body.js', 'src/tail.js']
+	script: [
+        'src/head.js',
+        'bower_components/jsencrypt/bin/jsencrypt.js',
+        'src/validator.js',
+        'src/body.js',
+        'src/tail.js'
+    ]
 };
 
 gulp.task('pagarme', function() {
