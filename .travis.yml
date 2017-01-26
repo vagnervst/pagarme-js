@@ -1,0 +1,10 @@
+dist: trusty
+
+language: node_js
+
+cache:
+  directories:
+    - node_modules
+    - bower_components
+
+script: "npm test"
