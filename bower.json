@@ -17,6 +17,6 @@
     "tests"
   ],
   "devDependencies": {
-    "jsencrypt": "~2.1.0"
+    "jsencrypt": "2.3.0"
   }
 }
