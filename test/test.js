@@ -24,7 +24,7 @@ describe('PagarMe', function() {
 			});
 
 			it('should return null for null cardNumbers.', function() {
-				(card.brand() === null).should.be.true;
+				(card.brand() === null).should.be.true();
 			});
 
 			it('should identify visa card numbers.', function() {
