@@ -77,6 +77,7 @@ var request = function (params, callback) {
   var baseUrl = 'https://api.pagar.me/1'
 
   params.query = params.query || {}
+  var url
 
   if (ie && ie <= 9) {
     var queryParams = {}
@@ -89,10 +90,10 @@ var request = function (params, callback) {
     queryParams.path = encodeURIComponent(params.path)
     queryParams.encryption_key = params.query.encryption_key
 
-    var url = baseUrl + '/jsonp' + queryString(queryParams)
+    url = baseUrl + '/jsonp' + queryString(queryParams)
     jsonpRequest(url, callback)
   } else {
-    var url = baseUrl + params.path + queryString(params.query)
+    url = baseUrl + params.path + queryString(params.query)
     ajaxRequest(url, callback)
   }
 }
