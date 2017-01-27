@@ -54,7 +54,7 @@ PagarMe.Validator = {
       sum += parseInt(luhnLess.substring(i, i + 1))
     }
 
-    var delta = new Array(0, 1, 2, 3, 4, -4, -3, -2, -1, 0)
+    var delta = [0, 1, 2, 3, 4, -4, -3, -2, -1, 0]
 
     for (i = luhnLess.length - 1; i >= 0; i -= 2) {
       var deltaIndex = parseInt(luhnLess.substring(i, i + 1))

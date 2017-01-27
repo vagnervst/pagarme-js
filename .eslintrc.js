@@ -8,7 +8,6 @@ module.exports = {
         "eqeqeq": "warn",
         "no-useless-escape": "warn",
         "no-undef": "warn",
-        "no-array-constructor": "warn",
         "no-unused-vars ": "warn",
         "brace-style": "warn"
     }
