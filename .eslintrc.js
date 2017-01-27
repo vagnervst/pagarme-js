@@ -7,7 +7,6 @@ module.exports = {
     "rules": {
         "eqeqeq": "warn",
         "no-useless-escape": "warn",
-        "no-undef": "warn",
-        "brace-style": "warn"
+        "no-undef": "warn"
     }
 }
