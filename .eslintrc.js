@@ -6,7 +6,6 @@ module.exports = {
     ],
     "rules": {
         "eqeqeq": "warn",
-        "no-redeclare": "warn",
         "no-useless-escape": "warn",
         "no-undef": "warn",
         "no-array-constructor": "warn",
