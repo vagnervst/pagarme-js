@@ -2,7 +2,7 @@
   "name": "pagarme-js",
   "version": "2.2.1",
   "description": "Pagar.me JavaScript library",
-  "main": "index.js",
+  "main": "dist/pagarme.min.js",
   "directories": {
     "test": "test"
   },
@@ -17,7 +17,6 @@
     "type": "git",
     "url": "git://github.com/pagarme/pagarme-js.git"
   },
-  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pagarme/pagarme-js/issues"
