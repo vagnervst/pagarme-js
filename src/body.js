@@ -119,6 +119,8 @@ var paramsAsString = function (obj) {
   return parametersArray.join('&')
 }
 
+var PagarMe = PagarMe || {}
+
 // Credit card
 
 PagarMe.CreditCard = function PagarMeCreditCard () {

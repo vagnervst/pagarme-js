@@ -6,6 +6,8 @@ var isNumeric = function (n) {
   return !isArray(n) && (n - parseFloat(n) + 1) >= 0
 }
 
+var PagarMe = PagarMe || {}
+
 PagarMe.Validator = {
   getCardBrand: function (cardNumber) {
     if (!cardNumber) {
@@ -49,6 +51,7 @@ PagarMe.Validator = {
     var luhnLess = cardNumber.substring(0, cardNumber.length - 1)
 
     var sum = 0
+    var i
 
     for (i = 0; i < luhnLess.length; i++) {
       sum += parseInt(luhnLess.substring(i, i + 1))

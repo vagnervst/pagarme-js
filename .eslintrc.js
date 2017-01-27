@@ -7,6 +7,12 @@ module.exports = {
     "rules": {
         "eqeqeq": "warn",
         "no-useless-escape": "warn",
-        "no-undef": "warn"
+        "no-undef": "error"
+    },
+    "globals": {
+      "JSEncrypt": true,
+      "XMLHttpRequest": true,
+      "ActiveXObject": true,
+      "alert": true
     }
 }
