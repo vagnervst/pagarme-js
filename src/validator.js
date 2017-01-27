@@ -155,8 +155,9 @@ PagarMe.Validator = {
 
     var sum = 0
     var div
+    var i
 
-    for (var i = 0; i < 9; i++) {
+    for (i = 0; i < 9; i++) {
       sum += parseInt(cpfNumber.charAt(i)) * (10 - i)
     }
 
@@ -168,7 +169,7 @@ PagarMe.Validator = {
 
     sum = 0
 
-    for (var i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
       sum += parseInt(cpfNumber.charAt(i)) * (11 - i)
     }
 
@@ -190,8 +191,9 @@ PagarMe.Validator = {
     var sum = 0
     var div
     var coef = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    var i
 
-    for (var i = 0; i < 12; i++) {
+    for (i = 0; i < 12; i++) {
       sum += parseInt(cnpjNumber.charAt(i)) * coef[i]
     }
 
@@ -204,7 +206,7 @@ PagarMe.Validator = {
     sum = 0
     coef.unshift(6)
 
-    for (var i = 0; i < 13; i++) {
+    for (i = 0; i < 13; i++) {
       sum += parseInt(cnpjNumber.charAt(i)) * coef[i]
     }
 
