@@ -48,8 +48,7 @@ var jsonpRequest = function (url, callback) {
 }
 
 var ajaxRequest = function (url, callback) {
-  var httpRequest,
-    xmlDoc
+  var httpRequest
 
   if (window.XMLHttpRequest) {
     httpRequest = new XMLHttpRequest()
