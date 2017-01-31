@@ -15,7 +15,7 @@ describe('client.company.create', () => {
       expect(response.object).toEqual('company')
     })
 
-    it('should have returned a company object with the same `name` as payload\'s company_name ', () => {
+    it('should have `name` = payload\'s company_name ', () => {
       expect(response.name).toEqual(valid.company_name)
     })
 
@@ -45,11 +45,11 @@ describe('client.company.create', () => {
       expect(response.response.errors.length).toBe(1)
     })
 
-    it('should have a children of `error` with type `invalid_parameter`', () => {
+    it('should have a children of `error` w/ type `invalid_parameter`', () => {
       expect(response.response.errors[0].type).toEqual('invalid_parameter')
     })
 
-    it('should have a children of `error` with `parameter_name` = `name`', () => {
+    it('should have a children of `error` w/ `parameter_name = name`', () => {
       expect(response.response.errors[0].parameter_name).toEqual('name')
     })
   })

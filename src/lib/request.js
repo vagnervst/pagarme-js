@@ -129,7 +129,9 @@ function handleResult (response) {
  * to define the request's URL, headers and body.
  *
  * @param {String} method
- * @returns {Function} A `request` function that will return a Promise with the server response
+ * @returns {Function} A `request` function that
+ *                     will return a Promise with
+ *                     the server response
  * @private
  */
 function buildRequest (method) {
