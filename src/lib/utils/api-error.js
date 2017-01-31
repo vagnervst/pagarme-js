@@ -1,12 +1,9 @@
-function ApiError (response) {
-  this.response = response
-  this.name = 'ApiError'
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(this, ApiError)
+class ApiError extends Error {
+  constructor (response) {
+    super(response)
+    this.name = 'ApiError'
+    this.response = response
   }
 }
-
-ApiError.prototype = Object.create(Error.prototype)
-ApiError.prototype.constructor = ApiError
 
 export default ApiError
