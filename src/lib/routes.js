@@ -24,8 +24,13 @@ const user = {
   reset_password: '/users/reset_password',
 }
 
+const company = {
+  base: '/companies',
+}
+
 export default {
   base,
+  company,
   session,
   transaction,
   search,
