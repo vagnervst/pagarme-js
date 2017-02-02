@@ -10,7 +10,7 @@ import routes from '../routes'
 import request from '../request'
 
 /**
- * `POST /transactions`
+ * `GET /transactions/:id`
  * Creates a transaction from the given payload.
  *
  * @param {Object} opts An options params which
@@ -40,7 +40,23 @@ const get = (opts, id) =>
 const create = (opts, body) =>
   request.post(opts, routes.transaction.base, body)
 
+/**
+ * `POST /transactions/:id/capture`
+ * Captures a transaction from the given id.
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ * @param {Object} id The transaction ID to be captured
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const capture = (opts, id) =>
+  request.post(opts, routes.transaction.capture(id), {})
+
 export default {
   get,
+  capture,
   create,
 }
