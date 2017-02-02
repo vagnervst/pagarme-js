@@ -11,7 +11,7 @@ import request from '../request'
 
 /**
  * `GET /transactions/:id`
- * Creates a transaction from the given payload.
+ * Returns a transaction with the given id.
  *
  * @param {Object} opts An options params which
  *                      is usually already bound
