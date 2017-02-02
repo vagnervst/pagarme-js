@@ -55,8 +55,24 @@ const create = (opts, body) =>
 const capture = (opts, id) =>
   request.post(opts, routes.transaction.capture(id), {})
 
+/**
+ * `POST /transactions/:id/refund`
+ * Captures a transaction from the given id.
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ * @param {Object} id The transaction ID to be refunded
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const refund = (opts, id) =>
+  request.post(opts, routes.transaction.refund(id), {})
+
 export default {
   get,
   capture,
   create,
+  refund,
 }
