@@ -6,15 +6,9 @@ const transaction = {
   base: '/transactions',
   card_hash_key: '/transactions/card_hash_key',
   calculate_installments_amount: '/transactions/calculate_installments_amount',
-  get details () {
-    return id => `/transactions/${id}`
-  },
-  get refund () {
-    return id => `/transactions/${id}/refund`
-  },
-  get capture () {
-    return id => `/transactions/${id}/capture`
-  },
+  details: id => `/transactions/${id}`,
+  refund: id => `/transactions/${id}/refund`,
+  capture: id => `/transactions/${id}/capture`,
 }
 
 const search = '/search'
