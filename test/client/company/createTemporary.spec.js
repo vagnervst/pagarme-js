@@ -32,13 +32,11 @@ describe('client.company.createTemporary', () => {
       const assert = (res) => {
         expect(res).not.toEqual(expect.any(Error))
         // Testing for a subset of the client's object format is enough
-        expect(res).toEqual(expect.objectContaining({
-          transaction: expect.any(Function),
-          search: expect.any(Function),
-        }))
+        expect(res.transaction).not.toBeUndefined()
+        expect(res.search).not.toBeUndefined()
       }
 
-      client
+      return client
         .connect({ email: response.email, password: response.password })
         .then(assert)
         .catch(assert)
