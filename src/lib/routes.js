@@ -1,6 +1,11 @@
 const base = 'https://api.pagar.me:443/1'
 
-const session = '/sessions'
+const session = {
+  base: '/sessions',
+  get destroy () {
+    return id => `/sessions/${id}`
+  },
+}
 
 const transaction = {
   base: '/transactions',

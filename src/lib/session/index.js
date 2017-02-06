@@ -24,9 +24,26 @@ import request from '../request'
  *                    the request or to an error.
  */
 const create = (opts, email, password) =>
-  request.post(opts, routes.session, { email, password })
+  request.post(opts, routes.session.base, { email, password })
+
+/**
+ * `DELETE /sessions/:id`
+ *
+ * Deletes the session with the given ID
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ * @param {String} id The session's id
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const destroy = (opts, id) =>
+  request.delete(opts, routes.session.destroy(id), {})
 
 export default {
   create,
+  destroy,
 }
 
