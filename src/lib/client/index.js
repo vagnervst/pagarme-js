@@ -7,7 +7,7 @@
  * @module client
  */
 
-import { merge, mapObjIndexed } from 'ramda'
+import { merge, map } from 'ramda'
 import strategies from './strategies'
 import resources from './resources'
 
@@ -22,13 +22,13 @@ import resources from './resources'
 function bindOptions (options) {
   const mapper = (val) => {
     if (typeof val === 'object') {
-      return mapObjIndexed(mapper, val)
+      return map(mapper, val)
     }
 
     return val.bind(null, options)
   }
 
-  return mapObjIndexed(mapper, resources)
+  return map(mapper, resources)
 }
 
 /**
