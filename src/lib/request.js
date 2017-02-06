@@ -125,7 +125,7 @@ function handleResult (response) {
  * @private
  */
 function buildRequest (method) {
-  return function request (options, path, body) {
+  return function request (options = {}, path, body = {}) {
     const endpoint = (options.baseURL || routes.base) + path
     const { url, params } = buildRequestParams(method, endpoint, options, body)
 

@@ -26,6 +26,7 @@ const user = {
 
 const company = {
   base: '/companies',
+  temporary: '/companies/temporary',
 }
 
 export default {

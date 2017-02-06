@@ -18,7 +18,7 @@ import request from '../request'
  *                      is usually already bound
  *                      by `connect` functions.
  *
- * @param {Object} id The payload for the request
+ * @param {Object} payload The payload for the request
  * @returns {Promise} A promise that resolves to
  *                    the newly created company's
  *                    data or to an error.
@@ -26,6 +26,22 @@ import request from '../request'
 const create = (opts, payload) =>
   request.post(opts, routes.company.base, payload)
 
+ /**
+ * `POST /companies/temporary`
+ * Creates a test-only temporary company.
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @returns {Promise} A promise that resolves to
+ *                    the newly created company's
+ *                    data or to an error.
+ **/
+const createTemporary = opts =>
+  request.post(opts, routes.company.temporary, {})
+
 export default {
   create,
+  createTemporary,
 }
