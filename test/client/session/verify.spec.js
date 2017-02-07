@@ -30,17 +30,20 @@ describe('client.session.destroy', () => {
 
   describe('with an invalid password', () => {
     beforeAll(Promise.coroutine(function* verifySession () {
-      response =
+      try {
         yield client
           .session
           .verify({ session_id: session.session_id }, {
             id: session.session_id,
-            password: '123',
+            password: '123123',
           })
+      } catch (err) {
+        response = err
+      }
     }))
 
     it('should return valid = false', () => {
-      expect(response.valid).toEqual(false)
+      expect(response.response.valid).toEqual(false)
     })
   })
 
@@ -50,7 +53,7 @@ describe('client.session.destroy', () => {
         yield client
           .session
           .verify({ session_id: session.session_id }, {
-            id: session.session_id,
+            id: '123',
             password: auth.password,
           })
       } catch (err) {
