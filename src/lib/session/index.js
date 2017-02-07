@@ -42,8 +42,28 @@ const create = (opts, email, password) =>
 const destroy = (opts, id) =>
   request.delete(opts, routes.session.destroy(id), {})
 
+/**
+ * `POST /sessions/:id/verify`
+ * Verifies a session's password' from the given
+ * session_id and possible password.
+ *
+ * @example
+ * client.session.verify({ id: sessionId, password: pwd})
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ * @param {String} payload The payload to be sent
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const verify = (opts, payload) =>
+  request.post(opts, routes.session.verify(payload.id), payload)
+
 export default {
   create,
   destroy,
+  verify,
 }
 
