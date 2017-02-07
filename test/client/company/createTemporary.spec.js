@@ -11,7 +11,6 @@ describe('client.company.createTemporary', () => {
     }))
 
     it('response should be according a defined format', () => {
-      console.log(JSON.stringify(response))
       expect(response).toEqual(expect.objectContaining({
         company_id: expect.any(String),
         user_id: expect.any(String),
