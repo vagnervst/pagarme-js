@@ -3,7 +3,7 @@ import pagarme from '../../../dist/pagarme'
 import { auth } from './mocks/destroy'
 
 
-describe('client.session.destroy', () => {
+describe('client.session.verify', () => {
   const client = pagarme.client
   let session
   let response
@@ -17,7 +17,7 @@ describe('client.session.destroy', () => {
       response =
         yield client
           .session
-          .verify({ session_id: session.session_id }, {
+          .verify({ body: { session_id: session.session_id } }, {
             id: session.session_id,
             password: auth.password,
           })
@@ -29,21 +29,17 @@ describe('client.session.destroy', () => {
   })
 
   describe('with an invalid password', () => {
-    beforeAll(Promise.coroutine(function* verifySession () {
-      try {
-        yield client
+    beforeAll(Promise.coroutine(function* verifySession () {  
+      response = yield client
           .session
-          .verify({ session_id: session.session_id }, {
+          .verify({ body: { session_id: session.session_id } }, {
             id: session.session_id,
             password: '123123',
           })
-      } catch (err) {
-        response = err
-      }
     }))
 
     it('should return valid = false', () => {
-      expect(response.response.valid).toEqual(false)
+      expect(response.valid).toEqual(false)
     })
   })
 
@@ -52,7 +48,7 @@ describe('client.session.destroy', () => {
       try {
         yield client
           .session
-          .verify({ session_id: session.session_id }, {
+          .verify({ body: { session_id: session.session_id } }, {
             id: '123',
             password: auth.password,
           })
