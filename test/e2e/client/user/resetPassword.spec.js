@@ -1,7 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import pagarme from '../../../dist/pagarme'
-import { invalid } from './mocks/resetPassword'
+import pagarme from '../../../../dist/pagarme'
+import { invalid } from '../../../shared/mocks/user/resetPassword'
 
 describe('client.user.resetPassword', () => {
   let company

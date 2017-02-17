@@ -3,7 +3,7 @@
  * @memberof strategies
  * @private
  */
-import { merge, pick, objOf } from 'ramda'
+import { merge } from 'ramda'
 
 /**
  * Creates an object with
@@ -16,10 +16,14 @@ import { merge, pick, objOf } from 'ramda'
  *                   the desired `api_key
  * @private
  */
-function execute (options) {
-  return Promise.resolve(options)
-    .then(pick(['api_key']))
-    .then(objOf('body'))
+function execute (opts) {
+  const { api_key } = opts
+  const body = {
+    body: {
+      api_key,
+    },
+  }
+  return merge(body, opts.options)
 }
 
 /**

@@ -1,5 +1,5 @@
 import Promise from 'bluebird'
-import pagarme from '../../../dist/pagarme'
+import pagarme from '../../../../dist/pagarme'
 
 describe('client.company.createTemporary', () => {
   const client = pagarme.client

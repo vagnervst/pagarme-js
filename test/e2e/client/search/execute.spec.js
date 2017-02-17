@@ -1,7 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import pagarme from '../../../dist/pagarme'
-import mock from './mocks'
+import pagarme from '../../../../dist/pagarme'
+import mock from '../../../shared/mocks/search/'
 
 describe('client.search', () => {
   let company

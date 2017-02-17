@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
-import pagarme from '../../../dist/pagarme'
-import { valid, invalid } from './mocks/create'
+import pagarme from '../../../../dist/pagarme'
+import { valid, invalid } from '../../../shared/mocks/company/create'
 
 describe('client.company.create', () => {
   const client = pagarme.client
