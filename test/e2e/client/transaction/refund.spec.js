@@ -1,7 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import pagarme from '../../../dist/pagarme'
-import { valid } from './mocks/create'
+import pagarme from '../../../../dist/pagarme'
+import { valid } from '../../../shared/mocks/transaction/create'
 
 describe('client.transaction.refund', () => {
   let company

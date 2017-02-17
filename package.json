@@ -6,7 +6,11 @@
   "scripts": {
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
     "pretest": "yarn start",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "pretest-e2e": "yarn start",
+    "test-e2e": "jest ./e2e --verbose",
+    "pretest-unit": "yarn start",
+    "test-unit": "jest ./unit --verbose"
   },
   "keywords": [],
   "author": "Pagar.me Pagamentos S/A",
@@ -25,12 +29,15 @@
     "jest": "18.0.0",
     "json-loader": "0.5.4",
     "node-fetch": "1.6.3",
+    "openport": "^0.0.4",
     "qs": "6.3.0",
     "ramda": "0.22.1",
     "webpack": "1.13.2"
   },
   "jest": {
-    "testPathDirs": ["test"],
+    "testPathDirs": [
+      "test"
+    ],
     "testRegex": ".spec.js$"
   }
 }

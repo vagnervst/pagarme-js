@@ -1,7 +1,7 @@
 import Promise from 'bluebird'
 import fetch from 'node-fetch'
-import { valid } from '../transaction/mocks/create.js'
-import pagarme from '../../../dist/pagarme'
+import { valid } from '../../../shared/mocks/transaction/create'
+import pagarme from '../../../../dist/pagarme'
 
 describe('client', () => {
   let company
@@ -16,7 +16,7 @@ describe('client', () => {
 
     beforeAll(function createClient () {
       syncClient = pagarme.client.connectSync({
-        api_key: company.api_key.test
+        api_key: company.api_key.test,
       })
     })
 
