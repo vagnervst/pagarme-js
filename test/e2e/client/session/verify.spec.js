@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
-import pagarme from '../../../dist/pagarme'
-import { auth } from './mocks/destroy'
+import pagarme from '../../../../dist/pagarme'
+import { auth } from '../../../shared/mocks/session/destroy'
 
 
 describe('client.session.verify', () => {
@@ -29,7 +29,7 @@ describe('client.session.verify', () => {
   })
 
   describe('with an invalid password', () => {
-    beforeAll(Promise.coroutine(function* verifySession () {  
+    beforeAll(Promise.coroutine(function* verifySession () {
       response = yield client
           .session
           .verify({ body: { session_id: session.session_id } }, {
