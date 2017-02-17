@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
-import pagarme from '../../../dist/pagarme'
-import { auth, postDeletePayload } from './mocks/destroy'
+import pagarme from '../../../../dist/pagarme'
+import { auth, postDeletePayload } from '../../../shared/mocks/session/destroy'
 
 
 describe('client.session.destroy', () => {
