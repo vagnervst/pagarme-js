@@ -26,6 +26,26 @@ const get = (opts, id) =>
   request.get(opts, routes.transaction.details(id), {})
 
 /**
+ * `GET /transactions`
+ * Returns a company's' list of transactions.
+ *
+ * @example
+ * client.transaction.findAll({ count: 100, page: 2 })
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {Object} pagination An object that overrides
+ *                            the pagination's defaults
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const findAll = (opts, pagination) =>
+  request.get(opts, routes.transaction.base, pagination || {})
+
+/**
  * `POST /transactions`
  * Creates a transaction from the given payload.
  *
@@ -74,5 +94,6 @@ export default {
   get,
   capture,
   create,
+  findAll,
   refund,
 }
