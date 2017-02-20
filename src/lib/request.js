@@ -43,7 +43,7 @@ function buildRequestParams (method, endpoint, options, data) {
 
   const payload = merge(
     options.body || {},
-    data || {},
+    data || {}
   )
 
   const queries = options.qs || {}

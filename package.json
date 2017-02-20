@@ -7,6 +7,7 @@
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
     "pretest": "yarn start",
     "test": "jest --verbose",
+    "docs": "jsdoc src -r --verbose --debug -d docs",
     "pretest-e2e": "yarn start",
     "test-e2e": "jest ./e2e --verbose",
     "pretest-unit": "yarn start",
