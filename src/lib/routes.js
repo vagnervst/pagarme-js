@@ -24,6 +24,11 @@ const transaction = {
   collectPayment: id => `/transactions/${id}/collect_payment`,
 }
 
+const invite = {
+  base: '/invites',
+  details: id => `/invites/${id}`,
+}
+
 const search = '/search'
 
 const user = {
@@ -43,4 +48,5 @@ export default {
   transaction,
   search,
   user,
+  invite,
 }
