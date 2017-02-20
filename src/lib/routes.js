@@ -13,6 +13,10 @@ const transaction = {
   details: id => `/transactions/${id}`,
   refund: id => `/transactions/${id}/refund`,
   capture: id => `/transactions/${id}/capture`,
+  payables: {
+    findAll: id => `/transactions/${id}/payables`,
+    find: (id, payableId) => `/transactions/${id}/payables/${payableId}`,
+  },
   splitRules: {
     findAll: id => `/transactions/${id}/split_rules`,
     find: (id, splitId) => `/transactions/${id}/split_rules/${splitId}`,

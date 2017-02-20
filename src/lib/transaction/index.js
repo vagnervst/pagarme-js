@@ -125,6 +125,44 @@ const splitRules = {
     request.get(opts, routes.transaction.splitRules.find(id, splitId), {}),
 }
 
+const payables = {
+/**
+ * `GET /transactions/:id/payables`
+ * Returns all payables for a transaction
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ *
+ * @params {Number} id - The transaction ID to get the
+ *                       payables from.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+  findAll: (opts, id) =>
+    request.get(opts, routes.transaction.payables.findAll(id), {}),
+
+/**
+ * `GET /transactions/:id/payables`
+ * Returns all payables for a transaction
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ *
+ * @params {Number} id - The transaction ID to get the
+ *                       payables from.
+ *
+ * @params {Number} payableId - A specific payable ID.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+  find: (opts, id, payableId) =>
+    request.get(opts, routes.transaction.payables.find(id, payableId), {}),
+}
+
 export default {
   get,
   capture,
@@ -132,4 +170,5 @@ export default {
   findAll,
   refund,
   splitRules,
+  payables,
 }
