@@ -48,7 +48,7 @@ describe('client.transaction.splitRules', () => {
     it('should have an api_key', () => {
       expect(response.find.body.api_key).toBeTruthy()
     })
-    it('should use /transactions/:id/capture', () => {
+    it('should use /transactions/:id/split_rules/:id', () => {
       expect(response.find.url).toBe('/transactions/1234/split_rules/5432')
     })
   })
