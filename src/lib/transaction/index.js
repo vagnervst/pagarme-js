@@ -90,10 +90,46 @@ const capture = (opts, id) =>
 const refund = (opts, id) =>
   request.post(opts, routes.transaction.refund(id), {})
 
+const splitRules = {
+/**
+ * `GET /transactions/:id/split_rules/`
+ * Returns all split rules for a transaction
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ *
+ * @param {Number} id - The transaction ID to get the
+ *                      split rules from.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+  findAll: (opts, id) =>
+    request.get(opts, routes.transaction.splitRules.findAll(id), {}),
+/**
+ * `GET /transactions/:id/split_rules/:id`
+ * Returns a specific split rule.
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ * @param {Number} id - The transaction ID to get the
+ *                      split rules from.
+ * @param {Number} splitId - A specific split rule ID.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+  find: (opts, id, splitId) =>
+    request.get(opts, routes.transaction.splitRules.find(id, splitId), {}),
+}
+
 export default {
   get,
   capture,
   create,
   findAll,
   refund,
+  splitRules,
 }
