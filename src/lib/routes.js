@@ -21,6 +21,7 @@ const transaction = {
     findAll: id => `/transactions/${id}/split_rules`,
     find: (id, splitId) => `/transactions/${id}/split_rules/${splitId}`,
   },
+  collectPayment: id => `/transactions/${id}/collect_payment`,
 }
 
 const search = '/search'
