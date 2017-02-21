@@ -163,6 +163,25 @@ const payables = {
     request.get(opts, routes.transaction.payables.find(id, payableId), {}),
 }
 
+/**
+ * `POST /transactions/:id/collect_payment`
+ * Sends a payment link to a customer
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {Number} id - The transaction ID to collect
+ *                      payment
+ *
+ * @param {Object} body - The payload for the request
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const collectPayment = (opts, id, body) =>
+  request.post(opts, routes.transaction.collectPayment(id), body)
+
 export default {
   get,
   capture,
@@ -171,4 +190,5 @@ export default {
   refund,
   splitRules,
   payables,
+  collectPayment,
 }
