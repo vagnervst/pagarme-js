@@ -24,7 +24,7 @@ import request from '../request'
  */
 const resetPassword = (opts, email) => {
   const newOpts = merge(opts, { qs: { email } })
-  return request.put(newOpts, routes.user.reset_password, {})
+  return request.put(newOpts, routes.user.resetPassword, {})
 }
 
 export default {
