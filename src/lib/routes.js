@@ -8,8 +8,8 @@ const session = {
 
 const transaction = {
   base: '/transactions',
-  card_hash_key: '/transactions/card_hash_key',
-  calculate_installments_amount: '/transactions/calculate_installments_amount',
+  cardHashKey: '/transactions/card_hash_key',
+  calculateInstallmentsAmount: '/transactions/calculate_installments_amount',
   details: id => `/transactions/${id}`,
   refund: id => `/transactions/${id}/refund`,
   capture: id => `/transactions/${id}/capture`,
@@ -28,7 +28,7 @@ const search = '/search'
 
 const user = {
   base: '/users',
-  reset_password: '/users/reset_password',
+  resetPassword: '/users/reset_password',
 }
 
 const company = {
