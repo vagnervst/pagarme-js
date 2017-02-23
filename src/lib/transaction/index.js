@@ -182,6 +182,20 @@ const payables = {
 const collectPayment = (opts, id, body) =>
   request.post(opts, routes.transaction.collectPayment(id), body)
 
+/**
+ * `GET /transactions/card_hash_key`
+ * Create a card hash key
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+const cardHashKey = opts =>
+  request.get(opts, routes.transaction.cardHashKey, {})
+
 export default {
   get,
   capture,
@@ -191,4 +205,5 @@ export default {
   splitRules,
   payables,
   collectPayment,
+  cardHashKey,
 }
