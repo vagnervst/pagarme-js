@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
     "docs": "jsdoc src -r --verbose --debug -d docs",
-    "test": "run-s test:unit test:e2e",
+    "test": "run-s test:unit",
     "pretest": "npm start",
     "test:e2e": "jest ./e2e --verbose",
     "test:unit": "run-p test:unit:server test:unit:tests",
