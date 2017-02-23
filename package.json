@@ -5,13 +5,14 @@
   "main": "dist/pagarme.js",
   "scripts": {
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
-    "pretest": "yarn start",
-    "test": "jest --verbose",
     "docs": "jsdoc src -r --verbose --debug -d docs",
-    "pretest-e2e": "yarn start",
-    "test-e2e": "jest ./e2e --verbose",
-    "pretest-unit": "yarn start",
-    "test-unit": "jest ./unit --verbose"
+    "test": "run-s test:unit test:e2e",
+    "pretest": "npm start",
+    "test:e2e": "jest ./e2e --verbose",
+    "test:unit": "run-p test:unit:server test:unit:tests",
+    "test:unit:server": "env PORT=8080 babel-node ./test/unit/echoServer",
+    "test:unit:tests": "wait-on tcp:127.0.01:8080 && jest ./unit --verbose",
+    "posttest:unit:tests": "killall -INT echoServer"
   },
   "keywords": [],
   "author": "Pagar.me Pagamentos S/A",
@@ -30,9 +31,11 @@
     "jest": "18.0.0",
     "json-loader": "0.5.4",
     "node-fetch": "1.6.3",
+    "npm-run-all": "4.0.2",
     "openport": "^0.0.4",
     "qs": "6.3.0",
     "ramda": "0.22.1",
+    "wait-on": "2.0.2",
     "webpack": "1.13.2"
   },
   "jest": {

@@ -1,4 +1,4 @@
-import connect from '../../../shared/unitTestEnv'
+import pagarme from '../../../../dist/pagarme'
 
 
 function captureTransaction (client) {
@@ -7,23 +7,14 @@ function captureTransaction (client) {
 
 describe('client.transaction.capture', () => {
   let response
-  let server
 
-  beforeAll(() => {
-    return connect()
-      .then(({ client, server: srv }) => {
-        server = srv
-        return client
-      })
-      .then(captureTransaction)
-      .then((res) => {
-        response = res
-      })
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    api_key: 'xxx',
   })
-
-  afterAll(() => {
-    server.close()
-  })
+    .then(captureTransaction)
+    .then((res) => { response = res })
+  )
 
   it('should be a POST request', () => {
     expect(response.method).toBe('POST')

@@ -1,5 +1,6 @@
-import connect from '../../../shared/unitTestEnv'
 import { valid } from '../../../shared/mocks/company/create'
+
+import pagarme from '../../../../dist/pagarme'
 
 
 function createValidSession (client) {
@@ -8,23 +9,14 @@ function createValidSession (client) {
 
 describe('client.company.create', () => {
   let response
-  let server
 
-  beforeAll(() => {
-    return connect()
-      .then(({ client, server: srv }) => {
-        server = srv
-        return client
-      })
-      .then(createValidSession)
-      .then((res) => {
-        response = res
-      })
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    api_key: 'xxx',
   })
-
-  afterAll(() => {
-    server.close()
-  })
+    .then(createValidSession)
+    .then((res) => { response = res })
+  )
 
   it('should be a POST request', () => {
     expect(response.method).toBe('POST')
@@ -50,3 +42,4 @@ describe('client.company.create', () => {
     expect(response.url).toBe('/companies')
   })
 })
+

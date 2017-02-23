@@ -1,4 +1,5 @@
-import connect from '../../../shared/unitTestEnv'
+import pagarme from '../../../../dist/pagarme'
+
 
 function createCardHashKey (client) {
   return client.transaction.cardHashKey()
@@ -6,23 +7,14 @@ function createCardHashKey (client) {
 
 describe('client.transaction.cardHashKey', () => {
   let response
-  let server
 
-  beforeAll(() => {
-    return connect({ strategy: 'encryption' })
-      .then(({ client, server: srv }) => {
-        server = srv
-        return client
-      })
-      .then(createCardHashKey)
-      .then((res) => {
-        response = res
-      })
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    encryption_key: 'xxx',
   })
-
-  afterAll(() => {
-    server.close()
-  })
+    .then(createCardHashKey)
+    .then((res) => { response = res })
+  )
 
   it('should be a GET request', () => {
     expect(response.method).toBe('GET')

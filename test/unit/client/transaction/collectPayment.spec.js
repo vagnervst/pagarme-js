@@ -1,5 +1,6 @@
 import { valid } from '../../../shared/mocks/transaction/collect-payment'
-import connect from '../../../shared/unitTestEnv'
+
+import pagarme from '../../../../dist/pagarme'
 
 function collectPayment (client) {
   return client.transaction.collectPayment(1234, valid)
@@ -7,27 +8,14 @@ function collectPayment (client) {
 
 describe('client.transaction.collectPayment', () => {
   let response
-  let server
 
-  beforeAll(() => {
-    return connect()
-      .then(({ client, server: srv }) => {
-        server = srv
-        return client
-      })
-      .then(collectPayment)
-      .then((res) => {
-        response = res
-      })
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    api_key: 'xxx',
   })
-
-  afterAll(() => {
-    server.close()
-  })
-
-  it('should be a POST request', () => {
-    expect(response.method).toBe('POST')
-  })
+    .then(collectPayment)
+    .then((res) => { response = res })
+  )
 
   it('should have an api_key', () => {
     expect(response.body.api_key).toBeTruthy()
@@ -38,6 +26,6 @@ describe('client.transaction.collectPayment', () => {
   })
 
   it('should use /transactions/:id/collect_payment', () => {
-    expect(response.url).toBe('/transactions/1234/collect_payment') 
+    expect(response.url).toBe('/transactions/1234/collect_payment')
   })
 })
