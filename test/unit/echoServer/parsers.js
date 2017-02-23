@@ -13,27 +13,27 @@ const parsers = {
   get: {
     url: pipe(
       split('?'),
-      head,
+      head
     ),
     body: pipe(
       split('?'),
       tail,
       concat(''),
-      qs.parse,
+      qs.parse
     ),
   },
   post: {
     body: pipe(
       Buffer.concat.bind(Buffer),
       chunks => chunks.toString('utf8'),
-      JSON.parse,
+      JSON.parse
     ),
   },
 }
 
 const isGetRequest = propEq('method', 'GET')
 
-export default curry((chunks, req) => {
+const parse = curry((chunks, req) => {
   if (isGetRequest(req)) {
     return {
       url: parsers.get.url(req.url),
@@ -45,3 +45,5 @@ export default curry((chunks, req) => {
     body: parsers.post.body(chunks),
   }
 })
+
+module.exports = parse

@@ -1,18 +1,18 @@
 import Promise from 'bluebird'
-import connect from '../../../shared/unitTestEnv'
+
+import pagarme from '../../../../dist/pagarme'
+
 
 describe('client.transaction.findAll', () => {
   let response
-  let server
   let client
 
-  beforeAll(Promise.coroutine(function* createEchoServer () {
-    ({ client, server } = yield connect())
-  }))
-
-  afterAll(() => {
-    server.close()
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    api_key: 'xxx',
   })
+    .then((cli) => { client = cli })
+  )
 
   describe('when called without parameters', () => {
     beforeAll(Promise.coroutine(function* getTransaction () {

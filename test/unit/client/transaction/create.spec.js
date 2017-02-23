@@ -1,29 +1,20 @@
 import { valid } from '../../../shared/mocks/transaction/create'
-import connect from '../../../shared/unitTestEnv'
-
+import pagarme from '../../../../dist/pagarme'
 
 function createValidTransaction (client) {
   return client.transaction.create(valid)
 }
+
 describe('client.transaction.create', () => {
   let response
-  let server
 
-  beforeAll(() => {
-    return connect()
-      .then(({ client, server: srv }) => {
-        server = srv
-        return client
-      })
-      .then(createValidTransaction)
-      .then((res) => {
-        response = res
-      })
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    api_key: 'xxx',
   })
-
-  afterAll(() => {
-    server.close()
-  })
+    .then(createValidTransaction)
+    .then((res) => { response = res })
+  )
 
   it('should be a POST request', () => {
     expect(response.method).toBe('POST')

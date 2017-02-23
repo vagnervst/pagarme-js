@@ -1,5 +1,6 @@
 import Promise from 'bluebird'
-import connect from '../../../shared/unitTestEnv'
+
+import pagarme from '../../../../dist/pagarme'
 
 
 function splitRules (client) {
@@ -11,23 +12,14 @@ function splitRules (client) {
 
 describe('client.transaction.splitRules', () => {
   let response
-  let server
 
-  beforeAll(() => {
-    return connect()
-      .then(({ client, server: srv }) => {
-        server = srv
-        return client
-      })
-      .then(splitRules)
-      .then((res) => {
-        response = res
-      })
+  beforeAll(() => pagarme.client.connect({
+    options: { baseURL: 'http://127.0.0.1:8080' },
+    api_key: 'xxx',
   })
-
-  afterAll(() => {
-    server.close()
-  })
+    .then(splitRules)
+    .then((res) => { response = res })
+  )
 
   describe('findAll', () => {
     it('should be a GET request', () => {
