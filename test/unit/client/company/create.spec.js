@@ -1,6 +1,5 @@
-import { valid } from '../../../shared/mocks/company/create'
-
 import pagarme from '../../../../dist/pagarme'
+import { valid } from '../../../shared/mocks/company/create'
 
 
 function createValidSession (client) {
@@ -36,6 +35,10 @@ describe('client.company.create', () => {
 
   it('should have an password', () => {
     expect(response.body.password).toBeTruthy()
+  })
+
+  it('should have an api_key', () => {
+    expect(response.body.api_key).toBeTruthy()
   })
 
   it('should use /companies route', () => {

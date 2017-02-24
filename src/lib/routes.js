@@ -41,8 +41,14 @@ const user = {
 }
 
 const company = {
-  base: '/companies',
+  basePlural: '/companies',
+  base: '/company',
   temporary: '/companies/temporary',
+  activate: '/companies/activate',
+  resetKeys: '/company/reset_keys',
+  affiliationProgress: '/company/affiliation_progress',
+  branding: id => `/company/branding/${id}`,
+  emailTemplates: id => `/company/email_templates/${id}`,
 }
 
 export default {
