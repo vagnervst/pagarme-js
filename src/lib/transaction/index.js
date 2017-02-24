@@ -196,6 +196,43 @@ const collectPayment = (opts, id, body) =>
 const cardHashKey = opts =>
   request.get(opts, routes.transaction.cardHashKey, {})
 
+const antifraudAnalyses = {
+/**
+ * `GET /transactions/:id/antifraud_analyses`
+ * Returns all antifraud analyses for a transaction
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ *
+ * @params {Number} id - The transaction ID to get the
+ *                       antifraud analyses from.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+  findAll: (opts, id) =>
+    request.get(opts, routes.transaction.antifraudAnalyses.findAll(id), {}),
+/**
+ * `GET /transactions/:id/antifraud_analyses/:antifraudId`
+ * Returns a specific antifraud analysis for a transaction
+ *
+ * @param {Object} opts - An options params which
+ *                        is usually already bound
+ *                        by `connect` functions.
+ *
+ * @params {Number} id - The transaction ID to get the
+ *                       antifraud analyses from.
+ *
+ * @params {Number} antifraudId - A specific antifraud analysis ID.
+ *
+ * @returns {Promise} - Resolves to the result of
+ *                      the request or to an error.
+ */
+  find: (opts, id, antifraudId) =>
+    request.get(opts, routes.transaction.antifraudAnalyses.find(id, antifraudId), {}),
+}
+
 export default {
   get,
   capture,
@@ -206,4 +243,5 @@ export default {
   payables,
   collectPayment,
   cardHashKey,
+  antifraudAnalyses,
 }

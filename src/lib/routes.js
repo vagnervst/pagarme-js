@@ -22,6 +22,10 @@ const transaction = {
     find: (id, splitId) => `/transactions/${id}/split_rules/${splitId}`,
   },
   collectPayment: id => `/transactions/${id}/collect_payment`,
+  antifraudAnalyses: {
+    findAll: id => `/transactions/${id}/antifraud_analyses`,
+    find: (id, antifraudId) => `/transactions/${id}/antifraud_analyses/${antifraudId}`,
+  },
 }
 
 const invite = {
