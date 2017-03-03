@@ -6,21 +6,13 @@ const session = {
   verify: id => `/sessions/${id}/verify`,
 }
 
-const transaction = {
+const transactions = {
   base: '/transactions',
   cardHashKey: '/transactions/card_hash_key',
   calculateInstallmentsAmount: '/transactions/calculate_installments_amount',
   details: id => `/transactions/${id}`,
   refund: id => `/transactions/${id}/refund`,
   capture: id => `/transactions/${id}/capture`,
-  payables: {
-    findAll: id => `/transactions/${id}/payables`,
-    find: (id, payableId) => `/transactions/${id}/payables/${payableId}`,
-  },
-  splitRules: {
-    findAll: id => `/transactions/${id}/split_rules`,
-    find: (id, splitId) => `/transactions/${id}/split_rules/${splitId}`,
-  },
   collectPayment: id => `/transactions/${id}/collect_payment`,
   antifraudAnalyses: {
     findAll: id => `/transactions/${id}/antifraud_analyses`,
@@ -28,7 +20,13 @@ const transaction = {
   },
 }
 
-const invite = {
+const payables = {
+  base: '/payables',
+  transaction: transactionId => `/transactions/${transactionId}/payables`,
+  find: id => `/payables/${id}`,
+}
+
+const invites = {
   base: '/invites',
   details: id => `/invites/${id}`,
 }
@@ -51,12 +49,25 @@ const company = {
   emailTemplates: id => `/company/email_templates/${id}`,
 }
 
+const splitRules = {
+  findAll: transactionId => `/transactions/${transactionId}/split_rules`,
+  find: (transactionId, splitId) => `/transactions/${transactionId}/split_rules/${splitId}`,
+}
+
+const antifraudAnalyses = {
+  findAll: transactionId => `/transactions/${transactionId}/antifraud_analyses`,
+  find: (transactionId, antifraudId) => `/transactions/${transactionId}/antifraud_analyses/${antifraudId}`,
+}
+
 export default {
   base,
   company,
   session,
-  transaction,
+  transactions,
   search,
   user,
-  invite,
+  invites,
+  splitRules,
+  antifraudAnalyses,
+  payables,
 }

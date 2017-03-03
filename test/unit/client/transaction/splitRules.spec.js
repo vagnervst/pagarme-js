@@ -1,16 +1,15 @@
 import Promise from 'bluebird'
-
 import pagarme from '../../../../dist/pagarme'
 
 
 function splitRules (client) {
   return Promise.props({
-    findAll: client.transaction.splitRules.findAll(1234),
-    find: client.transaction.splitRules.find(1234, 5432),
+    findAll: client.splitRules.find({ transactionId: 1234 }),
+    find: client.splitRules.find({ transactionId: 1234, id: 5432 }),
   })
 }
 
-describe('client.transaction.splitRules', () => {
+describe('client.splitRules', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({

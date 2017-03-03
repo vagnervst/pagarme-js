@@ -5,12 +5,13 @@ import pagarme from '../../../../dist/pagarme'
 
 function payables (client) {
   return Promise.props({
-    findAll: client.transaction.payables.findAll(1234),
-    find: client.transaction.payables.find(1234, 5432),
+    findAll: client.payables.find({}),
+    findTransaction: client.payables.find({ transactionId: 1234 }),
+    findOne: client.payables.find({ id: 5432 }),
   })
 }
 
-describe('client.transaction.payables', () => {
+describe('client.payables', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({
@@ -21,6 +22,30 @@ describe('client.transaction.payables', () => {
     .then((res) => { response = res })
   )
 
+  describe('findTransaction', () => {
+    it('should be a GET request', () => {
+      expect(response.findTransaction.method).toBe('GET')
+    })
+    it('should have an api_key', () => {
+      expect(response.findTransaction.body.api_key).toBeTruthy()
+    })
+    it('should use /transactions/:id/payables', () => {
+      expect(response.findTransaction.url).toBe('/transactions/1234/payables')
+    })
+  })
+
+  describe('findOne', () => {
+    it('should be a GET request', () => {
+      expect(response.findOne.method).toBe('GET')
+    })
+    it('should have an api_key', () => {
+      expect(response.findOne.body.api_key).toBeTruthy()
+    })
+    it('should use /payables/:id', () => {
+      expect(response.findOne.url).toBe('/payables/5432')
+    })
+  })
+
   describe('findAll', () => {
     it('should be a GET request', () => {
       expect(response.findAll.method).toBe('GET')
@@ -28,20 +53,8 @@ describe('client.transaction.payables', () => {
     it('should have an api_key', () => {
       expect(response.findAll.body.api_key).toBeTruthy()
     })
-    it('should use /transactions/:id/payables', () => {
-      expect(response.findAll.url).toBe('/transactions/1234/payables')
-    })
-  })
-
-  describe('find', () => {
-    it('should be a GET request', () => {
-      expect(response.find.method).toBe('GET')
-    })
-    it('should have an api_key', () => {
-      expect(response.find.body.api_key).toBeTruthy()
-    })
-    it('should use /transactions/:id/payables/:payableId', () => {
-      expect(response.find.url).toBe('/transactions/1234/payables/5432')
+    it('should use /payables/:id', () => {
+      expect(response.findAll.url).toBe('/payables')
     })
   })
 })

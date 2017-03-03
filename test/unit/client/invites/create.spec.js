@@ -1,13 +1,13 @@
 import pagarme from '../../../../dist/pagarme'
 
 function createInvite (client) {
-  return client.invite.create({
+  return client.invites.create({
     email: 'abc@d.com',
     permission: 'admin',
   })
 }
 
-describe('client.invite.create', () => {
+describe('client.invites.create', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({

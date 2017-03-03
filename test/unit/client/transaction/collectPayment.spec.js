@@ -3,10 +3,10 @@ import { valid } from '../../../shared/mocks/transaction/collect-payment'
 import pagarme from '../../../../dist/pagarme'
 
 function collectPayment (client) {
-  return client.transaction.collectPayment(1234, valid)
+  return client.transactions.collectPayment({ id: 1234, email: 'a@b.co' })
 }
 
-describe('client.transaction.collectPayment', () => {
+describe('client.transactions.collectPayment', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({
