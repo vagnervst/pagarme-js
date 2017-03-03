@@ -7,8 +7,8 @@
  **/
 
 import { merge } from 'ramda'
-import routes from '../routes'
-import request from '../request'
+import routes from './routes'
+import request from './request'
 
 /**
  * `PUT /users/reset_password`

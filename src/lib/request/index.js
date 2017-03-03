@@ -16,8 +16,8 @@ import {
   keys,
 } from 'ramda'
 import qs from 'qs'
-import routes from './routes'
-import ApiError from './errors/api-error'
+import routes from '../routes'
+import ApiError from '../errors/api-error'
 
 const defaultHeaders = {
   'Content-Type': 'application/json',

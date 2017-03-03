@@ -6,8 +6,8 @@
  * @module search
  **/
 
-import routes from '../routes'
-import request from '../request'
+import routes from './routes'
+import request from './request'
 
 /**
  * `GET /search`
