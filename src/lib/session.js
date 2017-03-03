@@ -6,8 +6,8 @@
  * @module session
  **/
 
-import routes from '../routes'
-import request from '../request'
+import routes from './routes'
+import request from './request'
 
 /**
  * `POST /sessions`
