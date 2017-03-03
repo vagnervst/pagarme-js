@@ -2,7 +2,7 @@ import pagarme from '../../../../dist/pagarme'
 
 
 function captureTransaction (client) {
-  return client.transaction.capture(1234)
+  return client.transactions.capture({ id: 1234 })
 }
 
 describe('client.transaction.capture', () => {

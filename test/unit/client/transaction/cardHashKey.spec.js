@@ -2,10 +2,10 @@ import pagarme from '../../../../dist/pagarme'
 
 
 function createCardHashKey (client) {
-  return client.transaction.cardHashKey()
+  return client.transactions.cardHashKey()
 }
 
-describe('client.transaction.cardHashKey', () => {
+describe('client.transactions.cardHashKey', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({

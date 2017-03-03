@@ -1,44 +1,40 @@
-
 /**
- * @name Invite
+ * @name Invites
  * @description This module exposes functions
  *              related to the `/invites` path.
  *
- * @module invite
+ * @module invites
  **/
 
-import routes from '../routes'
-import request from '../request'
+import { cond, has, T, curry } from 'ramda'
+import routes from './routes'
+import request from './request'
 
-/**
- * `GET /invites/:id`
- * Returns an invite with the given id.
- *
- * @param {Object} opts An options params which
- *                      is usually already bound
- *                      by `connect` functions.
- *
- * @param {Object} id The ID of the invite.
- *
- * @returns {Promise} Resolves to the result of
- *                    the request or to an error.
- */
-const find = (opts, id) =>
-  request.get(opts, routes.invite.details(id), {})
+
+const findOne = curry((opts, body) =>
+  request.get(opts, routes.invites.details(body.id), {})
+)
+
+const findAll = opts =>
+  request.get(opts, routes.invites.base, {})
 
 /**
  * `GET /invites`
- * Returns a list of recent invites.
+ * Makes a request to /invites or to /invites/:id
  *
- * @param {Object} opts An options params which
+ * @param {Object} opts - An options params which
  *                      is usually already bound
  *                      by `connect` functions.
  *
- * @returns {Promise} Resolves to the result of
- *                    the request or to an error.
+ * @param {Object} body - The payload for the request.
+ * @param {String} [body.id] - The invite ID. If not sent an
+ *                           invite list will be returned instead
  */
-const findAll = opts =>
-  request.get(opts, routes.invite.base, {})
+const find = (opts, body = {}) =>
+  cond([
+    [has('id'), findOne(opts)],
+    [T, () => findAll(opts)],
+  ])(body)
 
 /**
  * `POST /invites`
@@ -56,7 +52,7 @@ const findAll = opts =>
  *                    the request or to an error.
  */
 const create = (opts, body) =>
-  request.post(opts, routes.invite.base, body)
+  request.post(opts, routes.invites.base, body)
 
 /**
  * `DELETE /invites`
@@ -66,17 +62,17 @@ const create = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  *
- * @param {Object} id The ID of the invite.
+ * @param {String} [body.id] - The invite ID. If not sent an
+ *                           invite list will be returned instead
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
  */
-const destroy = (opts, id) =>
-  request.delete(opts, routes.invite.details(id), {})
+const destroy = (opts, body) =>
+  request.delete(opts, routes.invites.details(body.id), {})
 
 export default {
   find,
-  findAll,
   create,
   destroy,
 }

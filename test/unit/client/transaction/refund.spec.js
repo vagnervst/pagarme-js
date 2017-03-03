@@ -2,10 +2,10 @@ import pagarme from '../../../../dist/pagarme'
 
 
 function refundTransaction (client) {
-  return client.transaction.refund(1234)
+  return client.transactions.refund({ id: 1234 })
 }
 
-describe('client.transaction.refund', () => {
+describe('client.transactions.refund', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({

@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import pagarme from '../../../../dist/pagarme'
 import { valid, invalid } from '../../../shared/mocks/transaction/create'
 
-describe('client.transaction.create', () => {
+describe('client.transactions.create', () => {
   let company
   let client
   let response
@@ -22,7 +22,7 @@ describe('client.transaction.create', () => {
 
     describe('and valid data', () => {
       beforeAll(Promise.coroutine(function* newTransaction () {
-        response = yield client.transaction.create(valid)
+        response = yield client.transactions.create(valid)
       }))
 
       it('should return an object', () => {
@@ -65,7 +65,7 @@ describe('client.transaction.create', () => {
     describe('and invalid data', () => {
       beforeAll(Promise.coroutine(function* newFailedTransaction () {
         try {
-          yield client.transaction.create(invalid)
+          yield client.transactions.create(invalid)
         } catch (err) {
           response = err
         }
@@ -95,7 +95,7 @@ describe('client.transaction.create', () => {
 
     describe('and valid data', () => {
       beforeAll(Promise.coroutine(function* newTransaction () {
-        response = yield client.transaction.create(valid)
+        response = yield client.transactions.create(valid)
       }))
 
       it('should return an object', () => {
@@ -138,7 +138,7 @@ describe('client.transaction.create', () => {
     describe('and invalid data', () => {
       beforeAll(Promise.coroutine(function* newFailedTransaction () {
         try {
-          yield client.transaction.create(invalid)
+          yield client.transactions.create(invalid)
         } catch (err) {
           response = err
         }
@@ -167,7 +167,7 @@ describe('client.transaction.create', () => {
 
     describe('and valid data', () => {
       beforeAll(Promise.coroutine(function* newTransaction () {
-        response = yield client.transaction.create(valid)
+        response = yield client.transactions.create(valid)
       }))
 
       it('should return an object', () => {
@@ -194,7 +194,7 @@ describe('client.transaction.create', () => {
     describe('and invalid data', () => {
       beforeAll(Promise.coroutine(function* newFailedTransaction () {
         try {
-          yield client.transaction.create(invalid)
+          yield client.transactions.create(invalid)
         } catch (err) {
           response = err
         }

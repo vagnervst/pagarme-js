@@ -2,10 +2,10 @@ import { valid } from '../../../shared/mocks/transaction/create'
 import pagarme from '../../../../dist/pagarme'
 
 function createValidTransaction (client) {
-  return client.transaction.create(valid)
+  return client.transactions.create(valid)
 }
 
-describe('client.transaction.create', () => {
+describe('client.transactions.create', () => {
   let response
 
   beforeAll(() => pagarme.client.connect({

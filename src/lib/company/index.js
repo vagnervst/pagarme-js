@@ -145,14 +145,14 @@ const emailTemplates = {
    *                      is usually already bound
    *                      by `connect` functions.
    *
-   * @param {Object} id The ID of the email template.
+   * @param {Number} body.id The ID of the email template.
    *
    * @returns {Promise} A promise that resolves to
    *                    the newly created company's
    *                    data or to an error.
    **/
-  find: (opts, id) =>
-    request.get(opts, routes.company.emailTemplates(id), {}),
+  find: (opts, body) =>
+    request.get(opts, routes.company.emailTemplates(body.id), {}),
 
   /**
    * `PUT /company/email_templates/:id`

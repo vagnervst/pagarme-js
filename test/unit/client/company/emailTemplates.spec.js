@@ -3,7 +3,7 @@ import pagarme from '../../../../dist/pagarme'
 
 function emailTemplates (client) {
   return Promise.props({
-    find: client.company.emailTemplates.find(1234),
+    find: client.company.emailTemplates.find({ id: 1234 }),
     update: client.company.emailTemplates.update({ id: 1235 }),
   })
 }
