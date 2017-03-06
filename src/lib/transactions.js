@@ -141,6 +141,24 @@ const cardHashKey = opts =>
 const update = (opts, body) =>
   request.put(opts, routes.transactions.details(body.id), body)
 
+/**
+ * `GET /transactions/calculate_installments_amount`
+ * Calculates the value of each purchase's installments
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {Number} body.interest_rate - The interest rate's value.
+ * @param {Number} body.amount - The value of the purchase.
+ * @param {Number} [body.max_installments] - The max number of installments.
+ * @param {Number} [body.free_installments] - The number of installments without interest.
+ *
+ * @returns {Promise} Resolves to the result of
+ *                    the request or to an error.
+ */
+const calculateInstallmentsAmount = (opts, body) =>
+  request.get(opts, routes.transactions.calculateInstallmentsAmount, body)
 
 export default {
   find,
@@ -151,4 +169,5 @@ export default {
   collectPayment,
   cardHashKey,
   update,
+  calculateInstallmentsAmount,
 }
