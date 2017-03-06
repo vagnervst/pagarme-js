@@ -59,6 +59,11 @@ const antifraudAnalyses = {
   find: (transactionId, antifraudId) => `/transactions/${transactionId}/antifraud_analyses/${antifraudId}`,
 }
 
+const plans = {
+  base: '/plans',
+  details: id => `/plans/${id}`,
+}
+
 export default {
   base,
   company,
@@ -70,4 +75,5 @@ export default {
   splitRules,
   antifraudAnalyses,
   payables,
+  plans,
 }
