@@ -7,6 +7,7 @@ import session from '../session'
 import invites from '../invites'
 import splitRules from '../splitRules'
 import antifraudAnalyses from '../antifraudAnalyses'
+import plans from '../plans'
 
 export default {
   company,
@@ -18,4 +19,5 @@ export default {
   invites,
   splitRules,
   antifraudAnalyses,
+  plans,
 }
