@@ -125,3 +125,22 @@ test('client.transactions.update', () => {
     },
   })
 })
+
+test('client.transactions.calculateInstallmentsAmount', () => {
+  return runTest({
+    connect: {
+      api_key: 'abc123',
+    },
+    subject: client => client.transactions.calculateInstallmentsAmount({
+      max_installments: 3,
+      free_installments: 2,
+      interest_rate: 13,
+      amount: 1000,
+    }),
+    method: 'GET',
+    url: '/transactions/calculate_installments_amount',
+    body: {
+      api_key: 'abc123',
+    },
+  })
+})
