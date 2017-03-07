@@ -123,6 +123,25 @@ const collectPayment = (opts, body) =>
 const cardHashKey = opts =>
   request.get(opts, routes.transactions.cardHashKey, {})
 
+/**
+ * `PUT /transactions/:id`
+ * Updates a transaction from the given payload.
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {Object} body The payload for the request
+ * @param {Number} body.id The transaction ID
+ * @param {Number} body.status The transaction status
+ * @returns {Promise} A promise that resolves to
+ *                    the newly created transactions's
+ *                    data or to an error.
+ **/
+const update = (opts, body) =>
+  request.put(opts, routes.transactions.details(body.id), body)
+
+
 export default {
   find,
   all,
@@ -131,4 +150,5 @@ export default {
   refund,
   collectPayment,
   cardHashKey,
+  update,
 }
