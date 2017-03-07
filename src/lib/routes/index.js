@@ -70,6 +70,13 @@ const plans = {
   details: id => `/plans/${id}`,
 }
 
+const subscriptions = {
+  base: '/subscriptions',
+  details: id => `/subscriptions/${id}`,
+  cancel: id => `/subscriptions/${id}/cancel`,
+  transactions: id => `/subscriptions/${id}/transactions`,
+}
+
 export default {
   base,
   company,
@@ -83,4 +90,5 @@ export default {
   payables,
   bankAccounts,
   plans,
+  subscriptions,
 }
