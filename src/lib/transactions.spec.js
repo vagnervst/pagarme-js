@@ -110,3 +110,18 @@ test('client.transactions.refund', () => {
     },
   })
 })
+
+test('client.transactions.update', () => {
+  return runTest({
+    connect: {
+      api_key: 'abc123',
+    },
+    subject: client => client.transactions.update({ id: 1234, status: 'paid' }),
+    method: 'PUT',
+    url: '/transactions/1234',
+    body: {
+      api_key: 'abc123',
+      status: 'paid',
+    },
+  })
+})
