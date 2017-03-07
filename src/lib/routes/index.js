@@ -59,7 +59,6 @@ const antifraudAnalyses = {
   find: (transactionId, antifraudId) => `/transactions/${transactionId}/antifraud_analyses/${antifraudId}`,
 }
 
-
 const bankAccounts = {
   base: '/bank_accounts',
   details: id => `/bank_accounts/${id}`,
@@ -68,6 +67,16 @@ const bankAccounts = {
 const plans = {
   base: '/plans',
   details: id => `/plans/${id}`,
+}
+
+const acquirersConfigurations = {
+  base: '/acquirers_configurations',
+  details: id => `/acquirers_configuration/${id}`,
+}
+
+const acquirers = {
+  base: '/acquirers',
+  details: id => `/acquirer/${id}`,
 }
 
 const subscriptions = {
@@ -90,5 +99,7 @@ export default {
   payables,
   bankAccounts,
   plans,
+  acquirersConfigurations,
+  acquirers,
   subscriptions,
 }

@@ -9,6 +9,8 @@ import splitRules from '../splitRules'
 import antifraudAnalyses from '../antifraudAnalyses'
 import bankAccounts from '../bankAccounts'
 import plans from '../plans'
+import acquirersConfigurations from '../acquirersConfigurations'
+import acquirers from '../acquirers'
 import subscriptions from '../subscriptions'
 
 export default {
@@ -23,5 +25,7 @@ export default {
   antifraudAnalyses,
   bankAccounts,
   plans,
+  acquirersConfigurations,
+  acquirers,
   subscriptions,
 }
