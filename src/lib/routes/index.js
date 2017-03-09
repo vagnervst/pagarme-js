@@ -101,6 +101,14 @@ const subscriptions = {
   transactions: id => `/subscriptions/${id}/transactions`,
 }
 
+const transfers = {
+  base: '/transfers',
+  details: id => `/transfers/${id}`,
+  days: '/transfers/days',
+  limits: '/transfers/limits',
+  cancel: id => `/transfers/${id}/cancel`,
+}
+
 export default {
   base,
   company,
@@ -119,4 +127,5 @@ export default {
   acquirersConfigurations,
   acquirers,
   subscriptions,
+  transfers,
 }

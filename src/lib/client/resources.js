@@ -14,6 +14,7 @@ import plans from '../plans'
 import acquirersConfigurations from '../acquirersConfigurations'
 import acquirers from '../acquirers'
 import subscriptions from '../subscriptions'
+import transfers from '../transfers'
 
 export default {
   company,
@@ -32,4 +33,5 @@ export default {
   acquirersConfigurations,
   acquirers,
   subscriptions,
+  transfers,
 }
