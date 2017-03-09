@@ -109,6 +109,10 @@ const transfers = {
   cancel: id => `/transfers/${id}/cancel`,
 }
 
+const balance = {
+  base: '/balance',
+}
+
 export default {
   base,
   company,
@@ -128,4 +132,5 @@ export default {
   acquirers,
   subscriptions,
   transfers,
+  balance,
 }

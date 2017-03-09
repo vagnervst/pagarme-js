@@ -15,6 +15,7 @@ import acquirersConfigurations from '../acquirersConfigurations'
 import acquirers from '../acquirers'
 import subscriptions from '../subscriptions'
 import transfers from '../transfers'
+import balance from '../balance'
 
 export default {
   company,
@@ -34,4 +35,5 @@ export default {
   acquirers,
   subscriptions,
   transfers,
+  balance,
 }
