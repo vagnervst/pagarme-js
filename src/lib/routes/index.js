@@ -113,6 +113,12 @@ const balance = {
   base: '/balance',
 }
 
+const operations = {
+  base: '/balance/operations',
+  days: '/balance/operations/days',
+  details: id => `/balance/operations/${id}`,
+}
+
 export default {
   base,
   company,
@@ -133,4 +139,5 @@ export default {
   subscriptions,
   transfers,
   balance,
+  operations,
 }
