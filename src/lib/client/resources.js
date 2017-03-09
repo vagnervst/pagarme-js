@@ -14,6 +14,7 @@ import plans from '../plans'
 import acquirersConfigurations from '../acquirersConfigurations'
 import acquirers from '../acquirers'
 import subscriptions from '../subscriptions'
+import cards from '../cards'
 import transfers from '../transfers'
 import balance from '../balance'
 import operations from '../operations'
@@ -32,6 +33,8 @@ export default {
   bulkAnticipations,
   bankAccounts,
   plans,
+  subscriptions,
+  cards,
   acquirersConfigurations,
   acquirers,
   subscriptions,
