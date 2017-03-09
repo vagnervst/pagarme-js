@@ -101,6 +101,11 @@ const subscriptions = {
   transactions: id => `/subscriptions/${id}/transactions`,
 }
 
+const cards = {
+  base: '/cards',
+  details: id => `/cards/${id}`,
+}
+
 const transfers = {
   base: '/transfers',
   details: id => `/transfers/${id}`,
@@ -134,8 +139,10 @@ export default {
   bulkAnticipations,
   bankAccounts,
   plans,
+  subscriptions,
   acquirersConfigurations,
   acquirers,
+  cards,
   subscriptions,
   transfers,
   balance,
