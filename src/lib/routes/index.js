@@ -31,6 +31,21 @@ const invites = {
   details: id => `/invites/${id}`,
 }
 
+const recipients = {
+  base: '/recipients',
+  details: id => `/recipients/${id}`,
+  balance: id => `/recipients/${id}/balance`,
+}
+
+const bulkAnticipations = {
+  base: recipientId => `/recipients/${recipientId}/bulk_anticipations`,
+  details: (recipientId, id) => `/recipients/${recipientId}/bulk_anticipations/${id}`,
+  limits: recipientId => `/recipients/${recipientId}/bulk_anticipations/limits`,
+  days: (recipientId, id) => `/recipients/${recipientId}/bulk_anticipations/${id}/days`,
+  confirm: (recipientId, id) => `/recipients/${recipientId}/bulk_anticipations/${id}/confirm`,
+  cancel: (recipientId, id) => `/recipients/${recipientId}/bulk_anticipations/${id}/cancel`,
+}
+
 const search = '/search'
 
 const user = {
@@ -97,6 +112,8 @@ export default {
   splitRules,
   antifraudAnalyses,
   payables,
+  recipients,
+  bulkAnticipations,
   bankAccounts,
   plans,
   acquirersConfigurations,
