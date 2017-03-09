@@ -7,6 +7,8 @@ import session from '../session'
 import invites from '../invites'
 import splitRules from '../splitRules'
 import antifraudAnalyses from '../antifraudAnalyses'
+import recipients from '../recipients'
+import bulkAnticipations from '../bulkAnticipations'
 import bankAccounts from '../bankAccounts'
 import plans from '../plans'
 import acquirersConfigurations from '../acquirersConfigurations'
@@ -23,6 +25,8 @@ export default {
   invites,
   splitRules,
   antifraudAnalyses,
+  recipients,
+  bulkAnticipations,
   bankAccounts,
   plans,
   acquirersConfigurations,
