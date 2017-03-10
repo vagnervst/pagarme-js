@@ -129,6 +129,28 @@ const balanceOperations = {
   },
 }
 
+const events = {
+  base: '/events',
+  transaction: transactionId => `/transactions/${transactionId}/events`,
+  transactionDetails: (id, transactionId) => `/transactions/${transactionId}/events/${id}`,
+  subscription: subscriptionId => `/subscriptions/${subscriptionId}/events`,
+  subscriptionDetails: (id, subscriptionId) => `/subscriptions/${subscriptionId}/events/${id}`,
+}
+
+const gatewayOperations = {
+  transaction: transactionId => `/transactions/${transactionId}/gateway_operations`,
+  transactionDetails: (id, transactionId) => `/transactions/${transactionId}/gateway_operations/${id}`,
+  subscription: subscriptionId => `/subscriptions/${subscriptionId}/gateway_operations`,
+  refuseMessage: (subscriptionId, id) => `/subscriptions/${subscriptionId}/gateway_operations/${id}/refuse_message`,
+}
+
+const postbacks = {
+  transaction: transactionId => `/transactions/${transactionId}/postbacks`,
+  transactionDetails: (id, transactionId) => `/transactions/${transactionId}/postbacks/${id}`,
+  subscription: subscriptionId => `/subscriptions/${subscriptionId}/postbacks`,
+  redeliver: (subscriptionId, id) => `/subscriptions/${subscriptionId}/postbacks/${id}/redeliver`,
+}
+
 export default {
   base,
   company,
@@ -151,4 +173,7 @@ export default {
   transfers,
   balance,
   balanceOperations,
+  events,
+  gatewayOperations,
+  postbacks,
 }
