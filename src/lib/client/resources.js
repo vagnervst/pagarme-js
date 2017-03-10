@@ -17,7 +17,7 @@ import subscriptions from '../subscriptions'
 import cards from '../cards'
 import transfers from '../transfers'
 import balance from '../balance'
-import operations from '../operations'
+import balanceOperations from '../balanceOperations'
 
 export default {
   company,
@@ -37,8 +37,7 @@ export default {
   cards,
   acquirersConfigurations,
   acquirers,
-  subscriptions,
   transfers,
   balance,
-  operations,
+  balanceOperations,
 }

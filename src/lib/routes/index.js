@@ -118,10 +118,15 @@ const balance = {
   base: '/balance',
 }
 
-const operations = {
+const balanceOperations = {
   base: '/balance/operations',
   days: '/balance/operations/days',
   details: id => `/balance/operations/${id}`,
+  recipients: {
+    findAll: recipientId => `/recipients/${recipientId}/balance/operations`,
+    find: (id, recipientId) => `/recipients/${recipientId}/balance/operations/${id}`,
+    findWithFormat: (recipientId, format) => `/recipients/${recipientId}/balance/operations.${format}`,
+  },
 }
 
 export default {
@@ -143,8 +148,7 @@ export default {
   acquirersConfigurations,
   acquirers,
   cards,
-  subscriptions,
   transfers,
   balance,
-  operations,
+  balanceOperations,
 }
