@@ -18,6 +18,9 @@ import cards from '../cards'
 import transfers from '../transfers'
 import balance from '../balance'
 import balanceOperations from '../balanceOperations'
+import events from '../events'
+import gatewayOperations from '../gatewayOperations'
+import postbacks from '../postbacks'
 
 export default {
   company,
@@ -40,4 +43,7 @@ export default {
   transfers,
   balance,
   balanceOperations,
+  events,
+  gatewayOperations,
+  postbacks,
 }
