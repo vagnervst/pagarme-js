@@ -6,7 +6,7 @@ import pagarme from '../dist/pagarme'
 
 
 export default function (test) {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
   const opts = {
     options: { baseURL: 'http://127.0.0.1:8080' },
   }
