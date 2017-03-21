@@ -33,9 +33,16 @@ pagarme.client.connect({ apiKey: 'ak_test_y7jk294ynbzf93' })
 ```javascript
 import pagarme from 'pagarme'
 
+const card = {
+  card_number: '4111111111111111',
+  card_holder_name: 'abc',
+  card_expiration_date: '1225',
+  card_cvv: '123',
+}
+
 pagarme.client.connect({ encryptionKey: 'ek_test_y7jk294ynbzf93' })
-  .then(client => client.transactions.all())
-  .then(transactions => console.log(transactions))
+  .then(client => client.security.encrypt(card))
+  .then(card_hash => console.log(card_hash))
 ```
 
 * Using email and password:
@@ -47,6 +54,13 @@ pagarme.client.connect({ email: 'user@email.com', password: '123456' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
 ```
+
+### Client API
+
+All of Pagar.me REST API endpoints are covered in `client` object. Every
+function call issued to `client` will return a `Promise` which represents and
+manages the result's lifecycle.
+
 
 ### Using `connect`
 
@@ -79,30 +93,53 @@ pagarme.client.connect({ email: 'user@email.com', password: '123456', onExpire }
   .catch(error => console.error(error))
 ```
 
+### Validations
 
-### Client API Reference
+This lib also includes a bunch of validators for convenience. They can be
+used in `pagarme.validate` like this:
 
-Most of Pagar.me REST API endpoints are covered in `client` object. Every
-function call issued to `client` will return a `Promise` which represent and
-manage the result's lifecycle.
+```javascript
+const result = pagarme.validate({
+  cnpj: '18.727.053/0001-74',
+  cpf: ['403.845.348-37', '20184536856'],
+  ddd: 15,
+  zipcode: '05679010',
+  phone: '996220394',
+  card: {
+    card_holder_name: 'Pedro Paulo',
+    card_number: '5545497548400992',
+    card_cvv: 856,
+    card_expiration_date: '11/21',
+  }
+})
+```
 
-#### Transactions
+Note that you can send numbers, string, and arrays, the validator will
+validate everything and return an object containing `true` or `false`
+in the same order you sent the numbers. An example return of this is:
 
-##### `client.transactions.all`
-
-Return all transactions.
-
-##### `client.transactions.find(transactionId)`
-
-Find transactions with the given ID.
-
-##### `client.transactions.refund(transactionId)`
-
-Refund the transaction with the given ID.
+```javascript
+{
+  cnpj: true,
+  cpf: [true, false],
+  ddd: true,
+  zipcode: true,
+  phone: true,
+  card: {
+    card_holder_name: true,
+    brand: 'mastercard', // we add this field for convenience, it's the only non-boolean field.
+    card_number: true,
+    card_cvv: true,
+    card_expiration_date: true,
+    card_expiration_month: true,
+    card_expiration_year: true,
+  }
+}
+```
 
 ## Building
 
-To build the library, use `npm start`. The result is produced inside `build`
+To build the library, use `npm start`. The result is produced inside `dist`
 directory.
 
 ## Testing
