@@ -21,6 +21,7 @@ import balanceOperations from '../balanceOperations'
 import events from '../events'
 import gatewayOperations from '../gatewayOperations'
 import postbacks from '../postbacks'
+import security from '../security'
 
 export default {
   company,
@@ -46,4 +47,5 @@ export default {
   events,
   gatewayOperations,
   postbacks,
+  security,
 }

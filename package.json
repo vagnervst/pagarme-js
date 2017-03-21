@@ -5,6 +5,7 @@
   "main": "dist/pagarme.js",
   "scripts": {
     "start": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
+    "lint-fix": "eslint ./src --fix",
     "docs": "jsdoc src -r --verbose --debug -d docs",
     "test": "run-s test:unit",
     "pretest": "npm start",
@@ -32,9 +33,10 @@
     "json-loader": "0.5.4",
     "node-fetch": "1.6.3",
     "npm-run-all": "4.0.2",
-    "openport": "^0.0.4",
+    "openport": "0.0.4",
     "qs": "6.3.0",
     "ramda": "0.22.1",
+    "node-rsa": "0.4.2",
     "wait-on": "2.0.2",
     "webpack": "1.13.2"
   }
