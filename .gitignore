@@ -1,6 +1,7 @@
 ### Project ###
-build
-dist
+browser
+pagarme.js
+pagarme.js.map
 
 ### Node ###
 # Logs

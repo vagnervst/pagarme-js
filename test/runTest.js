@@ -2,11 +2,11 @@ import {
   merge,
 } from 'ramda'
 
-import pagarme from '../dist/pagarme'
+import pagarme from '..'
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
 export default function (test) {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
   const opts = {
     skipAuthentication: true,
     options: { baseURL: 'http://127.0.0.1:8080' },
