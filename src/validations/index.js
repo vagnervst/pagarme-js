@@ -69,7 +69,7 @@ const applyValidators = mapObjIndexed(applyValidator)
  **/
 const validate = pipe(
   filterValidTypes(validators),
-  applyValidators,
+  applyValidators
 )
 
 export default validate
