@@ -6,12 +6,13 @@
  * @private
  */
 
-import { both, has, cond, propEq } from 'ramda'
+import { and, both, has, cond, propEq, prop, ifElse, equals, not, or, compose, objOf } from 'ramda'
 import encryption from './encryption'
 import login from './login'
 import api from './api'
 import apiSync from './api-sync'
 import encryptionSync from './encryption-sync'
+import company from '../../company'
 
 /**
  * Defines the correct authentication
@@ -33,6 +34,48 @@ const strategyBuilder = cond([
   [has('encryption_key'), encryption.build],
 ])
 
+function isBrowserEnvironment () {
+  if (global === undefined) {
+    return true
+  }
+
+  return false
+}
+
+const buildBody = objOf('body')
+
+function isValidKey (options) {
+  const apiKey = prop('api_key', options)
+  const encryptionKey = prop('encryption_key', options)
+
+  const body = cond([
+    [has('api_key'), () => buildBody({ api_key: apiKey })],
+    [has('encryption_key'), () => buildBody({ encryption_key: encryptionKey })],
+  ])(options)
+
+  return company.current(body)
+}
+
+function rejectInvalidAuthObject () {
+  return Promise.reject(new Error('You must supply a valid authentication object'))
+}
+
+function isValidStrategy (options) {
+  const strategy = strategyBuilder(options)
+
+  const strategyIsNotUndefined = compose(not, equals(undefined))
+
+  return ifElse(
+    strategyIsNotUndefined,
+    () => Promise.resolve(strategy),
+    rejectInvalidAuthObject
+  )(strategy)
+}
+
+function rejectInvalidKey () {
+  return Promise.reject(new Error('You must supply a valid key'))
+}
+
 /**
  * Finds and resolves to a builder
  * function for authentication
@@ -45,13 +88,23 @@ const strategyBuilder = cond([
  *                    or rejects with an Error.
  */
 function find (options) {
-  const strategy = strategyBuilder(options)
+  const skipAuthentication = propEq('skipAuthentication', true)(options)
 
-  if (strategy) {
-    return Promise.resolve(strategy)
+  if (skipAuthentication) {
+    return isValidStrategy(options)
   }
 
-  return Promise.reject(new Error('You must supply a valid authentication object'))
+  if (or(has('api_key', options), has('encryption_key', options))) {
+    if (and(has('api_key', options), isBrowserEnvironment())) {
+      return Promise.reject(new Error('You cannot use an api key in the browser!'))
+    }
+
+    return isValidKey(options)
+      .then(() => isValidStrategy(options))
+      .catch(() => rejectInvalidKey())
+  }
+
+  return isValidStrategy(options)
 }
 
 /**
@@ -72,4 +125,3 @@ function findSync (options) {
 }
 
 export default { find, findSync }
-

@@ -8,8 +8,10 @@ import pagarme from '../dist/pagarme'
 export default function (test) {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
   const opts = {
+    skipAuthentication: true,
     options: { baseURL: 'http://127.0.0.1:8080' },
   }
+
   return pagarme.client.connect(merge(opts, test.connect))
     .then(test.subject)
     .then((response) => {
