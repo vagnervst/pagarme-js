@@ -9,12 +9,74 @@ and on Node.js.
 
 ## Description
 
-This library covers all your needs for integrating with Pagar.me either in Front or Back end. We provide:
+This library covers all your needs for integrating with Pagar.me, providing:
 
 * A clean Promise-based interface for all endpoints in Pagarme's API
+* A fast way to generate card hashes
+* Postback signature validation
 * Documents validations (CPF, CNPJ, and others)
-* A fast way to generate card hashes from cards (`client.security.encrypt`)
-* Postback validation
+
+## How to use
+
+First, install it:
+
+```bash
+yarn add pagarme
+```
+
+Or using npm:
+
+```bash
+npm install pagarme
+```
+
+Pagar.me JavaScript library can be used in three ways:
+
+### Node.js
+
+Import like usual:
+
+```js
+import pagarme from 'pagarme'
+```
+
+also works using `require`:
+
+```js
+const pagarme = require('pagarme')
+```
+
+### Browser (CommonJS)
+
+Import the browser build:
+
+```js
+import pagarme from 'pagarme/browser'
+```
+
+also works using `require`:
+
+```js
+const pagarme = require('pagarme/browser')
+```
+
+### Browser (Global Variable)
+
+If you installed it using `npm` it will be available in the path below:
+
+```sh
+./node_modules/pagarme/browser/pagarme.min.js
+```
+
+You can also download the latest release from Github release page.
+
+Import the build directly on your HTML:
+
+```html
+<script src="pagarme.min.js" />
+```
+
+The library will be available as the global variable `pagarme`.
 
 ## API Docs
 

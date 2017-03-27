@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'source-map',
   target: 'node',
   output: {
-    path: path.join(__dirname, './dist'),
+    path: __dirname,
     libraryTarget: 'commonjs2',
     filename: 'pagarme.js',
     sourceMapFilename: 'pagarme.js.map',
