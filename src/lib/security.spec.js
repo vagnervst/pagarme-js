@@ -39,3 +39,33 @@ describe('client.security.encrypt', () => {
     })
   )
 })
+
+describe('postback validation', () => {
+  test('client.securit.sign', () => {
+    const result = security.sign(
+      {
+        body: {
+          api_key: 'key',
+        },
+      },
+      'body'
+    )
+
+    expect(result)
+      .toBe('70bbf6819d1037aa94ca7e7f537cbea25fe49283')
+  })
+  test('client.securit.verify', () => {
+    const result = security.verify(
+      {
+        body: {
+          api_key: 'key',
+        },
+      },
+      'body',
+      '70bbf6819d1037aa94ca7e7f537cbea25fe49283'
+    )
+
+    expect(result)
+      .toBe(true)
+  })
+})
