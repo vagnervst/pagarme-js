@@ -29,7 +29,7 @@ describe('client.security.encrypt', () => {
           ip: '177.32.85.54',
           public_key: publicKey,
         },
-      },
+      }
     ).then((hash) => {
       const cardHash = hash.split('_')[1]
       const cardQueryString = key.decrypt(cardHash, 'utf8')
