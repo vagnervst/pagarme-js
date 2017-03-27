@@ -13,6 +13,10 @@ import {
   replace,
   pipe,
 } from 'ramda'
+import {
+  verifySignature,
+  calculateSignature,
+} from '../postback'
 
 import transactions from './transactions'
 
@@ -63,6 +67,43 @@ const encrypt = (opts, card) =>
   })
     .then(({ key, cardString }) => generateCardHash(key, cardString))
 
+/**
+ * Generates a hash signed with your api_key.
+ * This is used mainly to validate postbacks,
+ * this functions is the same as pagarme.postback.calculatesignature
+ * but it already knows your api_key.
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {String} string The string to be hashed.
+ *
+*/
+const sign = (opts, string) =>
+  calculateSignature(opts.body.api_key, string)
+
+/**
+ * Verifies a hash signed with your api_key.
+ * This is used mainly to validate postbacks,
+ * this functions is the same as pagarme.postback.validateSignature
+ * but it already knows your api_key.
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {String} string The string to be hashed.
+ *
+ * @param {String} expected The expected result.
+ *
+*/
+const verify = (opts, string, expected) =>
+  verifySignature(opts.body.api_key, string, expected)
+
+
 export default {
   encrypt,
+  sign,
+  verify,
 }
