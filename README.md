@@ -32,7 +32,7 @@ available authentication strategies via `connect` function.
 ```javascript
 import pagarme from 'pagarme'
 
-pagarme.client.connect({ apiKey: 'ak_test_y7jk294ynbzf93' })
+pagarme.client.connect({ api_key: 'ak_test_y7jk294ynbzf93' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
 ```
@@ -51,7 +51,7 @@ const card = {
   card_cvv: '123',
 }
 
-pagarme.client.connect({ encryptionKey: 'ek_test_y7jk294ynbzf93' })
+pagarme.client.connect({ encryption_key: 'ek_test_y7jk294ynbzf93' })
   .then(client => client.security.encrypt(card))
   .then(card_hash => console.log(card_hash))
 ```
