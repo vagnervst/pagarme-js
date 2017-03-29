@@ -155,6 +155,11 @@ const postbacks = {
   redeliver: (subscriptionId, id) => `/subscriptions/${subscriptionId}/postbacks/${id}/redeliver`,
 }
 
+const customers = {
+  base: '/customers',
+  details: id => `/customers/${id}`,
+}
+
 export default {
   acquirers,
   acquirersConfigurations,
@@ -180,4 +185,5 @@ export default {
   transactions,
   transfers,
   user,
+  customers,
 }
