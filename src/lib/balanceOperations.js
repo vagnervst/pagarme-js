@@ -44,6 +44,7 @@ const findRecipientsWithFormat = curry((opts, body) => {
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#histórico-específico-de-uma-operação|API Reference for this payload}
  * @param {Number} [body.id] The operations's ID. If not sent a
  *                           operations list will be returned instead.
  * @param {Number} [body.recipientId] The recipient's ID.
@@ -71,6 +72,7 @@ const find = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#histórico-das-operações|API Reference for this payload}
  * @param {Number} [body.count] Pagination option to get a list of operations.
  *                              Number of operations in a page
  * @param {Number} [body.page] Pagination option for a list of operations.

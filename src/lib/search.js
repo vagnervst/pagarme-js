@@ -18,6 +18,7 @@ import request from './request'
  *                      by `connect` functions.
  * @param {Object} query The ElasticSearch based
  *                       query object to be sent.
+ * {@link https://pagarme.readme.io/v1/reference#elasticsearch|API Reference for this payload}
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
  */

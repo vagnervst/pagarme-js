@@ -28,6 +28,7 @@ const findAllInSubscriptions = curry((opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-um-postback|API Reference for this payload}
  * @param {Number} [body.id] The operation ID. If not sent a
  * @param {Number} [body.transactionId] A transaction ID to get all
  *                                      the operations.
@@ -50,6 +51,7 @@ const find = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#reenviando-um-postback|API Reference for this payload}
  * @param {Number} body.id The operation ID.
  * @param {Number} body.subscriptionId A subscription ID
 */

@@ -28,6 +28,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-um-recebedor|API Reference for this payload}
  * @param {String} [body.id] The recipient ID. If not sent a
  *                           recipient list will be returned instead.
  * @param {Number} [body.count] Pagination option for recipient list.
@@ -52,6 +53,7 @@ const all = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#criando-um-recebedor|API Reference for this payload}
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
@@ -67,6 +69,7 @@ const create = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#atualizando-um-recebedor|API Reference for this payload}
  * @param {String} body.id The recipient Id
  *
  * @returns {Promise} Resolves to the result of
@@ -83,6 +86,7 @@ const update = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#saldo-de-um-recebedor|API Reference for this payload}
  * @param {String} body.id The recipient Id
  *
  * @returns {Promise} Resolves to the result of

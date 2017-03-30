@@ -29,6 +29,7 @@ const findAll = curry((opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-todas-as-antecipações|API Reference for this payload}
  * @param {String} body.recipientId The recipient ID.
  * @param {String} [body.id] The bulkAnticipation ID. If not sent a
  *                           bulkAnticipation list will be returned instead.
@@ -54,6 +55,7 @@ const all = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#criando-uma-antecipação|API Reference for this payload}
  * @param {String} body.recipientId The recipient ID.
  *
  * @returns {Promise} Resolves to the result of
@@ -87,6 +89,7 @@ const update = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#deletando-uma-antecipação-building|API Reference for this payload}
  * @param {String} body.recipientId The recipient ID.
  * @param {String} body.id The bulkAnticipation Id
  *
@@ -104,6 +107,7 @@ const destroy = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#obtendo-os-limites-de-antecipação|API Reference for this payload}
  * @param {String} body.recipientId The recipient ID.
  *
  * @returns {Promise} Resolves to the result of
@@ -137,6 +141,7 @@ const days = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#confirmando-uma-antecipação-building|API Reference for this payload}
  * @param {String} body.recipientId The recipient ID.
  * @param {String} body.id The bulkAnticipation Id
  *

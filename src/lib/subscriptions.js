@@ -27,6 +27,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-uma-assinatura|API Reference for this payload}
  * @param {Number} [body.id] The subscription's ID. If not sent a
  *                           subscriptions list will be returned instead.
  * @param {Number} [body.count] Pagination option to get a list of subscriptions.
@@ -49,6 +50,7 @@ const find = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-assinaturas|API Reference for this payload}
  * @param {Number} [body.count] Pagination option to get a list of subscriptions.
  *                              Number of subscriptions in a page
  * @param {Number} [body.page] Pagination option for a list of subscriptions.
@@ -65,6 +67,7 @@ const all = (opts, pagination) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#criando-assinaturas|API Reference for this payload}
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
@@ -81,6 +84,7 @@ const create = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#atualizando-uma-assinatura|API Reference for this payload}
  * @param {Number} body.id The subscription's ID
  * @returns {Promise} A promise that resolves to
  *                    the newly created subscriptions's
@@ -97,6 +101,7 @@ const update = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#cancelando-uma-assinatura|API Reference for this payload}
  * @param {Number} body.id The subscription's ID
  *
  * @returns {Promise} Resolves to the result of
@@ -129,6 +134,7 @@ const createTransaction = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#transações-em-uma-assinatura|API Reference for this payload}
  * @param {Number} body.id The subscription's ID
  *
  * @returns {Promise} Resolves to the result of

@@ -27,6 +27,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#vendo-dados-de-uma-transferência|API Reference for this payload}
  * @param {Number} [body.id] The transfer's ID. If not sent a
  *                           transfers list will be returned instead.
  * @param {Number} [body.count] Pagination option to get a list of transfers.
@@ -49,6 +50,7 @@ const find = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#vendo-dados-de-várias-transferências|API Reference for this payload}
  * @param {Number} [body.count] Pagination option to get a list of transfers.
  *                              Number of transfers in a page
  * @param {Number} [body.page] Pagination option for a list of transfers.
@@ -65,6 +67,7 @@ const all = (opts, pagination) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#criando-uma-transferência|API Reference for this payload}
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
@@ -80,6 +83,7 @@ const create = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#cancelando-uma-transferência|API Reference for this payload}
  * @param {Number} body.id The transfer's ID
  *
  * @returns {Promise} Resolves to the result of

@@ -27,6 +27,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-um-recebível|API Reference for this payload}
  * @param {Number} [body.id] The payable ID. If not sent a
  * @param {Number} [body.transactionId] A transaction ID to get all
  *                                      the payables.
