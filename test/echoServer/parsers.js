@@ -32,12 +32,19 @@ const parsers = {
 }
 
 const isGetRequest = propEq('method', 'GET')
+const isPutRequest = propEq('method', 'PUT')
 
 const parse = curry((chunks, req) => {
   if (isGetRequest(req)) {
     return {
       url: parsers.get.url(req.url),
       body: parsers.get.body(req.url),
+    }
+  }
+  if (isPutRequest(req)) {
+    return {
+      url: parsers.get.url(req.url),
+      body: parsers.post.body(chunks),
     }
   }
   return {

@@ -52,9 +52,8 @@ const find = (opts, body) =>
  * @returns {Promise} Resolves to the result
  *                    of the request or an error.
  */
-const resetPassword = (opts, email) => {
-  const newOpts = merge(opts, { qs: { email } })
-  return request.put(newOpts, routes.user.resetPassword, {})
+const resetPassword = (opts, body) => {
+  return request.put(opts, routes.user.resetPassword, body)
 }
 
 /**
