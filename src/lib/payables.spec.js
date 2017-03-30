@@ -14,7 +14,7 @@ test('client.transactions.payables', () => {
   }
 
   const findAll = runTest(merge(options, {
-    subject: client => client.payables.find({}),
+    subject: client => client.payables.all(),
     url: '/payables',
   }))
 
