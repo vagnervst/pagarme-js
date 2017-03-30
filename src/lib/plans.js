@@ -27,6 +27,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-um-plano|API Reference for this payload}
  * @param {Number} [body.id] The plan's ID. If not sent a
  *                           plans list will be returned instead.
  * @param {Number} [body.count] Pagination option to get a list of plans.
@@ -49,6 +50,7 @@ const find = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-planos|API Reference for this payload}
  * @param {Number} [body.count] Pagination option to get a list of plans.
  *                              Number of plans in a page
  * @param {Number} [body.page] Pagination option for a list of plans.
@@ -65,6 +67,7 @@ const all = (opts, pagination) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#criando-planos|API Reference for this payload}
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
@@ -81,6 +84,7 @@ const create = (opts, body) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#atualizando-planos|API Reference for this payload}
  * @param {Number} body.id The plan's ID
  * @param {String} [body.name] The plan's name
  * @param {Number} [body.trial_days] The number of days to test the plan with

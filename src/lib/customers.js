@@ -28,6 +28,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#retornando-dados-do-cliente|API Reference for this payload}
  * @param {Number} [body.id] The customer ID. If not sent, a
  *                           customer list will be returned instead.
  * @param {Number} [body.count] Pagination option for customer list.
@@ -41,6 +42,21 @@ const find = (opts, body) =>
     [T, findAll(opts)],
   ])(body)
 
+/**
+ * `GET /customers`
+ * Returns company's customers
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-clientes|API Reference for this payload}
+ * @param {Number} [body.count] Pagination option to get a list of customers.
+ *                              Number of customers in a page
+ * @param {Number} [body.page] Pagination option for a list of customers.
+ *                             The page index.
+*/
 const all = (opts, body) =>
   findAll(opts, body)
 
@@ -52,6 +68,7 @@ const all = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  * @param {Object} body The payload for the request
+ * {@link https://pagarme.readme.io/v1/reference#criando-um-cliente|API Reference for this payload}
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.

@@ -28,6 +28,7 @@ const findAll = curry((opts, pagination) =>
  *                      by `connect` functions.
  *
  * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/reference#retornando-transações|API Reference for this payload}
  * @param {Number} [body.id] The transaction ID. If not sent a
  *                           transaction list will be returned instead.
  * @param {Number} [body.count] Pagination option for transaction list.
@@ -51,7 +52,9 @@ const all = (opts, body) =>
  * @param {Object} opts An options params which
  *                      is usually already bound
  *                      by `connect` functions.
- * @param {Object} body The payload for the request
+ *
+ * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/reference#criar-transação|API Reference for this payload}
  *
  * @returns {Promise} Resolves to the result of
  *                    the request or to an error.
@@ -83,6 +86,9 @@ const capture = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  *
+ * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/reference#estorno-de-transação|API Reference for this payload}
+ *
  * @param {Number} body.id The transaction ID.
  *
  * @returns {Promise} Resolves to the result of
@@ -99,6 +105,8 @@ const refund = (opts, body) =>
  *                      is usually already bound
  *                      by `connect` functions.
  *
+ * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/reference#notificando-cliente-sobre-boleto-a-ser-pago|API Reference for this payload}
  * @param {Number} body.id - The transaction id
  * @param {String} body.email - User email to send the
  *                              payment request
@@ -117,6 +125,9 @@ const collectPayment = (opts, body) =>
  *                        is usually already bound
  *                        by `connect` functions.
  *
+ * @param {Object} body The payload for the request.
+ * {@link https://dash.readme.io/project/pagarme/v1/refs/gerando-card_hash-manualmente-1|API Reference for this payload}
+ *
  * @returns {Promise} - Resolves to the result of
  *                      the request or to an error.
  */
@@ -131,7 +142,8 @@ const cardHashKey = opts =>
  *                      is usually already bound
  *                      by `connect` functions.
  *
- * @param {Object} body The payload for the request
+ * @param {Object} body The payload for the request.
+ * {@link https://pagarme.readme.io/reference#calculando-pagamentos-parcelados|API Reference for this payload}
  * @param {Number} body.id The transaction ID
  * @param {Number} body.status The transaction status
  * @returns {Promise} A promise that resolves to

@@ -50,6 +50,7 @@ const generateCardHash = ({ public_key: publicKey, id }, cardString) => {
  *                      by `connect` functions.
  *
  * @param {Object} card The card object.
+ * {@link https://pagarme.readme.io/v1/reference#gerando-card_hash-manualmente|API Reference for this payload}
  *
  * @param {String} card.card_number The card's number.
  *                             Example: '4111111111111111'

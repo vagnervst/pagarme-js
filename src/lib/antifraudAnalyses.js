@@ -29,6 +29,7 @@ const findOne = curry((opts, body) => {
  *                      by `connect` functions.
  *
  * @param {Object} body - The payload for the request.
+ * {@link https://pagarme.readme.io/v1/reference#retornando-uma-análise-antifraude|API Reference for this payload}
  * @param {Number} body.transactionId - A specific transaction ID
  *
  * @param {Number} [body.id] - The antifraud analyses' ID. If not sent,
