@@ -178,6 +178,9 @@ To build the library, use `npm start`.
 
 To run the library tests, use `npm test`.
 
+>To run tests, you need to export `API_KEY` environment variable with your
+API key. When submitting a PR, Travis will already have it exported.
+
 ## Contributing
 
 Community contributions are essential for keeping this library great. We
