@@ -53,11 +53,7 @@ test('client.balanceOperations.find', () => {
 
 test('client.balanceOperations.all', () => {
   return runTest(merge(findOptions, {
-    subject: client => client.balanceOperations.find({
-      count: 10,
-      page: 2,
-      status: 'available',
-    }),
+    subject: client => client.balanceOperations.all(),
     url: '/balance/operations',
   }))
 })
