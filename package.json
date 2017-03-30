@@ -1,7 +1,7 @@
 {
-  "name": "pagarme-connect",
-  "version": "0.1.4",
-  "description": "",
+  "name": "pagarme",
+  "version": "3.0.0",
+  "description": "A JavaScript library to interface with Pagar.me API",
   "main": "pagarme.js",
   "scripts": {
     "build": "run-p build:dev build:commonjs build:browser",
