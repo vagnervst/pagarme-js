@@ -53,7 +53,7 @@ test('client.user.resetPassword', () =>
       email: 'foo@bar.com',
     }),
     method: 'PUT',
-    url: '/users/reset_password?email%5Bemail%5D=foo%40bar.com',
+    url: '/users/reset_password',
     body: {},
   })
 )

@@ -52,13 +52,20 @@ function buildRequestParams (method, endpoint, options, data) {
     query = `${qs.stringify(queries)}`
   }
 
-  if (['GET', 'HEAD'].includes(method)) {
-    if (length(keys(payload)) > 0) {
+  const isPayloadValid = length(keys(payload)) > 0
+
+  const shouldStringifyPayload = ['GET', 'HEAD', 'PUT'].includes(method)
+
+  const requestHasBody = !['GET', 'HEAD'].includes(method)
+
+  if (isPayloadValid) {
+    if (shouldStringifyPayload) {
       query += `${query ? '&' : ''}${qs.stringify(payload, { encode: false })}`
     }
-  } else if (length(keys(payload)) > 0) {
-    body = JSON.stringify(payload)
-    headers = merge(headers, defaultHeaders)
+    if (requestHasBody) {
+      body = JSON.stringify(payload)
+      headers = merge(headers, defaultHeaders)
+    }
   }
 
   const url = `${endpoint}${query ? `?${query}` : ''}`
