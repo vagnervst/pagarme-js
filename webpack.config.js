@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  context: path.join(__dirname, './src'),
+  context: path.join(__dirname, './lib'),
   entry: './index.js',
   devtool: 'source-map',
   target: 'node',
