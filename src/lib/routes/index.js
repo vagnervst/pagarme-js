@@ -34,7 +34,6 @@ const invites = {
 const recipients = {
   base: '/recipients',
   details: id => `/recipients/${id}`,
-  balance: id => `/recipients/${id}/balance`,
 }
 
 const bulkAnticipations = {
@@ -120,6 +119,7 @@ const transfers = {
 
 const balance = {
   base: '/balance',
+  recipient: id => `/recipients/${id}/balance`,
 }
 
 const balanceOperations = {
