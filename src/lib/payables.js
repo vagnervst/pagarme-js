@@ -43,6 +43,21 @@ const find = (opts, body) =>
     [T, findAll(opts)],
   ])(body)
 
+/**
+ * `GET /payables`
+ * Makes a request to /payables
+ *
+ * @param {Object} opts An options params which
+ *                      is usually already bound
+ *                      by `connect` functions.
+ *
+ * @param {Object} body The payload for the request.
+ * {@link https://docs-beta.pagar.me/v1/reference#retornando-recebíveis}
+*/
+const all = (opts, body) =>
+  findAll(opts, body)
+
 export default {
   find,
+  all,
 }
