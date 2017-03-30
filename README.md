@@ -2,8 +2,8 @@
 
 # Pagar.me Javascript
 
-A JavaScript library to interface with Pagar.me API, works on browser
-and on Node.js.
+A JavaScript library to interface with Pagar.me's API, it works in the browser
+and with Node.js.
 
 <br>
 
@@ -30,7 +30,7 @@ Or using npm:
 npm install pagarme
 ```
 
-Pagar.me JavaScript library can be used in three ways:
+Pagar.me's JavaScript library can be used in three ways:
 
 ### Node.js
 
@@ -62,34 +62,73 @@ const pagarme = require('pagarme/browser')
 
 ### Browser (Global Variable)
 
-If you installed it using `npm` it will be available in the path below:
-
-```sh
-./node_modules/pagarme/browser/pagarme.min.js
-```
-
-You can also download the latest release from Github release page.
-
-Import the build directly on your HTML:
+You can also use the latest release from our CDN and import the build
+directly in your HTML:
 
 ```html
-<script src="pagarme.min.js" />
+<script src="https://assets.pagar.me/js/3.0.0/pagarme.min.js" />
 ```
 
 The library will be available as the global variable `pagarme`.
 
 ## API Docs
 
-This library provides a `Promise` based interface for all calls. Before you
-can use the library to call Pagar.me API, you need to provide authentication
-details which will be used through API calls.
+This library provides a promise based interface for all functions. Before you
+can use the library, you need to provide authentication details which will be
+used through API calls.
 
-### Authorization
+For a detailed documentation, see our [JSDocs](https://pagarme.github.io/pagarme-js).
 
-Pagar.me can authorize clients in various fashions. This library handles all
-available authentication strategies via `connect` function.
+### Client API
 
-* Using API key:
+All of Pagar.me's REST API endpoints are covered in the `client` object. Every
+function call issued to `client` will return a `Promise` which represents and
+manages the result's lifecycle.
+
+### Using `connect`
+
+When you call `connect`, a `Promise` which resolves to a `client` or an
+error will be returned. If an authentication error happens, you can catch
+the error with the `Promise` interface:
+
+```javascript
+import pagarme from 'pagarme'
+
+pagarme.client.connect({ email: 'user@email.com', password: '123456' })
+  .then(client => client.transactions.all())
+  .then(transactions => console.log(transactions))
+  .catch(error => console.error(error))
+```
+
+As the entire library is based on promises, you can also use ES6 generators
+with every call to make code more procedural:
+
+```javascript
+import pagarme from 'pagarme'
+
+try {
+  const client = yield pagarme.client.connect({
+    email: 'user@email.com',
+    password: '123456'
+  })
+} catch (err) {
+  console.log('Authentication error')
+}
+
+try {
+  const transactions = yield client.transactions.all()
+  console.log(transactions)
+} catch (err) {
+  console.log('Error fetching transactions')
+}
+```
+
+The downside of this approach is that you need to handle errors using try/catch.
+
+Pagar.me authorizes clients in various fashions. This library handles all
+available authentication strategies:
+
+#### Using API key:
 
 ```javascript
 import pagarme from 'pagarme'
@@ -99,9 +138,9 @@ pagarme.client.connect({ api_key: 'ak_test_y7jk294ynbzf93' })
   .then(transactions => console.log(transactions))
 ```
 
-> IMPORTANT: Never use API key on the browser, you should use encription key for client side usage.
+> :warning: Never use API keys in the browser, you should use encryption keys instead.
 
-* Using encryption key:
+#### Using encryption key:
 
 ```javascript
 import pagarme from 'pagarme'
@@ -118,7 +157,7 @@ pagarme.client.connect({ encryption_key: 'ek_test_y7jk294ynbzf93' })
   .then(card_hash => console.log(card_hash))
 ```
 
-* Using email and password:
+#### Using email and password:
 
 ```javascript
 import pagarme from 'pagarme'
@@ -126,127 +165,38 @@ import pagarme from 'pagarme'
 pagarme.client.connect({ email: 'user@email.com', password: '123456' })
   .then(client => client.transactions.all())
   .then(transactions => console.log(transactions))
-```
-
-### Client API
-
-All of Pagar.me REST API endpoints are covered in `client` object. Every
-function call issued to `client` will return a `Promise` which represents and
-manages the result's lifecycle.
-
-
-### Using `connect`
-
-When you call `connect`, a Promise which resolves to a `client` or an
-error will be returned. If a **login**, **API key** or **encryption key**
-authentication error happen, you can `catch` the error with the Promise:
-
-```javascript
-import pagarme from 'pagarme'
-
-pagarme.client.connect({ email: 'user@email.com', password: '123456' })
-  .then(client => client.transactions.all())
-  .then(transactions => console.log(transactions))
-  .catch(error => console.error(error))
-```
-
-When using **email** and **password** authentication, you can also provide
-a callback which will be invoked in case of a session expiration:
-
-```javascript
-import pagarme from 'pagarme'
-
-function onExpire (session) {
-  console.log('Session expired!')
-}
-
-pagarme.client.connect({ email: 'user@email.com', password: '123456', onExpire })
-  .then(client => client.transactions.all())
-  .then(transactions => console.log(transactions))
-  .catch(error => console.error(error))
-```
-
-### Validations
-
-This lib also includes a bunch of validators for convenience. They can be
-used in `pagarme.validate` like this:
-
-```javascript
-const result = pagarme.validate({
-  cnpj: '18.727.053/0001-74',
-  cpf: ['403.845.348-37', '20184536856'],
-  ddd: 15,
-  zipcode: '05679010',
-  phone: '996220394',
-  card: {
-    card_holder_name: 'Pedro Paulo',
-    card_number: '5545497548400992',
-    card_cvv: 856,
-    card_expiration_date: '11/21',
-  }
-})
-```
-
-Note that you can send numbers, string, and arrays, the validator will
-validate everything and return an object containing `true` or `false`
-in the same order you sent the numbers. An example return of this is:
-
-```javascript
-{
-  cnpj: true,
-  cpf: [true, false],
-  ddd: true,
-  zipcode: true,
-  phone: true,
-  card: {
-    card_holder_name: true,
-    brand: 'mastercard', // we add this field for convenience, it's the only non-boolean field.
-    card_number: true,
-    card_cvv: true,
-    card_expiration_date: true,
-    card_expiration_month: true,
-    card_expiration_year: true,
-  }
-}
-```
-
-### Transaction example
-
-```javascript
-const card = {
-  card_number: '4111111111111111',
-  card_holder_name: 'abc',
-  card_expiration_date: '1225',
-  card_cvv: '123',
-}
-
-function connect (email, password) {
-  return pagarme.client.connect({ email, password })
-}
-
-function encryptCard (client, card) {
-  return client.security.encrypt(card)
-    .then(card_hash => ({ client, card_hash }))
-}
-
-function makeTransaction (client, card_hash, amount) {
-  return client.transactions.create({ card_hash, amount })
-}
-
-connect('youremail@something.com', 'somepassword')
-  .then(client => encryptCard(client, card))
-  .then(({ client, card_hash }) =>
-    makeTransaction(client, card_hash, 1000) // $10.00
-  )
-  .then(transaction => console.log(transaction))
 ```
 
 ## Building
 
-To build the library, use `npm start`. The result is produced inside `dist`
-directory.
+To build the library, use `npm start`.
+
+* Node.js build is produced inside the `dist` directory.
+* Browser build is produced inside the `browser` directory.
 
 ## Testing
 
-To run library's tests, use `npm test`
+To run the library tests, use `npm test`.
+
+## Contributing
+
+Community contributions are essential for keeping this library great. We
+simply can't access the huge number of platforms and myriad configurations
+for running it, so if you find any problems, feel free to open an issue.
+
+Be sure to provide at least the following information on the issue:
+
+* Environment (e.g. Node 7, Chrome 57)
+* Operating System (e.g. iOS 10)
+* Library version (e.g. 3.0.0)
+
+We provide source maps to ease debugging. Use them whenever possible when
+providing stack traces as it will make digging onto the issue easier.
+
+## License
+
+```
+The MIT License (MIT)
+Copyright (c) 2017 Pagar.me Pagamentos S/A
+```
 
