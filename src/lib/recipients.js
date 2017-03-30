@@ -78,27 +78,9 @@ const create = (opts, body) =>
 const update = (opts, body) =>
   request.put(opts, routes.recipients.details(body.id), body)
 
-/**
- * `GET /recipients/:id/balance`
- * Creates a recipient from the given payload.
- *
- * @param {Object} opts An options params which
- *                      is usually already bound
- *                      by `connect` functions.
- * @param {Object} body The payload for the request
- * {@link https://pagarme.readme.io/v1/reference#saldo-de-um-recebedor|API Reference for this payload}
- * @param {String} body.id The recipient Id
- *
- * @returns {Promise} Resolves to the result of
- *                    the request or to an error.
- */
-const balance = (opts, body) =>
-  request.get(opts, routes.recipients.balance(body.id), body)
-
 export default {
   find,
   all,
   create,
   update,
-  balance,
 }

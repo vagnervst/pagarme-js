@@ -64,17 +64,3 @@ test('client.recipients.update', () => {
   })
 })
 
-test('client.recipients.balance', () => {
-  return runTest({
-    connect: {
-      api_key: 'abc123',
-    },
-    subject: client => client.recipients.balance({ id: 1234 }),
-    method: 'GET',
-    url: '/recipients/1234/balance',
-    body: {
-      api_key: 'abc123',
-    },
-  })
-})
-
