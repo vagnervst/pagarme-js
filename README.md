@@ -106,8 +106,10 @@ with every call to make code more procedural:
 ```javascript
 import pagarme from 'pagarme'
 
+let client
+
 try {
-  const client = yield pagarme.client.connect({
+  client = yield pagarme.client.connect({
     email: 'user@email.com',
     password: '123456'
   })
