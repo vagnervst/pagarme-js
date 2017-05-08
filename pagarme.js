@@ -1926,24 +1926,31 @@ module.exports =
 	 * @private
 	 */
 	function execute(opts) {
-	  var encryption_key = opts.encryption_key;
+	  var encryption_key = opts.encryption_key,
+	      options = opts.options;
 	
 	  var body = {
 	    body: {
 	      encryption_key: encryption_key
 	    }
 	  };
-	  return _transactions2.default.calculateInstallmentsAmount(body, { amount: 1, interest_rate: 100 }).catch(function () {
+	  if (options && options.baseURL) {
+	    body.baseURL = options.baseURL;
+	  }
+	  return _transactions2.default.calculateInstallmentsAmount(body, { amount: 1, interest_rate: 100 }).catch(function (error) {
 	    if (opts.skipAuthentication) {
 	      return;
 	    }
-	    throw new Error('You must supply a valid encryption key');
+	    if (error.name === 'ApiError') {
+	      throw new Error('You must supply a valid encryption key');
+	    }
+	    console.warn('Warning: Could not verify key. Pagar.me may be offline ' + error.name);
 	  }).then(function () {
 	    return (0, _merge2.default)(body, opts.options);
-	  }).then(function (options) {
+	  }).then(function (requestOpts) {
 	    return {
 	      authentication: { encryption_key: encryption_key },
-	      options: options
+	      options: requestOpts
 	    };
 	  });
 	}
@@ -2037,6 +2044,19 @@ module.exports =
 	  return (0, _cond2.default)([[(0, _has2.default)('id'), findOne(opts)], [_T2.default, findAll(opts)]])(body);
 	};
 	
+	/**
+	 * `GET /transactions`
+	 * Makes a request to /transactions to get all transactions.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @param {Number} [body.count] Pagination option for recipient list.
+	 *                              Number of recipient in a page
+	 * @param {Number} [body.page] Pagination option for recipient list.
+	 *                             The page index.
+	*/
 	var all = function all(opts, body) {
 	  return findAll(opts, body);
 	};
@@ -2073,7 +2093,7 @@ module.exports =
 	 *                    the request or to an error.
 	 */
 	var capture = function capture(opts, body) {
-	  return _request2.default.post(opts, _routes2.default.transactions.capture(body.id), {});
+	  return _request2.default.post(opts, _routes2.default.transactions.capture(body.id), body);
 	};
 	
 	/**
@@ -2093,7 +2113,7 @@ module.exports =
 	 *                    the request or to an error.
 	 */
 	var refund = function refund(opts, body) {
-	  return _request2.default.post(opts, _routes2.default.transactions.refund(body.id), {});
+	  return _request2.default.post(opts, _routes2.default.transactions.refund(body.id), body);
 	};
 	
 	/**
@@ -2144,7 +2164,7 @@ module.exports =
 	 *                      by `connect` functions.
 	 *
 	 * @param {Object} body The payload for the request.
-	 * {@link https://pagarme.readme.io/reference#calculando-pagamentos-parcelados|API Reference for this payload}
+	 *
 	 * @param {Number} body.id The transaction ID
 	 * @param {Number} body.status The transaction status
 	 * @returns {Promise} A promise that resolves to
@@ -21735,24 +21755,31 @@ module.exports =
 	 * @private
 	 */
 	function execute(opts) {
-	  var api_key = opts.api_key;
+	  var api_key = opts.api_key,
+	      options = opts.options;
 	
 	  var body = {
 	    body: {
 	      api_key: api_key
 	    }
 	  };
-	  return _company2.default.current(body).catch(function () {
+	  if (options && options.baseURL) {
+	    body.baseURL = options.baseURL;
+	  }
+	  return _company2.default.current(body).catch(function (error) {
 	    if (opts.skipAuthentication) {
 	      return;
 	    }
-	    throw new Error('You must supply a valid API key');
+	    if (error.name === 'ApiError') {
+	      throw new Error('You must supply a valid API key');
+	    }
+	    console.warn('Warning: Could not verify key. Pagar.me may be offline ' + error.name);
 	  }).then(function () {
 	    return (0, _merge2.default)(body, opts.options);
-	  }).then(function (options) {
+	  }).then(function (requestOpts) {
 	    return {
 	      authentication: { api_key: api_key },
-	      options: options
+	      options: requestOpts
 	    };
 	  });
 	}
@@ -22401,16 +22428,13 @@ module.exports =
 	 *                      is usually already bound
 	 *                      by `connect` functions.
 	 *
-	 * @param {Object} body The payload for the request.
 	 * @param {Number} [body.count] Pagination option to get a list of users.
 	 *                              Number of users in a page
 	 * @param {Number} [body.page] Pagination option for a list of users.
 	 *                             The page index.
-	 * @returns {Promise} Resolves to the result of
-	 *                    the request or to an error.
 	*/
-	var all = function all(opts, pagination) {
-	  return findAll(opts, pagination);
+	var all = function all(opts, body) {
+	  return findAll(opts, body);
 	};
 	
 	/**
@@ -22569,6 +22593,15 @@ module.exports =
 	};
 	
 	/**
+	 * `GET /invites`
+	 * Makes a request to /invites to get all invites.
+	 *
+	*/
+	var all = function all(opts) {
+	  return findAll(opts);
+	};
+	
+	/**
 	 * `POST /invites`
 	 * Creates an invite from the given payload.
 	 *
@@ -22607,6 +22640,7 @@ module.exports =
 	
 	exports.default = {
 	  find: find,
+	  all: all,
 	  create: create,
 	  destroy: destroy
 	};
@@ -22840,6 +22874,19 @@ module.exports =
 	  return (0, _cond2.default)([[(0, _has2.default)('id'), findOne(opts)], [_T2.default, findAll(opts)]])(body);
 	};
 	
+	/**
+	 * `GET /recipients`
+	 * Makes a request to /recipients to get all recipients.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @param {Number} [body.count] Pagination option for recipient list.
+	 *                              Number of recipient in a page
+	 * @param {Number} [body.page] Pagination option for recipient list.
+	 *                             The page index.
+	*/
 	var all = function all(opts, body) {
 	  return findAll(opts, body);
 	};
@@ -23698,21 +23745,19 @@ module.exports =
 	
 	/**
 	 * `GET /subscriptions`
-	 * Makes a request to /subscriptions
+	 * Makes a request to /subscriptions to get all subscriptions.
 	 *
 	 * @param {Object} opts An options params which
 	 *                      is usually already bound
 	 *                      by `connect` functions.
 	 *
-	 * @param {Object} body The payload for the request.
-	 * {@link https://pagarme.readme.io/v1/reference#retornando-assinaturas|API Reference for this payload}
 	 * @param {Number} [body.count] Pagination option to get a list of subscriptions.
 	 *                              Number of subscriptions in a page
 	 * @param {Number} [body.page] Pagination option for a list of subscriptions.
 	 *                             The page index.
 	*/
-	var all = function all(opts, pagination) {
-	  return findAll(opts, pagination);
+	var all = function all(opts, body) {
+	  return findAll(opts, body);
 	};
 	
 	/**
@@ -24005,7 +24050,7 @@ module.exports =
 	
 	/**
 	 * `GET /transfers`
-	 * Makes a request to /transfers
+	 * Makes a request to /transfers to get all transfers.
 	 *
 	 * @param {Object} opts An options params which
 	 *                      is usually already bound
@@ -29978,8 +30023,6 @@ module.exports =
 	
 	var _cnpjAndCpf = __webpack_require__(220);
 	
-	var _cnpjAndCpf2 = _interopRequireDefault(_cnpjAndCpf);
-	
 	var _numberSize = __webpack_require__(236);
 	
 	var _numberSize2 = _interopRequireDefault(_numberSize);
@@ -29999,8 +30042,8 @@ module.exports =
 	var zipcode = (0, _numberSize2.default)(8);
 	
 	exports.default = {
-	  cnpj: _cnpjAndCpf2.default,
-	  cpf: _cnpjAndCpf2.default,
+	  cnpj: _cnpjAndCpf.cnpj,
+	  cpf: _cnpjAndCpf.cpf,
 	  ddd: ddd,
 	  email: _email2.default,
 	  phone: phone,
@@ -30100,14 +30143,7 @@ module.exports =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _ifElse = __webpack_require__(27);
-	
-	var _ifElse2 = _interopRequireDefault(_ifElse);
-	
-	var _toString = __webpack_require__(174);
-	
-	var _toString2 = _interopRequireDefault(_toString);
+	exports.cpf = exports.cnpj = undefined;
 	
 	var _T = __webpack_require__(38);
 	
@@ -30120,6 +30156,10 @@ module.exports =
 	var _cond = __webpack_require__(47);
 	
 	var _cond2 = _interopRequireDefault(_cond);
+	
+	var _toString = __webpack_require__(174);
+	
+	var _toString2 = _interopRequireDefault(_toString);
 	
 	var _allPass = __webpack_require__(222);
 	
@@ -30255,24 +30295,15 @@ module.exports =
 	var validateDigits = (0, _pipe2.default)((0, _ap2.default)([validateDigit]), _allPass2.default);
 	
 	// ID -> Boolean
-	var isCNPJ = (0, _pipe2.default)(_length2.default, (0, _equals2.default)(14));
-	
-	// ID -> Boolean
 	var validateId = function validateId(indexes) {
-	  return (0, _cond2.default)([[isInvalid, _F2.default], [validateDigits(indexes), _T2.default], [_T2.default, _F2.default]]);
+	  return (0, _pipe2.default)(_toString2.default, clean, (0, _cond2.default)([[isInvalid, _F2.default], [validateDigits(indexes), _T2.default], [_T2.default, _F2.default]]));
 	};
 	
 	// ID -> Boolean
-	var validateCNPJ = validateId([12, 13]);
+	var cnpj = exports.cnpj = validateId([12, 13]);
 	
 	// ID -> Boolean
-	var validateCPF = validateId([9, 10]);
-	
-	// RAW_ID -> Boolean
-	var validate = (0, _pipe2.default)(_toString2.default, clean, (0, _ifElse2.default)(isCNPJ, validateCNPJ, validateCPF));
-	
-	exports.default = validate;
-	module.exports = exports['default'];
+	var cpf = exports.cpf = validateId([9, 10]);
 
 /***/ },
 /* 221 */
