@@ -7,6 +7,12 @@ and with Node.js.
 
 <br>
 
+<a href="https://travis-ci.org/pagarme/pagarme-js" >
+  <img src="https://travis-ci.org/pagarme/pagarme-js.svg?branch=master" align="left" />
+</a>
+
+<br>
+
 ## Description
 
 This library covers all your needs for integrating with Pagar.me, providing:
@@ -204,4 +210,3 @@ providing stack traces as it will make digging onto the issue easier.
 The MIT License (MIT)
 Copyright (c) 2017 Pagar.me Pagamentos S/A
 ```
-
