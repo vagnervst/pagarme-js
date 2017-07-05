@@ -5,6 +5,8 @@
 A JavaScript library to interface with Pagar.me's API, it works in the browser
 and with Node.js.
 
+The documentation can be found in our [JSDocs](https://pagarme.github.io/pagarme-js)
+
 <br>
 
 <a href="https://travis-ci.org/pagarme/pagarme-js" >
