@@ -40,7 +40,7 @@
     "gh-pages": "0.12.0",
     "isomorphic-fetch": "2.2.1",
     "jest": "19.0.2",
-    "jsdoc": "3.4.3",
+    "jsdoc": "3.5.5",
     "json-loader": "0.5.4",
     "node-rsa": "0.4.2",
     "npm-run-all": "4.0.2",
