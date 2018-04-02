@@ -6,6 +6,13 @@ pagarme.min.js.map
 pagarme.js
 pagarme.js.map
 
+### Vim/Neovim ###
+
+*.swm
+*.swn
+*.swo
+*.swp
+
 ### Node ###
 # Logs
 logs
