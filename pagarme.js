@@ -1820,30 +1820,31 @@ module.exports =
 	var debug = __webpack_require__(57)(Promise, Context);
 	var CapturedTrace = debug.CapturedTrace;
 	var PassThroughHandlerContext =
-	    __webpack_require__(58)(Promise, tryConvertToPromise);
+	    __webpack_require__(58)(Promise, tryConvertToPromise, NEXT_FILTER);
 	var catchFilter = __webpack_require__(59)(NEXT_FILTER);
 	var nodebackForPromise = __webpack_require__(60);
 	var errorObj = util.errorObj;
 	var tryCatch = util.tryCatch;
 	function check(self, executor) {
+	    if (self == null || self.constructor !== Promise) {
+	        throw new TypeError("the promise constructor cannot be invoked directly\u000a\u000a    See http://goo.gl/MqrFmX\u000a");
+	    }
 	    if (typeof executor !== "function") {
 	        throw new TypeError("expecting a function but got " + util.classString(executor));
 	    }
-	    if (self.constructor !== Promise) {
-	        throw new TypeError("the promise constructor cannot be invoked directly\u000a\u000a    See http://goo.gl/MqrFmX\u000a");
-	    }
+	
 	}
 	
 	function Promise(executor) {
+	    if (executor !== INTERNAL) {
+	        check(this, executor);
+	    }
 	    this._bitField = 0;
 	    this._fulfillmentHandler0 = undefined;
 	    this._rejectionHandler0 = undefined;
 	    this._promise0 = undefined;
 	    this._receiver0 = undefined;
-	    if (executor !== INTERNAL) {
-	        check(this, executor);
-	        this._resolveFromExecutor(executor);
-	    }
+	    this._resolveFromExecutor(executor);
 	    this._promiseCreated();
 	    this._fireEvent("promiseCreated", this);
 	}
@@ -1862,8 +1863,8 @@ module.exports =
 	            if (util.isObject(item)) {
 	                catchInstances[j++] = item;
 	            } else {
-	                return apiRejection("expecting an object but got " +
-	                    "A catch statement predicate " + util.classString(item));
+	                return apiRejection("Catch statement predicate: " +
+	                    "expecting an object but got " + util.classString(item));
 	            }
 	        }
 	        catchInstances.length = j;
@@ -2242,6 +2243,7 @@ module.exports =
 	};
 	
 	Promise.prototype._resolveFromExecutor = function (executor) {
+	    if (executor === INTERNAL) return;
 	    var promise = this;
 	    this._captureStackTrace();
 	    this._pushContext();
@@ -2499,7 +2501,7 @@ module.exports =
 	__webpack_require__(66)(
 	    Promise, PromiseArray, tryConvertToPromise, INTERNAL, async, getDomain);
 	Promise.Promise = Promise;
-	Promise.version = "3.4.6";
+	Promise.version = "3.5.1";
 	__webpack_require__(67)(Promise, PromiseArray, apiRejection, tryConvertToPromise, INTERNAL, debug);
 	__webpack_require__(68)(Promise);
 	__webpack_require__(69)(Promise, apiRejection, tryConvertToPromise, createContext, INTERNAL, debug);
@@ -2770,10 +2772,11 @@ module.exports =
 	}
 	
 	function isError(obj) {
-	    return obj !== null &&
+	    return obj instanceof Error ||
+	        (obj !== null &&
 	           typeof obj === "object" &&
 	           typeof obj.message === "string" &&
-	           typeof obj.name === "string";
+	           typeof obj.name === "string");
 	}
 	
 	function markAsOriginatingFromRejection(e) {
@@ -2857,8 +2860,11 @@ module.exports =
 	var isNode = typeof process !== "undefined" &&
 	        classString(process).toLowerCase() === "[object process]";
 	
-	function env(key, def) {
-	    return isNode ? process.env[key] : def;
+	var hasEnvVariables = typeof process !== "undefined" &&
+	    typeof process.env !== "undefined";
+	
+	function env(key) {
+	    return hasEnvVariables ? process.env[key] : undefined;
 	}
 	
 	function getNativePromise() {
@@ -2906,6 +2912,7 @@ module.exports =
 	    hasDevTools: typeof chrome !== "undefined" && chrome &&
 	                 typeof chrome.loadTimes === "function",
 	    isNode: isNode,
+	    hasEnvVariables: hasEnvVariables,
 	    env: env,
 	    global: globalObject,
 	    getNativePromise: getNativePromise,
@@ -3140,11 +3147,6 @@ module.exports =
 	    };
 	}
 	
-	Async.prototype.invokeFirst = function (fn, receiver, arg) {
-	    this._normalQueue.unshift(fn, receiver, arg);
-	    this._queueTick();
-	};
-	
 	Async.prototype._drainQueue = function(queue) {
 	    while (queue.length() > 0) {
 	        var fn = queue.shift();
@@ -3220,11 +3222,11 @@ module.exports =
 	
 	        var scheduleToggle = function() {
 	            if (toggleScheduled) return;
-	                toggleScheduled = true;
-	                div2.classList.toggle("foo");
-	            };
+	            toggleScheduled = true;
+	            div2.classList.toggle("foo");
+	        };
 	
-	            return function schedule(fn) {
+	        return function schedule(fn) {
 	            var o = new MutationObserver(function() {
 	                o.disconnect();
 	                fn();
@@ -3275,23 +3277,6 @@ module.exports =
 	    var i = (this._front + length) & (this._capacity - 1);
 	    this[i] = arg;
 	    this._length = length + 1;
-	};
-	
-	Queue.prototype._unshiftOne = function(value) {
-	    var capacity = this._capacity;
-	    this._checkCapacity(this.length() + 1);
-	    var front = this._front;
-	    var i = (((( front - 1 ) &
-	                    ( capacity - 1) ) ^ capacity ) - capacity );
-	    this[i] = value;
-	    this._front = i;
-	    this._length = this.length() + 1;
-	};
-	
-	Queue.prototype.unshift = function(fn, receiver, arg) {
-	    this._unshiftOne(arg);
-	    this._unshiftOne(receiver);
-	    this._unshiftOne(fn);
 	};
 	
 	Queue.prototype.push = function (fn, receiver, arg) {
@@ -3571,6 +3556,7 @@ module.exports =
 	    switch(val) {
 	    case -2: return [];
 	    case -3: return {};
+	    case -6: return new Map();
 	    }
 	}
 	
@@ -3866,7 +3852,10 @@ module.exports =
 	Promise.prototype._ensurePossibleRejectionHandled = function () {
 	    if ((this._bitField & 524288) !== 0) return;
 	    this._setRejectionIsUnhandled();
-	    async.invokeLater(this._notifyUnhandledRejection, this, undefined);
+	    var self = this;
+	    setTimeout(function() {
+	        self._notifyUnhandledRejection();
+	    }, 1);
 	};
 	
 	Promise.prototype._notifyUnhandledRejectionIsHandled = function () {
@@ -4117,6 +4106,7 @@ module.exports =
 	            Promise.prototype._fireEvent = defaultFireEvent;
 	        }
 	    }
+	    return Promise;
 	};
 	
 	function defaultFireEvent() { return false; }
@@ -4387,7 +4377,7 @@ module.exports =
 	            break;
 	        }
 	    }
-	    if (i > 0) {
+	    if (i > 0 && error.name != "SyntaxError") {
 	        stack = stack.slice(i);
 	    }
 	    return stack;
@@ -4400,7 +4390,7 @@ module.exports =
 	                ? stackFramesAsArray(error) : ["    (No stack trace)"];
 	    return {
 	        message: message,
-	        stack: cleanStack(stack)
+	        stack: error.name == "SyntaxError" ? stack : cleanStack(stack)
 	    };
 	}
 	
@@ -4748,10 +4738,11 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	module.exports = function(Promise, tryConvertToPromise) {
+	module.exports = function(Promise, tryConvertToPromise, NEXT_FILTER) {
 	var util = __webpack_require__(48);
 	var CancellationError = Promise.CancellationError;
 	var errorObj = util.errorObj;
+	var catchFilter = __webpack_require__(59)(NEXT_FILTER);
 	
 	function PassThroughHandlerContext(promise, type, handler) {
 	    this.promise = promise;
@@ -4803,7 +4794,9 @@ module.exports =
 	        var ret = this.isFinallyHandler()
 	            ? handler.call(promise._boundValue())
 	            : handler.call(promise._boundValue(), reasonOrValue);
-	        if (ret !== undefined) {
+	        if (ret === NEXT_FILTER) {
+	            return ret;
+	        } else if (ret !== undefined) {
 	            promise._setReturnedNonUndefined();
 	            var maybePromise = tryConvertToPromise(ret, promise);
 	            if (maybePromise instanceof Promise) {
@@ -4852,8 +4845,40 @@ module.exports =
 	                             finallyHandler);
 	};
 	
+	
 	Promise.prototype.tap = function (handler) {
 	    return this._passThrough(handler, 1, finallyHandler);
+	};
+	
+	Promise.prototype.tapCatch = function (handlerOrPredicate) {
+	    var len = arguments.length;
+	    if(len === 1) {
+	        return this._passThrough(handlerOrPredicate,
+	                                 1,
+	                                 undefined,
+	                                 finallyHandler);
+	    } else {
+	         var catchInstances = new Array(len - 1),
+	            j = 0, i;
+	        for (i = 0; i < len - 1; ++i) {
+	            var item = arguments[i];
+	            if (util.isObject(item)) {
+	                catchInstances[j++] = item;
+	            } else {
+	                return Promise.reject(new TypeError(
+	                    "tapCatch statement predicate: "
+	                    + "expecting an object but got " + util.classString(item)
+	                ));
+	            }
+	        }
+	        catchInstances.length = j;
+	        var handler = arguments[i];
+	        return this._passThrough(catchFilter(catchInstances, handler, this),
+	                                 1,
+	                                 undefined,
+	                                 finallyHandler);
+	    }
+	
 	};
 	
 	return PassThroughHandlerContext;
@@ -6366,7 +6391,7 @@ module.exports =
 	            if (maybePromise === null) {
 	                this._promiseRejected(
 	                    new TypeError(
-	                        "A value %s was yielded that could not be treated as a promise\u000a\u000a    See http://goo.gl/MqrFmX\u000a\u000a".replace("%s", value) +
+	                        "A value %s was yielded that could not be treated as a promise\u000a\u000a    See http://goo.gl/MqrFmX\u000a\u000a".replace("%s", String(value)) +
 	                        "From coroutine:\u000a" +
 	                        this._stack.split("\n").slice(1, -7).join("\n")
 	                    )
@@ -6877,7 +6902,7 @@ module.exports =
 	    }
 	    this.constructor$(entries);
 	    this._isMap = isMap;
-	    this._init$(undefined, -3);
+	    this._init$(undefined, isMap ? -6 : -3);
 	}
 	util.inherits(PropertiesPromiseArray, PromiseArray);
 	
@@ -24037,8 +24062,8 @@ module.exports =
 	 *                      is usually already bound
 	 *                      by `connect` functions.
 	*/
-	var days = function days(opts) {
-	  return _request2.default.get(opts, _routes2.default.balanceOperations.days, {});
+	var days = function days(opts, body) {
+	  return _request2.default.get(opts, _routes2.default.balanceOperations.days, body || {});
 	};
 	
 	exports.default = {
