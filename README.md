@@ -1,6 +1,6 @@
 <img src="https://avatars1.githubusercontent.com/u/3846050?v=4&s=200" width="127px" height="127px" align="left"/>
 
-# Pagar.me Javascript
+# Pagar.me JavaScript
 
 A JavaScript library to interface with Pagar.me's API, it works in the browser
 and with Node.js.
