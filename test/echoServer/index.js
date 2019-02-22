@@ -42,6 +42,7 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(port, () =>
+  // eslint-disable-next-line no-console
   console.log(`Server started in port ${port}`))
 
 process.on('SIGINT', () => process.exit(0))
