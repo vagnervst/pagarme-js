@@ -4,6 +4,7 @@ import {
 
 import pagarme from '..'
 
+// eslint-disable-next-line no-undef
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
 export default function (test) {
