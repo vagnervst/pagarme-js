@@ -1,6 +1,6 @@
 {
   "name": "pagarme",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "description": "A JavaScript library to interface with Pagar.me API",
   "main": "pagarme.js",
   "scripts": {
