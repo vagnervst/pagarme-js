@@ -1,4 +1,6 @@
 const path = require('path')
+const webpack = require('webpack')
+const packageJSON = require('./package.json')
 
 module.exports = {
   context: path.join(__dirname, './lib'),
@@ -31,5 +33,10 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      PAGARME_VERSION: JSON.stringify(packageJSON.version),
+    }),
+  ],
 }
 
