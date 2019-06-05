@@ -5,6 +5,9 @@
     "node": true,
     "jest": true
   },
+  "globals": {
+    "PAGARME_VERSION": "readonly"
+  },
   "rules": {
     "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
     "semi": [2, "never"],
