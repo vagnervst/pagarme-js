@@ -8645,7 +8645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.5.0") : '';
+	var version =  true ? ("4.5.1") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10015,12 +10015,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @memberof strategies
 	 * @private
 	 */
-	var buildSessionAuth = function buildSessionAuth(_ref, headers) {
+	var buildSessionAuth = function buildSessionAuth(_ref, options) {
 	  var session_id = _ref.session_id;
-	  return {
-	    body: { session_id: session_id },
-	    headers: headers
-	  };
+	  return (0, _merge2.default)(options, {
+	    body: { session_id: session_id }
+	  });
 	};
 	
 	/**
@@ -10039,13 +10038,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	function execute(_ref2) {
 	  var email = _ref2.email,
 	      password = _ref2.password,
-	      environment = _ref2.environment;
+	      environment = _ref2.environment,
+	      options = _ref2.options;
 	
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
 	
-	  return _session2.default.create({ headers: headers }, email, password).then(function (sessionInfo) {
+	  var opts = (0, _merge2.default)(options, {
+	    headers: headers
+	  });
+	
+	  return _session2.default.create(opts, email, password).then(function (sessionInfo) {
 	    return {
-	      options: buildSessionAuth(sessionInfo, headers),
+	      options: buildSessionAuth(sessionInfo, opts),
 	      authentication: sessionInfo
 	    };
 	  });
