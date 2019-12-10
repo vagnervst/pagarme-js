@@ -8645,7 +8645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.5.1") : '';
+	var version =  true ? ("4.5.2") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10322,8 +10322,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	*                    the newly created company's
 	*                    data or to an error.
 	**/
-	var activate = function activate(opts) {
-	  return _request2.default.post(opts, _routes2.default.company.activate, {});
+	var activate = function activate(opts, body) {
+	  return _request2.default.post(opts, _routes2.default.company.activate, body);
 	};
 	
 	/**
