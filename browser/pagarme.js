@@ -1876,12 +1876,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @private
 	 */
 	function execute(opts) {
-	  var encryption_key = opts.encryption_key,
+	  var encryptionKey = opts.encryption_key,
 	      options = opts.options;
 	
 	  var payload = (0, _merge2.default)({
 	    body: {
-	      encryption_key: encryption_key
+	      encryption_key: encryptionKey
 	    }
 	  }, options && options.baseURL ? { baseURL: options.baseURL } : {});
 	
@@ -1893,7 +1893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (0, _bluebird.reject)(new Error('You must supply a valid encryption key'));
 	  }).then((0, _merge2.default)(payload)).then(function (requestOpts) {
 	    return {
-	      authentication: { encryption_key: encryption_key },
+	      authentication: { encryption_key: encryptionKey },
 	      options: requestOpts
 	    };
 	  });
@@ -10016,9 +10016,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @private
 	 */
 	var buildSessionAuth = function buildSessionAuth(_ref, options) {
-	  var session_id = _ref.session_id;
+	  var sessionId = _ref.session_id;
 	  return (0, _merge2.default)(options, {
-	    body: { session_id: session_id }
+	    body: { session_id: sessionId }
 	  });
 	};
 	
@@ -10198,12 +10198,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @private
 	 */
 	function execute(opts) {
-	  var api_key = opts.api_key,
+	  var apiKey = opts.api_key,
 	      options = opts.options;
 	
 	  var body = {
 	    body: {
-	      api_key: api_key
+	      api_key: apiKey
 	    }
 	  };
 	  if (options && options.baseURL) {
@@ -10223,7 +10223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (0, _merge2.default)(body, opts.options);
 	  }).then(function (requestOpts) {
 	    return {
-	      authentication: { api_key: api_key },
+	      authentication: { api_key: apiKey },
 	      options: requestOpts
 	    };
 	  });
@@ -10294,34 +10294,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	/**
-	* `POST /companies/temporary`
-	* Creates a test-only temporary company.
-	*
-	* @param {Object} opts An options params which
-	*                      is usually already bound
-	*                      by `connect` functions.
-	*
-	* @param {Object} body The payload for the request
-	* @returns {Promise} A promise that resolves to
-	*                    the newly created company's
-	*                    data or to an error.
-	**/
+	 * `POST /companies/temporary`
+	 * Creates a test-only temporary company.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @param {Object} body The payload for the request
+	 * @returns {Promise} A promise that resolves to
+	 *                    the newly created company's
+	 *                    data or to an error.
+	 **/
 	var createTemporary = function createTemporary(opts, body) {
 	  return _request2.default.post(opts, _routes2.default.company.temporary, body);
 	};
 	
 	/**
-	* `POST /companies/activate`
-	* Activates a company.
-	*
-	* @param {Object} opts An options params which
-	*                      is usually already bound
-	*                      by `connect` functions.
-	*
-	* @returns {Promise} A promise that resolves to
-	*                    the newly created company's
-	*                    data or to an error.
-	**/
+	 * `POST /companies/activate`
+	 * Activates a company.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @returns {Promise} A promise that resolves to
+	 *                    the newly created company's
+	 *                    data or to an error.
+	 **/
 	var activate = function activate(opts, body) {
 	  return _request2.default.post(opts, _routes2.default.company.activate, body);
 	};
@@ -10500,7 +10500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @private
 	 */
 	function execute(_ref) {
-	  var session_id = _ref.session_id,
+	  var sessionId = _ref.session_id,
 	      environment = _ref.environment,
 	      options = _ref.options,
 	      skipAuthentication = _ref.skipAuthentication;
@@ -10508,7 +10508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
 	
 	  var opts = (0, _merge2.default)(options, {
-	    body: { session_id: session_id },
+	    body: { session_id: sessionId },
 	    headers: headers
 	  });
 	
@@ -10518,7 +10518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (0, _bluebird.reject)(new Error('You must supply a valid session id'));
 	  }).then(function () {
 	    return {
-	      authentication: { session_id: session_id },
+	      authentication: { session_id: sessionId },
 	      options: opts
 	    };
 	  });
@@ -25458,6 +25458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// eslint-disable-next-line no-useless-escape
 	var validate = (0, _test2.default)(/^([a-zA-Z0-9_\.\-\+])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/);
 	
 	exports.default = validate;
