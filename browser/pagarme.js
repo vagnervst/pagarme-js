@@ -8401,6 +8401,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  base: '/acquirers',
 	  details: function details(id) {
 	    return '/acquirer/' + id;
+	  },
+	  anticipation: function anticipation(id, delay) {
+	    return '/acquirer/' + id + '/anticipation_delay/' + delay;
 	  }
 	};
 	
@@ -8648,7 +8651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.5.3") : '';
+	var version =  true ? ("4.6.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -12778,12 +12781,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _request2.default.put(opts, _routes2.default.acquirers.details(body.id), body);
 	};
 	
+	/**
+	 * `PUT /acquirers/:id/anticipation_delay/:delay`
+	 * Updates an acquirer anticipation from the given delay.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @param {Object} body The payload for the request
+	 * @param {Number} body.id The acquirer's ID
+	 * @param {Number} body.delay The acquirer's anticipation delay
+	 * @returns {Promise} A promise that resolves to
+	 *                    the newly created acquirer's
+	 *                    data or to an error.
+	 */
+	var updateAnticipationDelay = function updateAnticipationDelay(opts, body) {
+	  return _request2.default.put(opts, _routes2.default.acquirers.anticipation(body.id, body.delay), body);
+	};
+	
 	exports.default = {
 	  all: all,
 	  find: find,
 	  findAll: findAll,
 	  create: create,
-	  update: update
+	  update: update,
+	  updateAnticipationDelay: updateAnticipationDelay
 	};
 	module.exports = exports['default'];
 
