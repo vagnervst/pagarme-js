@@ -8546,10 +8546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	var onboardingAnswers = {
-	  base: '/onboarding_answers',
-	  destroy: function destroy(id) {
-	    return '/onboarding_answers/' + id;
-	  }
+	  base: '/onboarding_answers'
 	};
 	
 	var onboardingQuestions = {
@@ -24520,7 +24517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                    the request or to an error.
 	 */
 	var destroy = function destroy(opts, body) {
-	  return _request2.default.delete(opts, _routes2.default.onboardingAnswers.destroy(body.id), body);
+	  return _request2.default.delete(opts, _routes2.default.onboardingAnswers.base, body);
 	};
 	
 	exports.default = {
