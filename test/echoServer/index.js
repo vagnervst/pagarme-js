@@ -38,6 +38,9 @@ const server = http.createServer((req, res) => {
     )
 
     respond(req)
+    if (req.url === '/kill') {
+      process.exit(0)
+    }
   })
 })
 
@@ -45,5 +48,8 @@ server.listen(port, () =>
   // eslint-disable-next-line no-console
   console.log(`Server started in port ${port}`))
 
-process.on('SIGINT', () => process.exit(0))
-
+process.on('SIGTERM', () => {
+  server.close(() => {
+    process.exit(0)
+  })
+})
