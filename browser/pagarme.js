@@ -8344,6 +8344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  basePlural: '/companies',
 	  base: '/company',
 	  temporary: '/companies/temporary',
+	  emailConfirmation: '/company/email_confirmation',
 	  activate: '/companies/activate',
 	  resetKeys: '/company/reset_keys',
 	  affiliationProgress: '/company/affiliation_progress',
@@ -8663,7 +8664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.7.0") : '';
+	var version =  true ? ("4.8.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10466,10 +10467,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
+	/**
+	 * `POST /company/email_confirmation`
+	 * Resend account confirmation email to a previously registered company.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @param {String} body.email The email address to resend the account confirmation
+	 * @returns {Promise} A promise that resolves to
+	 *                    the send email confirmation company's
+	 *                    data or to an error.
+	 **/
+	var emailConfirmation = function emailConfirmation(opts, body) {
+	  return _request2.default.post(opts, _routes2.default.company.emailConfirmation, body);
+	};
+	
 	exports.default = {
 	  create: create,
 	  createTemporary: createTemporary,
 	  activate: activate,
+	  emailConfirmation: emailConfirmation,
 	  update: update,
 	  current: current,
 	  resetKeys: resetKeys,
