@@ -8164,12 +8164,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Number} body.id The transaction ID.
 	 * @param {Boolean} body.capture Should capture
 	 *                               the transaction.
+	 * @param {Boolean} body.analyze Should analyze
+	 *                               the transaction.
 	 *
 	 * @returns {Promise} Resolves to the result of
 	 *                    the request or to an error.
 	 */
 	var reprocess = function reprocess(opts, body) {
-	  var payload = (0, _pick2.default)(['capture'], body);
+	  var payload = (0, _pick2.default)(['capture', 'analyze'], body);
 	
 	  return _request2.default.post(opts, _routes2.default.transactions.reprocess(body.id), payload);
 	};
@@ -8664,7 +8666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.8.0") : '';
+	var version =  true ? ("4.9.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
