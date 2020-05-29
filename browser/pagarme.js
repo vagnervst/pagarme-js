@@ -8355,7 +8355,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  emailTemplates: function emailTemplates(id) {
 	    return '/company/email_templates/' + id;
-	  }
+	  },
+	  fees: '/company/fees'
 	};
 	
 	var splitRules = {
@@ -8666,7 +8667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.9.0") : '';
+	var version =  true ? ("4.10.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10486,6 +10487,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _request2.default.post(opts, _routes2.default.company.emailConfirmation, body);
 	};
 	
+	/**
+	 * `GET /company/fees`
+	 * Return company fees configuration available.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @returns {Promise} A promise that resolves to
+	 *                    the newly created company's
+	 *                    data or to an error.
+	 **/
+	var fees = function fees(opts) {
+	  return _request2.default.get(opts, _routes2.default.company.fees);
+	};
+	
 	exports.default = {
 	  create: create,
 	  createTemporary: createTemporary,
@@ -10496,7 +10513,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  resetKeys: resetKeys,
 	  affiliationProgress: affiliationProgress,
 	  updateBranding: updateBranding,
-	  emailTemplates: emailTemplates
+	  emailTemplates: emailTemplates,
+	  fees: fees
 	};
 	module.exports = exports['default'];
 
