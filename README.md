@@ -1,19 +1,16 @@
 <img src="https://avatars1.githubusercontent.com/u/3846050?v=4&s=200" width="127px" height="127px" align="left"/>
 
 # Pagar.me JavaScript
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pagarme-js&metric=alert_status&token=ae3e29f50b71ed248ae33abeda6210e8f076a774)](https://sonarcloud.io/dashboard?id=pagarme-js)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pagarme-js&metric=code_smells&token=ae3e29f50b71ed248ae33abeda6210e8f076a774)](https://sonarcloud.io/dashboard?id=pagarme-js)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pagarme-js&metric=coverage&token=ae3e29f50b71ed248ae33abeda6210e8f076a774)](https://sonarcloud.io/dashboard?id=pagarme-js)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=pagarme-js&metric=sqale_rating&token=ae3e29f50b71ed248ae33abeda6210e8f076a774)](https://sonarcloud.io/dashboard?id=pagarme-js)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=pagarme-js&metric=security_rating&token=ae3e29f50b71ed248ae33abeda6210e8f076a774)](https://sonarcloud.io/dashboard?id=pagarme-js)
 
 A JavaScript library to interface with Pagar.me's API, it works in the browser
 and with Node.js.
 
 The documentation can be found in our [JSDocs](https://pagarme.github.io/pagarme-js)
-
-<br>
-
-<a href="https://travis-ci.org/pagarme/pagarme-js" >
-  <img src="https://travis-ci.org/pagarme/pagarme-js.svg?branch=master" align="left" />
-</a>
-
-<br>
 
 ## Description
 
