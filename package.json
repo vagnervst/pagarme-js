@@ -52,5 +52,16 @@
     "ramda": "0.22.1",
     "wait-on": "2.0.2",
     "webpack": "1.13.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "!lib/**/*.spec.js"
+    ],
+    "coverageReporters": [
+      "lcov"
+    ],
+    "coverageDirectory": "<rootDir>/coverage"
   }
 }
