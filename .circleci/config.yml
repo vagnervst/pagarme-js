@@ -16,6 +16,10 @@ jobs:
           paths:
             - node_modules
           key: dependencies-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./
   build-node10:
     <<: *common-build
     docker:
@@ -28,11 +32,32 @@ jobs:
     <<: *common-build
     docker:
       - image: circleci/node:6
+  sonar:
+      working_directory: ~/repo
+      machine:
+        enabled: true
+      steps:
+        - attach_workspace:
+            at: ~/repo
+        - run:
+            name: Pull sonar image
+            command: |
+              echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+              docker pull pagarme/sonar-scanner
+        - run:
+            name: Run Sonar
+            command: |
+              sudo sed -i 's/\/home\/circleci\/repo\//\/usr\/src\//g' coverage/lcov.info
+              docker run -ti -v $(pwd):/usr/src/ pagarme/sonar-scanner -Dsonar.branch.name=$CIRCLE_BRANCH
 
 workflows:
     build:
       jobs:
         - build-node-lts
+        - sonar:
+            context: dockerhub
+            requires:
+              - build-node-lts
         - build-node10
         - build-node8
         - build-node6
