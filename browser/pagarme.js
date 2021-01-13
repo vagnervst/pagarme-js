@@ -8686,7 +8686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.14.0") : '';
+	var version =  true ? ("4.15.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10073,9 +10073,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @private
 	 */
 	var buildSessionAuth = function buildSessionAuth(_ref, options) {
-	  var sessionId = _ref.session_id;
+	  var sessionId = _ref.session_id,
+	      impersonationKey = _ref.impersonation_key;
 	  return (0, _merge2.default)(options, {
-	    body: { session_id: sessionId }
+	    body: {
+	      session_id: sessionId,
+	      impersonation_key: impersonationKey
+	    }
 	  });
 	};
 	
@@ -10096,8 +10100,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var email = _ref2.email,
 	      password = _ref2.password,
 	      recaptchaToken = _ref2.recaptchaToken,
+	      token = _ref2.token,
+	      impersonationKey = _ref2.impersonationKey,
 	      environment = _ref2.environment,
 	      options = _ref2.options;
+	
+	  console.log({ token: token, impersonationKey: impersonationKey });
 	
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
 	
@@ -10105,9 +10113,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    headers: headers
 	  });
 	
-	  return _session2.default.create(opts, email, password, recaptchaToken).then(function (sessionInfo) {
+	  return _session2.default.create(opts, email, password, recaptchaToken, token).then(function (sessionInfo) {
 	    return {
-	      options: buildSessionAuth(sessionInfo, opts),
+	      options: buildSessionAuth((0, _merge2.default)(sessionInfo, {
+	        impersonation_key: impersonationKey
+	      }), opts),
 	      authentication: sessionInfo
 	    };
 	  });
@@ -10173,8 +10183,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @module session
 	 **/
 	
-	var create = function create(opts, email, password, recaptchaToken) {
-	  return _request2.default.post(opts, _routes2.default.session.base, { email: email, password: password, recaptchaToken: recaptchaToken });
+	var create = function create(opts, email, password, recaptchaToken, token) {
+	  return _request2.default.post(opts, _routes2.default.session.base, {
+	    email: email,
+	    password: password,
+	    recaptchaToken: recaptchaToken,
+	    token: token
+	  });
 	};
 	
 	/**
