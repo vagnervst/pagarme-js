@@ -8073,7 +8073,11 @@ module.exports =
 	  emailTemplates: function emailTemplates(id) {
 	    return '/company/email_templates/' + id;
 	  },
-	  fees: '/company/fees'
+	  fees: '/company/fees',
+	  anticipation: {
+	    base: '/company/anticipation',
+	    options: '/company/anticipation/options'
+	  }
 	};
 	
 	var splitRules = {
@@ -8399,7 +8403,7 @@ module.exports =
 	
 	__webpack_require__(98);
 	
-	var version =  true ? ("4.12.0") : '';
+	var version =  true ? ("4.15.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -21446,9 +21450,13 @@ module.exports =
 	 * @private
 	 */
 	var buildSessionAuth = function buildSessionAuth(_ref, options) {
-	  var sessionId = _ref.session_id;
+	  var sessionId = _ref.session_id,
+	      impersonationKey = _ref.impersonation_key;
 	  return (0, _merge2.default)(options, {
-	    body: { session_id: sessionId }
+	    body: {
+	      session_id: sessionId,
+	      impersonation_key: impersonationKey
+	    }
 	  });
 	};
 	
@@ -21469,8 +21477,12 @@ module.exports =
 	  var email = _ref2.email,
 	      password = _ref2.password,
 	      recaptchaToken = _ref2.recaptchaToken,
+	      token = _ref2.token,
+	      impersonationKey = _ref2.impersonationKey,
 	      environment = _ref2.environment,
 	      options = _ref2.options;
+	
+	  console.log({ token: token, impersonationKey: impersonationKey });
 	
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
 	
@@ -21478,9 +21490,11 @@ module.exports =
 	    headers: headers
 	  });
 	
-	  return _session2.default.create(opts, email, password, recaptchaToken).then(function (sessionInfo) {
+	  return _session2.default.create(opts, email, password, recaptchaToken, token).then(function (sessionInfo) {
 	    return {
-	      options: buildSessionAuth(sessionInfo, opts),
+	      options: buildSessionAuth((0, _merge2.default)(sessionInfo, {
+	        impersonation_key: impersonationKey
+	      }), opts),
 	      authentication: sessionInfo
 	    };
 	  });
@@ -21546,8 +21560,13 @@ module.exports =
 	 * @module session
 	 **/
 	
-	var create = function create(opts, email, password, recaptchaToken) {
-	  return _request2.default.post(opts, _routes2.default.session.base, { email: email, password: password, recaptchaToken: recaptchaToken });
+	var create = function create(opts, email, password, recaptchaToken, token) {
+	  return _request2.default.post(opts, _routes2.default.session.base, {
+	    email: email,
+	    password: password,
+	    recaptchaToken: recaptchaToken,
+	    token: token
+	  });
 	};
 	
 	/**
@@ -21914,6 +21933,43 @@ module.exports =
 	  return _request2.default.get(opts, _routes2.default.company.fees);
 	};
 	
+	/**
+	 * `PUT /company/anticipation`
+	 * Sets the delay for the automatic anticipation based on the options
+	 * available. It's also possible to disable the automatic anticipation.
+	 *
+	 * Check GET /company/anticipation/options for the options available.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @param {Boolean} body.enabled Enables the automatic anticipation.
+	 * @param {Number} body.delay Days for the anticipation delay.
+	 *
+	 * @returns {Promise} A promise that resolves to
+	 *                    a confirmation or to an error.
+	 **/
+	var updateAnticipation = function updateAnticipation(opts, body) {
+	  return _request2.default.put(opts, _routes2.default.company.anticipation.base, body);
+	};
+	
+	/**
+	 * `GET /company/anticipation/options`
+	 * Available anticipation options that can be set using PUT /company/anticipation.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @returns {Promise} A promise that resolves to
+	 *                    the available anticipation options
+	 *                    or to an error.
+	 **/
+	var anticipationOptions = function anticipationOptions(opts) {
+	  return _request2.default.get(opts, _routes2.default.company.anticipation.options);
+	};
+	
 	exports.default = {
 	  create: create,
 	  createTemporary: createTemporary,
@@ -21925,7 +21981,9 @@ module.exports =
 	  affiliationProgress: affiliationProgress,
 	  updateBranding: updateBranding,
 	  emailTemplates: emailTemplates,
-	  fees: fees
+	  fees: fees,
+	  updateAnticipation: updateAnticipation,
+	  anticipationOptions: anticipationOptions
 	};
 	module.exports = exports['default'];
 

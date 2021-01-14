@@ -1,6 +1,6 @@
 {
   "name": "pagarme",
-  "version": "4.13.0",
+  "version": "4.15.0",
   "description": "A JavaScript library to interface with Pagar.me API",
   "main": "pagarme.js",
   "scripts": {
@@ -52,5 +52,16 @@
     "ramda": "0.22.1",
     "wait-on": "2.0.2",
     "webpack": "1.13.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "!lib/**/*.spec.js"
+    ],
+    "coverageReporters": [
+      "lcov"
+    ],
+    "coverageDirectory": "<rootDir>/coverage"
   }
 }
