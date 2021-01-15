@@ -8690,7 +8690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.15.2") : '';
+	var version =  true ? ("4.15.3") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -13153,7 +13153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                    the request or to an error.
 	 */
 	var findTransactions = function findTransactions(opts, body) {
-	  return _request2.default.get(opts, _routes2.default.subscriptions.transactions(body.id), {});
+	  return _request2.default.get(opts, _routes2.default.subscriptions.transactions(body.id), body);
 	};
 	
 	/**
