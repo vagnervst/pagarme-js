@@ -8686,7 +8686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.15.0") : '';
+	var version =  true ? ("4.15.1") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10104,8 +10104,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      impersonationKey = _ref2.impersonationKey,
 	      environment = _ref2.environment,
 	      options = _ref2.options;
-	
-	  console.log({ token: token, impersonationKey: impersonationKey });
 	
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
 	
