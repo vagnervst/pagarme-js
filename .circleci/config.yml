@@ -20,18 +20,22 @@ jobs:
           root: ~/repo
           paths:
             - ./
+
   build-node10:
     <<: *common-build
     docker:
       - image: circleci/node:10
+
   build-node8:
     <<: *common-build
     docker:
       - image: circleci/node:8
+
   build-node6:
     <<: *common-build
     docker:
       - image: circleci/node:6
+
   sonar:
       working_directory: ~/repo
       machine:
@@ -50,15 +54,41 @@ jobs:
               sudo sed -i 's/\/home\/circleci\/repo\//\/usr\/src\//g' coverage/lcov.info
               docker run -ti -v $(pwd):/usr/src/ pagarme/sonar-scanner -Dsonar.branch.name=$CIRCLE_BRANCH
 
+  publish:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - run: npm publish
+      - run: npm run predocs:bump
+      - run: npm run docs:bump
+
 workflows:
     build:
       jobs:
         - build-node-lts
-        - sonar:
-            context: dockerhub
-            requires:
-              - build-node-lts
         - build-node10
         - build-node8
         - build-node6
+
+    publish:
+      jobs:
+        - build-node-lts:
+            filters:
+              tags:
+                only: /^v([0-9]+).([0-9]+).([0-9]+)$/
+              branches:
+                ignore: /.*/
+
+        - publish:
+            requires:
+              - build-node-lts
+            filters:
+              tags:
+                only: /^v([0-9]+).([0-9]+).([0-9]+)$/
+              branches:
+                ignore: /.*/
 
